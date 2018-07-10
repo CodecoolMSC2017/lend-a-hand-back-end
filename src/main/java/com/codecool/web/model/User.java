@@ -3,7 +3,7 @@ package com.codecool.web.model;
 import javax.persistence.*;
 
 @Entity
-public class User {
+public class User extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,9 @@ public class User {
     @Column(name="able_to_ad")
     private boolean ableToAd;
 
-    public User(String email, String userName) {
+    public User(String email, String password, String userName) {
         this.email = email;
+        this.password = password;
         this.userName = userName;
         type = "person";
         balance = 0;
@@ -49,8 +50,9 @@ public class User {
         ableToAd = false;
     }
 
-    public User(String email, String userName, String type) {
+    public User(String email, String password, String userName, String type) {
         this.email = email;
+        this.password = password;
         this.userName = userName;
         this.type = type;
         balance = 0;
