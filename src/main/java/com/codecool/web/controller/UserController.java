@@ -3,13 +3,16 @@ package com.codecool.web.controller;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
 import com.codecool.web.exception.UserNotFoundException;
 import com.codecool.web.exception.WrongPasswordException;
-import com.codecool.web.model.AbstractModel;
-import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/user")
@@ -24,21 +27,23 @@ public class UserController {
     public String register(@RequestBody User user) {
         try {
             service.registerUser(user);
-            return "You are succesfully registered";
+            return "You are successfully registered";
         } catch (UserAlreadyRegisteredException ex) {
-            return "Email already exists";
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "You are already registered, please log in!");
         }
     }
 
-    @PostMapping(path = "/login")
-    public AbstractModel login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    @PostMapping(path = "/login",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public User login(@RequestBody User user) {
         try {
-            User user = service.loginUser(email, password);
-            return user;
+            User loggedUser = service.loginUser(user.getEmail(), user.getPassword());
+            return loggedUser;
         } catch (WrongPasswordException e) {
-            return new Message("Wrong password");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Wrong Password");
         } catch (UserNotFoundException ex) {
-            return new Message("User with the given email not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         }
     }
 }
