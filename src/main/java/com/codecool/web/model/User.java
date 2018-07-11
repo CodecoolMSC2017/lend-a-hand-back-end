@@ -13,17 +13,17 @@ public class User extends AbstractModel {
 
     private String phone;
 
-    @Column(name="user_name")
+    @Column(name = "user_name")
     private String userName;
 
     private String password;
 
-    @Column(name="full_name")
+    @Column(name = "full_name")
     private String fullName;
 
     private String type;
 
-    @Column(name="postal_code")
+    @Column(name = "postal_code")
     private String postalCode;
 
     private String city;
@@ -36,7 +36,7 @@ public class User extends AbstractModel {
 
     private boolean blocked;
 
-    @Column(name="able_to_ad")
+    @Column(name = "able_to_ad")
     private boolean ableToAd;
 
     public User(String email, String password, String userName) {
@@ -62,6 +62,11 @@ public class User extends AbstractModel {
     }
 
     public User() {
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public Integer getId() {
