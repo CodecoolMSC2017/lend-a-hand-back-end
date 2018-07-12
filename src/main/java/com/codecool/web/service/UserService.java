@@ -20,9 +20,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //get() method can throw error
     public User getUserById(int id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id);
     }
 
     public void registerUser(User user) throws UserAlreadyRegisteredException {
