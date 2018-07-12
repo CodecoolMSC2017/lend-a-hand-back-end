@@ -36,14 +36,9 @@ public class UserController {
     @PostMapping(path = "/login",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public User login(@RequestBody User user) {
-        try {
-            User loggedUser = service.loginUser(user.getEmail(), user.getPassword());
-            return loggedUser;
-        } catch (WrongPasswordException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Wrong Password");
-        } catch (UserNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
-        }
+    public User login(@RequestBody User user) throws UserNotFoundException, WrongPasswordException {
+        User loggedUser = service.loginUser(user.getEmail(), user.getPassword());
+        return loggedUser;
+
     }
 }
