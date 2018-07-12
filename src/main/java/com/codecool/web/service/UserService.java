@@ -26,14 +26,14 @@ public class UserService {
     }
 
     public void registerUser(User user) throws UserAlreadyRegisteredException {
-        if (userRepository.existsByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new UserAlreadyRegisteredException();
         }
         userRepository.save(user);
     }
 
     public User loginUser(String email, String password) throws UserNotFoundException, WrongPasswordException {
-        if (userRepository.existsByEmail(email) != null) {
+        if (userRepository.findByEmail(email) != null) {
             if (userRepository.findByEmailAndPassword(email, password) != null) {
                 return userRepository.findByEmailAndPassword(email, password);
             }
