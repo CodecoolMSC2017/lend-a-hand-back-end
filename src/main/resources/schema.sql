@@ -3,9 +3,9 @@ DROP TABLE IF EXISTS application;
 DROP TABLE IF EXISTS ad;
 DROP TABLE IF EXISTS employer_rating;
 DROP TABLE IF EXISTS employee_rating;
-DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE "user" (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(32) NOT NULL,
     phone VARCHAR(32),
@@ -26,14 +26,14 @@ CREATE TABLE employee_rating (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES "user"("id") ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE employer_rating (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES "user"("id") ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE ad (
@@ -45,8 +45,8 @@ CREATE TABLE ad (
   payment INTEGER,
   category VARCHAR(32) NOT NULL,
   is_premium BOOLEAN NOT NULL,
-  FOREIGN KEY (advertiser_id) REFERENCES "user"("id") ON DELETE CASCADE,
-  FOREIGN KEY (chosen_applicant_id) REFERENCES "user"("id") ON DELETE CASCADE
+  FOREIGN KEY (advertiser_id) REFERENCES users("id") ON DELETE CASCADE,
+  FOREIGN KEY (chosen_applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE application (
@@ -55,7 +55,7 @@ CREATE TABLE application (
   applicant_id INTEGER NOT NULL,
   message TEXT,
   FOREIGN KEY (ad_id) REFERENCES ad("id") ON DELETE CASCADE,
-  FOREIGN KEY (applicant_id) REFERENCES "user"("id") ON DELETE CASCADE
+  FOREIGN KEY (applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE message (
@@ -63,6 +63,6 @@ CREATE TABLE message (
   reciever_id INTEGER NOT NULL,
   text TEXT NOT NULL,
   timestamp TEXT NOT NULL,
-  FOREIGN KEY (sender_id) REFERENCES "user"("id") ON DELETE CASCADE,
-  FOREIGN KEY (reciever_id) REFERENCES "user"("id") ON DELETE CASCADE
+  FOREIGN KEY (sender_id) REFERENCES users("id") ON DELETE CASCADE,
+  FOREIGN KEY (reciever_id) REFERENCES users("id") ON DELETE CASCADE
 );

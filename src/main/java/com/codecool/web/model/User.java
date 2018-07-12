@@ -3,11 +3,12 @@ package com.codecool.web.model;
 import javax.persistence.*;
 
 @Entity
-public class User extends AbstractModel {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private String email;
 
