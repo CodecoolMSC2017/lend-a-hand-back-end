@@ -24,16 +24,20 @@ CREATE TABLE users (
 
 CREATE TABLE employee_ratings (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  rater_id INTEGER NOT NULL,
+  rated_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
+  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
+  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE employer_ratings (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  rater_id INTEGER NOT NULL,
+  rated_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
+  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
+  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE ads (
