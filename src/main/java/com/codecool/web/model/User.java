@@ -16,6 +16,12 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
     private List<Ad> ads;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    private List<EmployeeRating> employeeRatings;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    private List<EmployerRating> employerRatings;
+
     @NotNull
     @Size(max = 32)
     private String email;
@@ -88,8 +94,10 @@ public class User {
         ableToAd = false;
     }
 
-    public User(List<Ad> ads, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
+    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
         this.ads = ads;
+        this.employeeRatings = employeeRatings;
+        this.employerRatings = employerRatings;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
@@ -111,6 +119,14 @@ public class User {
 
     public List<Ad> getAds() {
         return ads;
+    }
+
+    public List<EmployeeRating> getEmployeeRatings() {
+        return employeeRatings;
+    }
+
+    public List<EmployerRating> getEmployerRatings() {
+        return employerRatings;
     }
 
     public String getEmail() {
@@ -167,6 +183,14 @@ public class User {
 
     public void setAds(List<Ad> ads) {
         this.ads = ads;
+    }
+
+    public void setEmployeeRatings(List<EmployeeRating> employeeRatings) {
+        this.employeeRatings = employeeRatings;
+    }
+
+    public void setEmployerRatings(List<EmployerRating> employerRatings) {
+        this.employerRatings = employerRatings;
     }
 
     public void setEmail(String email) {
