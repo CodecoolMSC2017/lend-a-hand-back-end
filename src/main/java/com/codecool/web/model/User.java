@@ -1,9 +1,6 @@
 package com.codecool.web.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -13,19 +10,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
-    private List<Ad> ads;
-
-    @NotNull
-    @Size(max = 32)
     private String email;
 
-    @Size(max = 32)
     private String phone;
 
     @Column(name = "user_name")
-    @NotNull
-    @Size(max = 32)
     private String userName;
 
     private String password;
@@ -33,42 +22,28 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
-    @NotNull
     private String type;
 
     @Column(name = "postal_code")
-    @Size(max = 16)
     private String postalCode;
 
     private String city;
 
     private String address;
 
-    @NotNull
     private int balance;
 
-    @NotNull
     private int reported;
 
-    @NotNull
     private boolean blocked;
 
     @Column(name = "able_to_ad")
-    @NotNull
     private boolean ableToAd;
 
-    public User() {
-    }
-
-    public User(@NotNull @Size(max = 32) String email, String password) {
+    public User(String email, String password, String userName) {
         this.email = email;
         this.password = password;
-    }
-
-    public User(@NotNull @Size(max = 32) String email, @NotNull @Size(max = 32) String userName, String password) {
-        this.email = email;
         this.userName = userName;
-        this.password = password;
         type = "person";
         balance = 0;
         reported = 0;
@@ -76,11 +51,10 @@ public class User {
         ableToAd = false;
     }
 
-
-    public User(@NotNull @Size(max = 32) String email, @NotNull @Size(max = 32) String userName, String password, @NotNull String type) {
+    public User(String email, String password, String userName, String type) {
         this.email = email;
-        this.userName = userName;
         this.password = password;
+        this.userName = userName;
         this.type = type;
         balance = 0;
         reported = 0;
@@ -88,29 +62,16 @@ public class User {
         ableToAd = false;
     }
 
-    public User(List<Ad> ads, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
-        this.ads = ads;
+    public User() {
+    }
+
+    public User(String email, String password) {
         this.email = email;
-        this.phone = phone;
-        this.userName = userName;
         this.password = password;
-        this.fullName = fullName;
-        this.type = type;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.address = address;
-        this.balance = balance;
-        this.reported = reported;
-        this.blocked = blocked;
-        this.ableToAd = ableToAd;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public List<Ad> getAds() {
-        return ads;
     }
 
     public String getEmail() {
@@ -163,10 +124,6 @@ public class User {
 
     public boolean isAbleToAd() {
         return ableToAd;
-    }
-
-    public void setAds(List<Ad> ads) {
-        this.ads = ads;
     }
 
     public void setEmail(String email) {
