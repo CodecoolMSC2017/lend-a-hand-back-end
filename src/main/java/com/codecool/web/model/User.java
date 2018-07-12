@@ -1,5 +1,8 @@
 package com.codecool.web.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,17 +19,33 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
     private List<Ad> ads;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rated")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<EmployeeRating> employeeRatings;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rated")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<EmployerRating> employerRatings;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rater")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<EmployeeRating> ratedEmployees;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rater")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<EmployerRating> ratedEmployers;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Application> applications;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Message> sentMessages;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Message> receivedMessages;
 
     @NotNull
     @Size(max = 32)
@@ -100,12 +119,15 @@ public class User {
         ableToAd = false;
     }
 
-    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
+    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
         this.ads = ads;
         this.employeeRatings = employeeRatings;
         this.employerRatings = employerRatings;
         this.ratedEmployees = ratedEmployees;
         this.ratedEmployers = ratedEmployers;
+        this.applications = applications;
+        this.sentMessages = sentMessages;
+        this.receivedMessages = receivedMessages;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
@@ -143,6 +165,18 @@ public class User {
 
     public List<EmployerRating> getRatedEmployers() {
         return ratedEmployers;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
     }
 
     public String getEmail() {
@@ -215,6 +249,18 @@ public class User {
 
     public void setRatedEmployers(List<EmployerRating> ratedEmployers) {
         this.ratedEmployers = ratedEmployers;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
     }
 
     public void setEmail(String email) {
