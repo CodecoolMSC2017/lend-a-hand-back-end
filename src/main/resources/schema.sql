@@ -63,10 +63,11 @@ CREATE TABLE applications (
 );
 
 CREATE TABLE messages (
+  id SERIAL PRIMARY KEY,
   sender_id INTEGER NOT NULL,
-  reciever_id INTEGER NOT NULL,
+  receiver_id INTEGER NOT NULL,
   text TEXT NOT NULL,
-  timestamp TEXT NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (reciever_id) REFERENCES users("id") ON DELETE CASCADE
+  FOREIGN KEY (receiver_id) REFERENCES users("id") ON DELETE CASCADE
 );
