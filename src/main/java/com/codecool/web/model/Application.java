@@ -2,6 +2,7 @@ package com.codecool.web.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "applications")
@@ -23,15 +24,20 @@ public class Application {
 
     private String message;
 
-    public Application(@NotNull Ad ad, @NotNull User applicant, String message) {
+    @NotNull
+    private LocalDateTime timestamp;
+
+    public Application(@NotNull Ad ad, @NotNull User applicant, @NotNull LocalDateTime timestamp) {
+        this.ad = ad;
+        this.applicant = applicant;
+        this.timestamp = timestamp;
+    }
+
+    public Application(@NotNull Ad ad, @NotNull User applicant, String message, @NotNull LocalDateTime timestamp) {
         this.ad = ad;
         this.applicant = applicant;
         this.message = message;
-    }
-
-    public Application(@NotNull Ad ad, @NotNull User applicant) {
-        this.ad = ad;
-        this.applicant = applicant;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
