@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS message;
-DROP TABLE IF EXISTS application;
-DROP TABLE IF EXISTS ad;
-DROP TABLE IF EXISTS employer_rating;
-DROP TABLE IF EXISTS employee_rating;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS applications;
+DROP TABLE IF EXISTS ads;
+DROP TABLE IF EXISTS employer_ratings;
+DROP TABLE IF EXISTS employee_ratings;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -22,21 +22,21 @@ CREATE TABLE users (
     able_to_ad BOOLEAN NOT NULL
 );
 
-CREATE TABLE employee_rating (
+CREATE TABLE employee_ratings (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
-CREATE TABLE employer_rating (
+CREATE TABLE employer_ratings (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
-CREATE TABLE ad (
+CREATE TABLE ads (
   id SERIAL PRIMARY KEY,
   advertiser_id INTEGER NOT NULL,
   chosen_applicant_id INTEGER,
@@ -49,16 +49,16 @@ CREATE TABLE ad (
   FOREIGN KEY (chosen_applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
-CREATE TABLE application (
+CREATE TABLE applications (
   id SERIAL PRIMARY KEY,
   ad_id INTEGER NOT NULL,
   applicant_id INTEGER NOT NULL,
   message TEXT,
-  FOREIGN KEY (ad_id) REFERENCES ad("id") ON DELETE CASCADE,
+  FOREIGN KEY (ad_id) REFERENCES ads("id") ON DELETE CASCADE,
   FOREIGN KEY (applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
-CREATE TABLE message (
+CREATE TABLE messages (
   sender_id INTEGER NOT NULL,
   reciever_id INTEGER NOT NULL,
   text TEXT NOT NULL,
