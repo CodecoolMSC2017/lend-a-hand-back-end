@@ -3,9 +3,11 @@ package com.codecool.web.service;
 import com.codecool.web.model.Ad;
 import com.codecool.web.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AdService {
 
     @Autowired
