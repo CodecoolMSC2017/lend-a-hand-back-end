@@ -1,12 +1,14 @@
 package com.codecool.web.service;
 
-import com.codecool.web.exception.*;
+import com.codecool.web.exception.EmptyFieldLeftException;
+import com.codecool.web.exception.UserAlreadyRegisteredException;
+import com.codecool.web.exception.UserNotFoundException;
+import com.codecool.web.exception.WrongPasswordException;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class UserService {
@@ -24,15 +26,15 @@ public class UserService {
     }
 
     public void registerUser(User user) throws UserAlreadyRegisteredException {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.existsByEmail(user.getEmail()) != null) {
             throw new UserAlreadyRegisteredException();
         }
         userRepository.save(user);
     }
 
     public User loginUser(String email, String password) throws UserNotFoundException, WrongPasswordException {
-        if(userRepository.findByEmail(email) != null) {
-            if(userRepository.findByEmailAndPassword(email, password) != null) {
+        if (userRepository.existsByEmail(email) != null) {
+            if (userRepository.findByEmailAndPassword(email, password) != null) {
                 return userRepository.findByEmailAndPassword(email, password);
             }
             throw new WrongPasswordException();
@@ -65,7 +67,8 @@ public class UserService {
         return user;
     }
 
-    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address) throws EmptyFieldLeftException {
+    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String
+        address) throws EmptyFieldLeftException {
         if (fullName != null && phone != null && postalCode != null && city != null && address != null) {
             User user = getUserById(id);
             user.setFullName(fullName);
