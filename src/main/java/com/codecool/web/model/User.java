@@ -13,14 +13,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
     private List<Ad> ads;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rated")
     private List<EmployeeRating> employeeRatings;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rated")
     private List<EmployerRating> employerRatings;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rater")
+    private List<EmployeeRating> ratedEmployees;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "rater")
+    private List<EmployerRating> ratedEmployers;
 
     @NotNull
     @Size(max = 32)
@@ -94,10 +100,12 @@ public class User {
         ableToAd = false;
     }
 
-    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
+    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
         this.ads = ads;
         this.employeeRatings = employeeRatings;
         this.employerRatings = employerRatings;
+        this.ratedEmployees = ratedEmployees;
+        this.ratedEmployers = ratedEmployers;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
@@ -127,6 +135,14 @@ public class User {
 
     public List<EmployerRating> getEmployerRatings() {
         return employerRatings;
+    }
+
+    public List<EmployeeRating> getRatedEmployees() {
+        return ratedEmployees;
+    }
+
+    public List<EmployerRating> getRatedEmployers() {
+        return ratedEmployers;
     }
 
     public String getEmail() {
@@ -191,6 +207,14 @@ public class User {
 
     public void setEmployerRatings(List<EmployerRating> employerRatings) {
         this.employerRatings = employerRatings;
+    }
+
+    public void setRatedEmployees(List<EmployeeRating> ratedEmployees) {
+        this.ratedEmployees = ratedEmployees;
+    }
+
+    public void setRatedEmployers(List<EmployerRating> ratedEmployers) {
+        this.ratedEmployers = ratedEmployers;
     }
 
     public void setEmail(String email) {
