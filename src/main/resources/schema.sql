@@ -59,6 +59,7 @@ CREATE TABLE applications (
   applicant_id INTEGER NOT NULL,
   message TEXT,
   timestamp TIMESTAMP NOT NULL,
+  state TEXT NOT NULL,
   FOREIGN KEY (ad_id) REFERENCES ads("id") ON DELETE CASCADE,
   FOREIGN KEY (applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
