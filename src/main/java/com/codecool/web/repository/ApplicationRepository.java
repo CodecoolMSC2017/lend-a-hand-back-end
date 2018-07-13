@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 
-
     List<Application> findAll();
 
     Application findById(int id);
