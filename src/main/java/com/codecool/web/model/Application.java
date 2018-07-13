@@ -25,19 +25,24 @@ public class Application {
     private String message;
 
     @NotNull
+    private String state;
+
+    @NotNull
     private LocalDateTime timestamp;
 
-    public Application(@NotNull Ad ad, @NotNull User applicant, @NotNull LocalDateTime timestamp) {
+    public Application(@NotNull Ad ad, @NotNull User applicant, @NotNull LocalDateTime timestamp, @NotNull String state) {
         this.ad = ad;
         this.applicant = applicant;
         this.timestamp = timestamp;
+        this.state = state; //TODO: should be determined here???
     }
 
-    public Application(@NotNull Ad ad, @NotNull User applicant, String message, @NotNull LocalDateTime timestamp) {
+    public Application(@NotNull Ad ad, @NotNull User applicant, String message, @NotNull LocalDateTime timestamp, @NotNull String state) {
         this.ad = ad;
         this.applicant = applicant;
         this.message = message;
         this.timestamp = timestamp;
+        this.state = state; //TODO: should be determined here???
     }
 
     public int getId() {
@@ -56,6 +61,14 @@ public class Application {
         return message;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     public void setAd(Ad ad) {
         this.ad = ad;
     }
@@ -66,5 +79,13 @@ public class Application {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
