@@ -9,6 +9,8 @@ import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public class UserService {
@@ -16,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -45,40 +47,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateUserName(int id, String userName) {
-        User user = getUserById(id);
-        user.setUserName(userName);
+    public User updateUserData(User user) {
         userRepository.save(user);
         return user;
-    }
-
-    public User updateEmail(int id, String email) {
-        User user = getUserById(id);
-        user.setEmail(email);
-        userRepository.save(user);
-        return user;
-    }
-
-    public User updatePassword(int id, String password) {
-        User user = getUserById(id);
-        user.setPassword(password);
-        userRepository.save(user);
-        return user;
-    }
-
-    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String
-        address) throws EmptyFieldLeftException {
-        if (fullName != null && phone != null && postalCode != null && city != null && address != null) {
-            User user = getUserById(id);
-            user.setFullName(fullName);
-            user.setPhone(phone);
-            user.setPostalCode(postalCode);
-            user.setCity(city);
-            user.setAddress(address);
-            user.setAbleToAd(true);
-            userRepository.save(user);
-            return user;
-        }
-        throw new EmptyFieldLeftException();
     }
 }
