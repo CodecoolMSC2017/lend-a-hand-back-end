@@ -29,8 +29,23 @@ public class AdService {
         return adRepository.findAllByCategory(category);
     }
 
-    List<Ad> getAllByDescriptionContaining(String keyword) {
+    public List<Ad> getAllByDescriptionContaining(String keyword) {
         return adRepository.findAllByDescriptionContaining(keyword);
     }
+
+    public Ad addNewAd(Ad ad) {
+        adRepository.save(ad);
+        return ad;
+    }
+
+    public void deleteAd(int id) {
+        adRepository.deleteById(id);
+    }
+
+    public Ad updateAdData(Ad ad) {
+        adRepository.save(ad);
+        return ad;
+    }
+
 
 }
