@@ -1,5 +1,8 @@
 package com.codecool.web.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,15 +17,17 @@ public class Ad {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "advertiser_id")
     @NotNull
     private User advertiser;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "chosen_application_id")
-    private Application chosenApplication;
+    @JoinColumn(name = "chosen_applicant_id")
+    private User chosenApplicant;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
+    @JsonManagedReference
     private List<Application> applications;
 
     @NotNull
@@ -52,9 +57,9 @@ public class Ad {
         this.isPremium = isPremium;
     }
 
-    public Ad(@NotNull User advertiser, Application chosenApplication, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium) {
+    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium) {
         this.advertiser = advertiser;
-        this.chosenApplication = chosenApplication;
+        this.chosenApplicant = chosenApplicant;
         this.applications = applications;
         this.title = title;
         this.description = description;
@@ -71,8 +76,8 @@ public class Ad {
         return advertiser;
     }
 
-    public Application getChosenApplication() {
-        return chosenApplication;
+    public User getChosenApplicant() {
+        return chosenApplicant;
     }
 
     public List<Application> getApplications() {
@@ -103,8 +108,8 @@ public class Ad {
         this.advertiser = advertiser;
     }
 
-    public void setChosenApplication(Application chosenApplication) {
-        this.chosenApplication = chosenApplication;
+    public void setChosenApplicant(User chosenApplicant) {
+        this.chosenApplicant = chosenApplicant;
     }
 
     public void setApplications(List<Application> applications) {

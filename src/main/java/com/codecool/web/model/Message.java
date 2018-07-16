@@ -1,5 +1,7 @@
 package com.codecool.web.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -14,11 +16,13 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
+    @JsonBackReference
     @NotNull
     private User sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
+    @JsonBackReference
     @NotNull
     private User receiver;
 
@@ -27,6 +31,9 @@ public class Message {
 
     @NotNull
     private LocalDateTime timestamp;
+
+    public Message() {
+    }
 
     public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp) {
         this.sender = sender;

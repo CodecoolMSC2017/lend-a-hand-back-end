@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -17,34 +18,42 @@ public class User {
     private int id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
+    @JsonManagedReference
     private List<Ad> ads;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<EmployeeRating> employeeRatings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<EmployerRating> employerRatings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<EmployeeRating> ratedEmployees;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<EmployerRating> ratedEmployers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<Application> applications;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
     private List<Message> receivedMessages;
 
     @NotNull

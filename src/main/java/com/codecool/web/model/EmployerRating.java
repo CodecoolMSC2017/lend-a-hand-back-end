@@ -1,5 +1,7 @@
 package com.codecool.web.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -13,16 +15,21 @@ public class EmployerRating {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rater_id")
+    @JsonBackReference
     @NotNull
     private User rater;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rated_id")
+    @JsonBackReference
     @NotNull
     private User rated;
 
     @NotNull
     private int rating;
+
+    public EmployerRating() {
+    }
 
     public EmployerRating(@NotNull User rater, @NotNull User rated, @NotNull int rating) {
         this.rater = rater;
