@@ -43,7 +43,7 @@ CREATE TABLE employer_ratings (
 CREATE TABLE ads (
   id SERIAL PRIMARY KEY,
   advertiser_id INTEGER NOT NULL,
-  chosen_application_id INTEGER,
+  chosen_applicant_id INTEGER,
   title VARCHAR(64) NOT NULL,
   description TEXT NOT NULL,
   payment INTEGER,
