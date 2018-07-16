@@ -19,8 +19,8 @@ public class Ad {
     private User advertiser;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "chosen_applicant_id")
-    private User chosenApplicant;
+    @JoinColumn(name = "chosen_application_id")
+    private Application chosenApplication;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
     private List<Application> applications;
@@ -41,6 +41,9 @@ public class Ad {
     @Column(name = "is_premium")
     private boolean isPremium;
 
+    public Ad() {
+    }
+
     public Ad(@NotNull User advertiser, @NotNull @Size(max = 64) String title, @NotNull String description, @NotNull @Size(max = 32) String category, boolean isPremium) {
         this.advertiser = advertiser;
         this.title = title;
@@ -49,9 +52,9 @@ public class Ad {
         this.isPremium = isPremium;
     }
 
-    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium) {
+    public Ad(@NotNull User advertiser, Application chosenApplication, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium) {
         this.advertiser = advertiser;
-        this.chosenApplicant = chosenApplicant;
+        this.chosenApplication = chosenApplication;
         this.applications = applications;
         this.title = title;
         this.description = description;
@@ -68,8 +71,8 @@ public class Ad {
         return advertiser;
     }
 
-    public User getChosenApplicant() {
-        return chosenApplicant;
+    public Application getChosenApplication() {
+        return chosenApplication;
     }
 
     public List<Application> getApplications() {
@@ -100,8 +103,8 @@ public class Ad {
         this.advertiser = advertiser;
     }
 
-    public void setChosenApplicant(User chosenApplicant) {
-        this.chosenApplicant = chosenApplicant;
+    public void setChosenApplication(Application chosenApplication) {
+        this.chosenApplication = chosenApplication;
     }
 
     public void setApplications(List<Application> applications) {
