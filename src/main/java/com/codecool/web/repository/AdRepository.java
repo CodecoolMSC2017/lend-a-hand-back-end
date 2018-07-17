@@ -12,5 +12,6 @@ public interface AdRepository extends JpaRepository<Ad, Integer> {
     List<Ad> findAllByAdvertiser_Id(int id);
     Ad findById(int id);
     List<Ad> findAllByCategory(String category);
-    List<Ad> findAllByDescriptionContaining(String keyword);
+    List<Ad> findAllByTitleContainingIgnoreCase(String keyword);
+    List<Ad> findAllByDescriptionContainingIgnoreCase(String keyword);
 }

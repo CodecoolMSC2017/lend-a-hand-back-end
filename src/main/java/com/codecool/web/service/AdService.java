@@ -5,6 +5,7 @@ import com.codecool.web.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -29,8 +30,11 @@ public class AdService {
         return adRepository.findAllByCategory(category);
     }
 
-    public List<Ad> getAllByDescriptionContaining(String keyword) {
-        return adRepository.findAllByDescriptionContaining(keyword);
+    public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
+        List<Ad> ads = new ArrayList<>();
+        ads.addAll(adRepository.findAllByTitleContainingIgnoreCase(keyword));
+        ads.addAll(adRepository.findAllByDescriptionContainingIgnoreCase(keyword));
+        return ads;
     }
 
     public Ad addNewAd(Ad ad) {
