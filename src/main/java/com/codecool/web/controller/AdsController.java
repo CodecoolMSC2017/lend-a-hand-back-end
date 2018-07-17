@@ -3,10 +3,8 @@ package com.codecool.web.controller;
 import com.codecool.web.model.Ad;
 import com.codecool.web.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +34,29 @@ public class AdsController {
     public List<Ad> getAllAdsByKeyword(@PathVariable("keyword") String keyword) {
         return adService.getAllByTitleOrDescriptionContaining(keyword);
     }
+
+    @GetMapping(path = "/{id}")
+    public Ad getAdById(@PathVariable("id") int id) {
+        return adService.getById(id);
+    }
+
+    @PostMapping(path = "/new",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public Ad createNewAd(@RequestBody Ad ad) {
+        return adService.addNewAd(ad);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteAd(@PathVariable("id") int id) {
+        adService.deleteAd(id);
+    }
+
+    @PutMapping(path = "/update",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public Ad updateAd(@RequestBody Ad ad) {
+        return adService.updateAdData(ad);
+    }
+
 }
