@@ -24,6 +24,7 @@ public class Ad {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chosen_applicant_id")
+    @JsonBackReference
     private User chosenApplicant;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
