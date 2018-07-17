@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("")
+@RequestMapping("/auth")
 public class GuestController {
 
     @Autowired
     UserService service;
 
-    @PostMapping(path = "/register",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public String register(@RequestBody User user) throws UserAlreadyRegisteredException {
-        service.registerUser(user);
+    @PostMapping(path = "/register")
+    public String register(@RequestBody Map<String, String> map) throws UserAlreadyRegisteredException {
+        String email = map.get("email");
+        String userName = map.get("userName");
+        String type = map.get("type");
+        String password = map.get("password");
+        service.registerUser(email, userName, type, password);
         return "You are successfully registered";
     }
 

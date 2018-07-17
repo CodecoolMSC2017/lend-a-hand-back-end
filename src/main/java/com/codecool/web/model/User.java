@@ -21,6 +21,14 @@ public class User {
     @JsonManagedReference
     private List<Ad> ads;
 
+    @ElementCollection
+    @CollectionTable(
+        name = "authorities",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    @Column(name = "authority")
+    private List<String> authorities;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference
@@ -63,7 +71,7 @@ public class User {
     @Size(max = 32)
     private String phone;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     @NotNull
     @Size(max = 32)
     private String userName;
@@ -97,6 +105,9 @@ public class User {
     @NotNull
     private boolean ableToAd;
 
+    @NotNull
+    private boolean enabled;
+
     public User() {
     }
 
@@ -114,6 +125,7 @@ public class User {
         reported = 0;
         blocked = false;
         ableToAd = false;
+        enabled = true;
     }
 
 
@@ -126,10 +138,12 @@ public class User {
         reported = 0;
         blocked = false;
         ableToAd = false;
+        enabled = true;
     }
 
-    public User(List<Ad> ads, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd, @NotNull boolean enabled) {
         this.ads = ads;
+        this.authorities = authorities;
         this.employeeRatings = employeeRatings;
         this.employerRatings = employerRatings;
         this.ratedEmployees = ratedEmployees;
@@ -150,6 +164,7 @@ public class User {
         this.reported = reported;
         this.blocked = blocked;
         this.ableToAd = ableToAd;
+        this.enabled = enabled;
     }
 
     public Integer getId() {
@@ -158,6 +173,10 @@ public class User {
 
     public List<Ad> getAds() {
         return ads;
+    }
+
+    public List<String> getAuthorities() {
+        return authorities;
     }
 
     public List<EmployeeRating> getEmployeeRatings() {
@@ -240,8 +259,16 @@ public class User {
         return ableToAd;
     }
 
+    public void setAuthorities(List<String> authorities) {
+        this.authorities = authorities;
+    }
+
     public void setAds(List<Ad> ads) {
         this.ads = ads;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public void setEmployeeRatings(List<EmployeeRating> employeeRatings) {
@@ -322,5 +349,9 @@ public class User {
 
     public void setAbleToAd(boolean ableToAd) {
         this.ableToAd = ableToAd;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

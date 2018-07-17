@@ -3,14 +3,15 @@ DROP TABLE IF EXISTS applications;
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS employer_ratings;
 DROP TABLE IF EXISTS employee_ratings;
+DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(32) NOT NULL,
     phone VARCHAR(32),
-    user_name VARCHAR(32) NOT NULL,
-    password TEXT,
+    username VARCHAR(60) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
     full_name TEXT,
     type VARCHAR(16) NOT NULL,
     postal_code VARCHAR(16),
@@ -19,7 +20,15 @@ CREATE TABLE users (
     balance INTEGER NOT NULL,
     reported INTEGER NOT NULL,
     blocked BOOLEAN NOT NULL,
-    able_to_ad BOOLEAN NOT NULL
+    able_to_ad BOOLEAN NOT NULL,
+    enabled boolean NOT NULL
+);
+
+CREATE TABLE authorities (
+    user_id INTEGER NOT NULL,
+    authority VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users("id")  ON DELETE CASCADE,
+    UNIQUE (user_id, authority)
 );
 
 CREATE TABLE employee_ratings (
