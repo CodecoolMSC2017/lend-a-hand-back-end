@@ -22,7 +22,7 @@ public class AdsController {
         return adService.getAll();
     }
 
-    @GetMapping(path = "/advertisers/{1}")
+    @GetMapping(path = "/advertisers/{id}")
     public List<Ad> getAllAdsByAdvertiser(@PathVariable("id") int id) {
         return adService.getAllByAdvertiserId(id);
     }
@@ -32,8 +32,8 @@ public class AdsController {
         return adService.getAllByCategory(category);
     }
 
-    @GetMapping(path = "/{keyword}")
+    @GetMapping(path = "/keywords/{keyword}")
     public List<Ad> getAllAdsByKeyword(@PathVariable("keyword") String keyword) {
-        return adService.getAllByDescriptionContaining(keyword);
+        return adService.getAllByTitleOrDescriptionContaining(keyword);
     }
 }
