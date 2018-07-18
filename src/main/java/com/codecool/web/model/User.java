@@ -1,22 +1,17 @@
 package com.codecool.web.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +24,7 @@ public class User {
     @ElementCollection
     @CollectionTable(
         name = "authorities",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+        joinColumns = @JoinColumn(name = "username", referencedColumnName = "username")
     )
     @Column(name = "authority")
     private List<String> authorities;
@@ -69,7 +64,7 @@ public class User {
     @JsonManagedReference(value = "user-received-messages")
     private List<Message> receivedMessages;
 
-    @NotNull
+
     @Size(max = 32)
     private String email;
 
@@ -77,7 +72,7 @@ public class User {
     private String phone;
 
     @Column(name = "username")
-    @NotNull
+
     @Size(max = 32)
     private String userName;
 
@@ -86,7 +81,7 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
-    @NotNull
+
     private String type;
 
     @Column(name = "postal_code")
@@ -97,31 +92,31 @@ public class User {
 
     private String address;
 
-    @NotNull
-    private int balance;
 
-    @NotNull
-    private int reported;
+    private Integer balance;
 
-    @NotNull
-    private boolean blocked;
+
+    private Integer reported;
+
+
+    private Boolean blocked;
 
     @Column(name = "able_to_ad")
-    @NotNull
-    private boolean ableToAd;
 
-    @NotNull
-    private boolean enabled;
+    private Boolean ableToAd;
+
+
+    private Boolean enabled;
 
     public User() {
     }
 
-    public User(@NotNull @Size(max = 32) String email, String password) {
+    public User(@Size(max = 32) String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public User(@NotNull @Size(max = 32) String email, @NotNull @Size(max = 32) String userName, String password) {
+    public User(@Size(max = 32) String email, @Size(max = 32) String userName, String password) {
         this.email = email;
         this.userName = userName;
         this.password = password;
@@ -134,7 +129,7 @@ public class User {
     }
 
 
-    public User(@NotNull @Size(max = 32) String email, @NotNull @Size(max = 32) String userName, String password, @NotNull String type) {
+    public User(@Size(max = 32) String email, @Size(max = 32) String userName, String password, String type) {
         this.email = email;
         this.userName = userName;
         this.password = password;
@@ -146,7 +141,7 @@ public class User {
         enabled = true;
     }
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @NotNull @Size(max = 32) String email, @Size(max = 32) String phone, @NotNull @Size(max = 32) String userName, String password, String fullName, @NotNull String type, @Size(max = 16) String postalCode, String city, String address, @NotNull int balance, @NotNull int reported, @NotNull boolean blocked, @NotNull boolean ableToAd, @NotNull boolean enabled) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 32) String userName, String password, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
@@ -248,20 +243,20 @@ public class User {
         return address;
     }
 
-    public int getBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public int getReported() {
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public Integer getReported() {
         return reported;
     }
 
-    public boolean isBlocked() {
-        return blocked;
-    }
-
-    public boolean isAbleToAd() {
-        return ableToAd;
+    public void setReported(Integer reported) {
+        this.reported = reported;
     }
 
     public void setAuthorities(List<String> authorities) {
@@ -272,8 +267,8 @@ public class User {
         this.ads = ads;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public Boolean isBlocked() {
+        return blocked;
     }
 
     public void setEmployeeRatings(List<EmployeeRating> employeeRatings) {
@@ -340,23 +335,23 @@ public class User {
         this.address = address;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public Boolean isAbleToAd() {
+        return ableToAd;
     }
 
-    public void setReported(int reported) {
-        this.reported = reported;
+    public Boolean isEnabled() {
+        return enabled;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
 
-    public void setAbleToAd(boolean ableToAd) {
+    public void setAbleToAd(Boolean ableToAd) {
         this.ableToAd = ableToAd;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 }

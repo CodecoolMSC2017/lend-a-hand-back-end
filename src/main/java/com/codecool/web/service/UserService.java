@@ -43,7 +43,6 @@ public class UserService {
         if (userRepository.findByEmail(email) != null && userRepository.findByUserName(username) != null) {
             throw new UserAlreadyRegisteredException();
         }
-        System.out.println(passwordEncoder.encode(password));
         userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
             username,
             passwordEncoder.encode(password),
@@ -58,6 +57,7 @@ public class UserService {
     public User loginUser(String email, String password) throws UserNotFoundException, WrongPasswordException {
         if (userRepository.findByEmail(email) != null) {
             String encodedPassword = passwordEncoder.encode(password);
+            System.out.println(encodedPassword);
             if (userRepository.findByEmailAndPassword(email, encodedPassword) != null) {
                 return userRepository.findByEmailAndPassword(email, encodedPassword);
             }

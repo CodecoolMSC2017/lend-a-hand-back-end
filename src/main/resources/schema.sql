@@ -11,7 +11,7 @@ CREATE TABLE users (
     email VARCHAR(32),
     phone VARCHAR(32),
     username VARCHAR(60) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     full_name TEXT,
     type VARCHAR(16),
     postal_code VARCHAR(16),
@@ -25,10 +25,10 @@ CREATE TABLE users (
 );
 
 CREATE TABLE authorities (
-    user_id INTEGER NOT NULL,
+    username VARCHAR(60) NOT NULL,
     authority VARCHAR(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users("id")  ON DELETE CASCADE,
-    UNIQUE (user_id, authority)
+    FOREIGN KEY (username) REFERENCES users("username")  ON DELETE CASCADE,
+    UNIQUE (username, authority)
 );
 
 CREATE TABLE employee_ratings (
