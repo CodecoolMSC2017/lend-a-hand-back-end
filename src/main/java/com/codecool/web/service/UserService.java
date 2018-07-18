@@ -1,8 +1,6 @@
 package com.codecool.web.service;
 
 import com.codecool.web.exception.UserAlreadyRegisteredException;
-import com.codecool.web.exception.UserNotFoundException;
-import com.codecool.web.exception.WrongPasswordException;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,19 +49,6 @@ public class UserService {
         registeredUser.setEmail(email);
         registeredUser.setType(type);
         userRepository.save(registeredUser);
-    }
-
-
-    public User loginUser(String email, String password) throws UserNotFoundException, WrongPasswordException {
-        if (userRepository.findByEmail(email) != null) {
-            String encodedPassword = passwordEncoder.encode(password);
-            System.out.println(encodedPassword);
-            if (userRepository.findByEmailAndPassword(email, encodedPassword) != null) {
-                return userRepository.findByEmailAndPassword(email, encodedPassword);
-            }
-            throw new WrongPasswordException();
-        }
-        throw new UserNotFoundException();
     }
 
     public void deleteUser(int id) {

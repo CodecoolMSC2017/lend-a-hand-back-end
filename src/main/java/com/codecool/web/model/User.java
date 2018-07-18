@@ -72,10 +72,10 @@ public class User implements Serializable {
     private String phone;
 
     @Column(name = "username")
-
-    @Size(max = 32)
+    @Size(max = 60)
     private String userName;
 
+    @Size(max = 60)
     private String password;
 
     @Column(name = "full_name")
@@ -102,7 +102,6 @@ public class User implements Serializable {
     private Boolean blocked;
 
     @Column(name = "able_to_ad")
-
     private Boolean ableToAd;
 
 
@@ -116,7 +115,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(@Size(max = 32) String email, @Size(max = 32) String userName, String password) {
+    public User(@Size(max = 32) String email, @Size(max = 60) String userName, @Size(max = 60) String password) {
         this.email = email;
         this.userName = userName;
         this.password = password;
@@ -129,7 +128,7 @@ public class User implements Serializable {
     }
 
 
-    public User(@Size(max = 32) String email, @Size(max = 32) String userName, String password, String type) {
+    public User(@Size(max = 32) String email, @Size(max = 60) String userName, @Size(max = 60) String password, String type) {
         this.email = email;
         this.userName = userName;
         this.password = password;
@@ -141,7 +140,7 @@ public class User implements Serializable {
         enabled = true;
     }
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 32) String userName, String password, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;

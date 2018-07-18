@@ -15,7 +15,7 @@ public class AdsController {
     @Autowired
     AdService adService;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public List<Ad> getAllAds() {
         return adService.getAll();
     }
