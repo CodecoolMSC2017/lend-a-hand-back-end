@@ -16,13 +16,13 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user-sent-messages")
     @NotNull
     private User sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user-received-messages")
     @NotNull
     private User receiver;
 

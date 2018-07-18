@@ -16,13 +16,13 @@ public class Application {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ad_id")
-    @JsonBackReference
+    @JsonBackReference(value = "ad-applications")
     @NotNull
     private Ad ad;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "applicant_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user-applications")
     @NotNull
     private User applicant;
 

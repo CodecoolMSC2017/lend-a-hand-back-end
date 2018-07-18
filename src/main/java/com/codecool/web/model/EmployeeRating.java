@@ -15,13 +15,13 @@ public class EmployeeRating {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rater_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user-rated-employee")
     @NotNull
     private User rater;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rated_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user-employee-rating")
     @NotNull
     private User rated;
 

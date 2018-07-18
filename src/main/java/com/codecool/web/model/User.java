@@ -1,6 +1,8 @@
 package com.codecool.web.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -11,6 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
 public class User {
 
     @Id
@@ -18,7 +23,7 @@ public class User {
     private int id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-ads")
     private List<Ad> ads;
 
     @ElementCollection
@@ -31,37 +36,37 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-employee-rating")
     private List<EmployeeRating> employeeRatings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-employer-rating")
     private List<EmployerRating> employerRatings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-rated-employee")
     private List<EmployeeRating> ratedEmployees;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-rated-employer")
     private List<EmployerRating> ratedEmployers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-applications")
     private List<Application> applications;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-sent-messages")
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-received-messages")
     private List<Message> receivedMessages;
 
     @NotNull

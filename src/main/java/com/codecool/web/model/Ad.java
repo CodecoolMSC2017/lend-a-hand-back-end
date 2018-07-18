@@ -17,18 +17,18 @@ public class Ad {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonBackReference(value = "user-ads")
     @JoinColumn(name = "advertiser_id")
     @NotNull
     private User advertiser;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chosen_applicant_id")
-    @JsonBackReference
+    @JsonBackReference(value = "ad-user")
     private User chosenApplicant;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
-    @JsonManagedReference
+    @JsonManagedReference(value = "ad-applications")
     private List<Application> applications;
 
     @NotNull
