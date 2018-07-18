@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("")
-public class GuestController {
+public class RegisterController {
 
     @Autowired
     UserService service;
