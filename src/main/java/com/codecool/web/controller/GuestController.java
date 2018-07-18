@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/guest")
 public class GuestController {
 
     @Autowired
@@ -24,10 +24,10 @@ public class GuestController {
     @PostMapping(path = "/register")
     public String register(@RequestBody Map<String, String> map) throws UserAlreadyRegisteredException {
         String email = map.get("email");
-        String userName = map.get("userName");
-        String type = map.get("type");
+        String username = map.get("userName");
         String password = map.get("password");
-        service.registerUser(email, userName, type, password);
+        String type = map.get("type");
+        service.registerUser(email, username, password, type);
         return "You are successfully registered";
     }
 

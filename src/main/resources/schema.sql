@@ -8,20 +8,20 @@ DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(32) NOT NULL,
+    email VARCHAR(32),
     phone VARCHAR(32),
     username VARCHAR(60) UNIQUE NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     full_name TEXT,
-    type VARCHAR(16) NOT NULL,
+    type VARCHAR(16),
     postal_code VARCHAR(16),
     city TEXT,
     address TEXT,
-    balance INTEGER NOT NULL,
-    reported INTEGER NOT NULL,
-    blocked BOOLEAN NOT NULL,
-    able_to_ad BOOLEAN NOT NULL,
-    enabled boolean NOT NULL
+    balance INTEGER ,
+    reported INTEGER ,
+    blocked BOOLEAN ,
+    able_to_ad BOOLEAN ,
+    enabled boolean
 );
 
 CREATE TABLE authorities (

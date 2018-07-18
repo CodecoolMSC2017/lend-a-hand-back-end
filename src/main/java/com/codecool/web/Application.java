@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
 
@@ -24,20 +23,13 @@ public class Application extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
-
-        http.authorizeRequests()
-            .antMatchers("/", "/auth/**", "/ads/**").permitAll()
-            .antMatchers("/admin/**").access("hasRole('ADMIN')")
-            .antMatchers("/protected/**").access("hasAnyRole('ADMIN','USER')")
+        http.csrf()
+            .disable()
+            .authorizeRequests()
+            .antMatchers("/guest/**", "/ads/**").permitAll()
+            .anyRequest().authenticated()
             .and()
-            .formLogin().permitAll()
-            .and()
-            .logout().permitAll()
-            .and()
-            .exceptionHandling().accessDeniedPage("/403")
-            .and().httpBasic();
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+            .httpBasic();
     }
 
     @Bean

@@ -34,18 +34,24 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public void registerUser(String email, String userName, String type, String password) throws UserAlreadyRegisteredException {
-        if (userRepository.findByEmail(email) != null) {
+    public User getUserbyUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+
+    public void registerUser(String email, String username, String password, String type) throws UserAlreadyRegisteredException {
+        if (userRepository.findByEmail(email) != null && userRepository.findByUserName(username) != null) {
             throw new UserAlreadyRegisteredException();
         }
+        System.out.println(passwordEncoder.encode(password));
         userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
-            userName,
+            username,
             passwordEncoder.encode(password),
-            AuthorityUtils.createAuthorityList("USER")));
-        User user = userRepository.findByUserName(userName);
-        user.setType(type);
-        user.setEmail(email);
-        userRepository.save(user);
+            AuthorityUtils.createAuthorityList("USER_ROLE")));
+        User registeredUser = userRepository.findByUserName(username);
+        registeredUser.setEmail(email);
+        registeredUser.setType(type);
+        userRepository.save(registeredUser);
     }
 
 
