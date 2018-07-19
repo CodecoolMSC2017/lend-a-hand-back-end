@@ -31,9 +31,13 @@ public class AdService {
     }
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
-        List<Ad> ads = new ArrayList<>();
-        ads.addAll(adRepository.findAllByTitleContainingIgnoreCase(keyword));
-        ads.addAll(adRepository.findAllByDescriptionContainingIgnoreCase(keyword));
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCase(keyword));
+        for (Ad ad : adRepository.findAllByDescriptionContainingIgnoreCase(keyword)){
+            if(!ads.contains(ad)) {
+                ads.add(ad);
+            }
+        }
+
         return ads;
     }
 
