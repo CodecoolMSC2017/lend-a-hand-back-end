@@ -17,19 +17,19 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
-    public Application findById(int id) {
+    public Application getById(int id) {
         return applicationRepository.findById(id);
     }
 
-    public List<Application> findAllByApplicantIdOrderByTimestampDesc(int id) {
+    public List<Application> getAllByApplicantIdOrderByTimestampDesc(int id) {
         return applicationRepository.findAllByApplicant_IdOrderByTimestampDesc(id);
     }
 
-    public List<Application> findAllByAdIdOrderByTimestampAsc(int id) {
+    public List<Application> getAllByAdIdOrderByTimestampAsc(int id) {
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(id);
     }
 
-    public Application adNewApplication(Application application) {
+    public Application addNewApplication(Application application) {
         applicationRepository.save(application);
         return application;
     }
