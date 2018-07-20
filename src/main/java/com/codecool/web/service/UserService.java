@@ -38,7 +38,7 @@ public class UserService {
 
 
     public void registerUser(String email, String username, String password, String type) throws UserAlreadyRegisteredException {
-        if (userRepository.findByEmail(email) != null && userRepository.findByUserName(username) != null) {
+        if (userRepository.findByEmail(email) != null || userRepository.findByUserName(username) != null) {
             throw new UserAlreadyRegisteredException();
         }
         userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
