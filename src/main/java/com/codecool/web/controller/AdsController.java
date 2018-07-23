@@ -25,14 +25,19 @@ public class AdsController {
         return adService.getAllByAdvertiserId(id);
     }
 
-    @GetMapping(path = "/categories/{category}")
-    public List<Ad> getAllAdsByCategory(@PathVariable("category") String category) {
-        return adService.getAllByCategory(category);
+    @GetMapping(path = "/filters")
+    public List<Ad> getAllAdsByFilters(@RequestParam(value = "keyoword", required = false) String keyword, @RequestParam(value = "category", required = false) String category) {
+        return adService.getAllByFilters(keyword, category);
     }
 
-    @GetMapping(path = "/keywords/{keyword}")
-    public List<Ad> getAllAdsByKeyword(@PathVariable("keyword") String keyword) {
-        return adService.getAllByTitleOrDescriptionContaining(keyword);
+    @GetMapping(path = "/categories")
+    public List<Ad> getAllAdsByCategory(@RequestParam(value = "category", required = false) String categoryOrNull) {
+        return adService.getAllByCategory(categoryOrNull);
+    }
+
+    @GetMapping(path = "/keywords")
+    public List<Ad> getAllAdsByKeyword(@RequestParam(value = "keyword", required = false) String keywordOrNull) {
+        return adService.getAllByTitleOrDescriptionContaining(keywordOrNull);
     }
 
     @GetMapping(path = "/{id}")
