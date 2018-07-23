@@ -12,6 +12,7 @@ CREATE TABLE users (
     phone VARCHAR(32),
     username VARCHAR(60) UNIQUE NOT NULL,
     password VARCHAR(60) NOT NULL,
+    picture_link TEXT,
     full_name TEXT,
     type VARCHAR(16),
     postal_code VARCHAR(16),
@@ -20,6 +21,8 @@ CREATE TABLE users (
     balance INTEGER ,
     reported INTEGER ,
     blocked BOOLEAN ,
+    employee_rating_score NUMERIC(10) ,
+    employer_rating_score NUMERIC(10) ,
     able_to_ad BOOLEAN ,
     enabled boolean
 );

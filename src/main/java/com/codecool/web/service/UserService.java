@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.Utility;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.UserRepository;
@@ -29,7 +30,10 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        return userRepository.findById(id);
+        User user = userRepository.findById(id);
+        user.setEmployeeRatingScore(Utility.evaluateEmployeeRating(user));
+        user.setEmployerRatingScore(Utility.evaluateEmployerRating(user));
+        return user;
     }
 
     public User getUserbyUserName(String username) {

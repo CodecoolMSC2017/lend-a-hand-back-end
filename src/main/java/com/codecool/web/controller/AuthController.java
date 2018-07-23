@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @RestController
+
+
 @RequestMapping("/auth")
 public class AuthController {
 

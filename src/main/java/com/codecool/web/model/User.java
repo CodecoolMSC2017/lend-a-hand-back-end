@@ -1,12 +1,14 @@
 package com.codecool.web.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -19,6 +21,7 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
     @JsonManagedReference(value = "user-ads")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Ad> ads;
 
     @ElementCollection
@@ -27,41 +30,55 @@ public class User implements Serializable {
         joinColumns = @JoinColumn(name = "username", referencedColumnName = "username")
     )
     @Column(name = "authority")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<String> authorities;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-employee-rating")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployeeRating> employeeRatings;
+
+    @Column(name = "employee_rating_score", precision = 2, scale = 0)
+    private BigDecimal employeeRatingScore;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-employer-rating")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployerRating> employerRatings;
+
+    @Column(name = "employer_rating_score", precision = 2, scale = 0)
+    private BigDecimal employerRatingScore;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-rated-employee")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployeeRating> ratedEmployees;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-rated-employer")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployerRating> ratedEmployers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "applicant")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-applications")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Application> applications;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-sent-messages")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-received-messages")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> receivedMessages;
 
 
@@ -76,11 +93,14 @@ public class User implements Serializable {
     private String userName;
 
     @Size(max = 60)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @Column(name = "picture_link")
+    private String pictureLink;
 
     @Column(name = "full_name")
     private String fullName;
-
 
     private String type;
 
@@ -92,18 +112,15 @@ public class User implements Serializable {
 
     private String address;
 
-
     private Integer balance;
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer reported;
-
 
     private Boolean blocked;
 
     @Column(name = "able_to_ad")
     private Boolean ableToAd;
-
 
     private Boolean enabled;
 
@@ -140,11 +157,13 @@ public class User implements Serializable {
         enabled = true;
     }
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
+        this.employeeRatingScore = employeeRatingScore;
         this.employerRatings = employerRatings;
+        this.employerRatingScore = employerRatingScore;
         this.ratedEmployees = ratedEmployees;
         this.ratedEmployers = ratedEmployers;
         this.applications = applications;
@@ -154,6 +173,7 @@ public class User implements Serializable {
         this.phone = phone;
         this.userName = userName;
         this.password = password;
+        this.pictureLink = pictureLink;
         this.fullName = fullName;
         this.type = type;
         this.postalCode = postalCode;
@@ -194,6 +214,14 @@ public class User implements Serializable {
         return ratedEmployers;
     }
 
+    public BigDecimal getEmployeeRatingScore() {
+        return employeeRatingScore;
+    }
+
+    public void setEmployeeRatingScore(BigDecimal employeeRatingScore) {
+        this.employeeRatingScore = employeeRatingScore;
+    }
+
     public List<Application> getApplications() {
         return applications;
     }
@@ -222,6 +250,10 @@ public class User implements Serializable {
         return password;
     }
 
+    public BigDecimal getEmployerRatingScore() {
+        return employerRatingScore;
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -244,10 +276,6 @@ public class User implements Serializable {
 
     public Integer getBalance() {
         return balance;
-    }
-
-    public void setBalance(Integer balance) {
-        this.balance = balance;
     }
 
     public Integer getReported() {
@@ -286,6 +314,14 @@ public class User implements Serializable {
         this.ratedEmployers = ratedEmployers;
     }
 
+    public void setEmployerRatingScore(BigDecimal employerRatingScore) {
+        this.employerRatingScore = employerRatingScore;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
     public void setApplications(List<Application> applications) {
         this.applications = applications;
     }
@@ -312,6 +348,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     public void setFullName(String fullName) {
