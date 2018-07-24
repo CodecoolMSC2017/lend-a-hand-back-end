@@ -61,6 +61,8 @@ CREATE TABLE ads (
   payment INTEGER,
   category VARCHAR(32) NOT NULL,
   is_premium BOOLEAN NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
+  type VARCHAR(16) NOT NULL,
   FOREIGN KEY (advertiser_id) REFERENCES users("id") ON DELETE CASCADE,
   FOREIGN KEY (chosen_applicant_id) REFERENCES users("id") ON DELETE CASCADE
 );
