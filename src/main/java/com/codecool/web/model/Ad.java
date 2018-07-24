@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -47,18 +48,26 @@ public class Ad {
     @Column(name = "is_premium")
     private boolean isPremium;
 
+    @NotNull
+    private LocalDateTime timestamp;
+
+    @NotNull
+    private String type;
+
     public Ad() {
     }
 
-    public Ad(@NotNull User advertiser, @NotNull @Size(max = 64) String title, @NotNull String description, @NotNull @Size(max = 32) String category, boolean isPremium) {
+    public Ad(@NotNull User advertiser, @NotNull @Size(max = 64) String title, @NotNull String description, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
         this.advertiser = advertiser;
         this.title = title;
         this.description = description;
         this.category = category;
         this.isPremium = isPremium;
+        this.timestamp = timestamp;
+        this.type = type;
     }
 
-    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium) {
+    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
         this.advertiser = advertiser;
         this.chosenApplicant = chosenApplicant;
         this.applications = applications;
@@ -67,6 +76,8 @@ public class Ad {
         this.payment = payment;
         this.category = category;
         this.isPremium = isPremium;
+        this.timestamp = timestamp;
+        this.type = type;
     }
 
     public int getId() {
@@ -105,6 +116,14 @@ public class Ad {
         return isPremium;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public void setAdvertiser(User advertiser) {
         this.advertiser = advertiser;
     }
@@ -135,5 +154,13 @@ public class Ad {
 
     public void setPremium(boolean premium) {
         isPremium = premium;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

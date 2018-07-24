@@ -22,12 +22,16 @@ public class AdService {
         return adRepository.findAllByAdvertiser_Id(id);
     }
 
-    public Ad getById(int id) {
-        return adRepository.findById(id);
-    }
-
     public List<Ad> getAllByCategory(String category) {
         return adRepository.findAllByCategory(category);
+    }
+
+    public List<Ad> getAllByType(String type) {
+        return adRepository.findAllByType(type);
+    }
+
+    public List<Ad> getAllByCategoryAndType(String category, String type) {
+        return adRepository.findAllByCategoryAndType(category, type);
     }
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
@@ -38,19 +42,44 @@ public class AdService {
                 ads.add(ad);
             }
         }
-
         return ads;
     }
 
-    public List<Ad> getAllByFilters(String keyword, String category) {
+    public List<Ad> getAllByKeywordAndCategory(String keyword, String category) {
         List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategory(keyword, category));
-        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategory(keyword, category);
-        for (Ad ad : adsByDescription){
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategory(keyword, category);
+        for (Ad ad : adsByDescriptionAndCategory) {
             if(!ads.contains(ad)) {
                 ads.add(ad);
             }
         }
         return ads;
+    }
+
+    public List<Ad> getAllByKeywordAndType(String keyword, String type) {
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndType(keyword, type));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndType(keyword, type);
+        for (Ad ad : adsByDescriptionAndCategory) {
+            if (!ads.contains(ad)) {
+                ads.add(ad);
+            }
+        }
+        return ads;
+    }
+
+    public List<Ad> getAllByKeywordAndCategoryAndType(String keyword, String category, String type) {
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryAndType(keyword, category, type));
+        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryAndType(keyword, category, type);
+        for (Ad ad : adsByDescriptionAndCategoryAndType) {
+            if (!ads.contains(ad)) {
+                ads.add(ad);
+            }
+        }
+        return ads;
+    }
+
+    public Ad getById(int id) {
+        return adRepository.findById(id);
     }
 
     public Ad addNewAd(Ad ad) {
