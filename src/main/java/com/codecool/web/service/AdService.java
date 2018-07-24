@@ -32,12 +32,24 @@ public class AdService {
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
         List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCase(keyword));
-        for (Ad ad : adRepository.findAllByDescriptionContainingIgnoreCase(keyword)){
+        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCase(keyword);
+        for (Ad ad : adsByDescription){
             if(!ads.contains(ad)) {
                 ads.add(ad);
             }
         }
 
+        return ads;
+    }
+
+    public List<Ad> getAllByFilters(String keyword, String category) {
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategory(keyword, category));
+        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategory(keyword, category);
+        for (Ad ad : adsByDescription){
+            if(!ads.contains(ad)) {
+                ads.add(ad);
+            }
+        }
         return ads;
     }
 
