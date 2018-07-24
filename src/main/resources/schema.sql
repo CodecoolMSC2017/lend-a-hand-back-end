@@ -21,8 +21,8 @@ CREATE TABLE users (
     balance INTEGER ,
     reported INTEGER ,
     blocked BOOLEAN ,
-    employee_rating_score NUMERIC(10) ,
-    employer_rating_score NUMERIC(10) ,
+    employee_rating_score NUMERIC ,
+    employer_rating_score NUMERIC ,
     able_to_ad BOOLEAN ,
     enabled boolean
 );

@@ -37,7 +37,10 @@ public class UserService {
     }
 
     public User getUserbyUserName(String username) {
-        return userRepository.findByUserName(username);
+        User user = userRepository.findByUserName(username);
+        user.setEmployeeRatingScore(Utility.evaluateEmployeeRating(user));
+        user.setEmployerRatingScore(Utility.evaluateEmployerRating(user));
+        return user;
     }
 
 

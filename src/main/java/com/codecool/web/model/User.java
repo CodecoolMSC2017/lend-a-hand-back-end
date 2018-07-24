@@ -39,7 +39,7 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployeeRating> employeeRatings;
 
-    @Column(name = "employee_rating_score", precision = 2, scale = 0)
+    @Column(name = "employee_rating_score", columnDefinition = "DECIMAL(9,2)")
     private BigDecimal employeeRatingScore;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
@@ -48,7 +48,7 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<EmployerRating> employerRatings;
 
-    @Column(name = "employer_rating_score", precision = 2, scale = 0)
+    @Column(name = "employer_rating_score", columnDefinition = "DECIMAL(9,2)")
     private BigDecimal employerRatingScore;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rater")
