@@ -26,7 +26,7 @@ public class AdsController {
     }
 
     @GetMapping(path = "/filters")
-    public List<Ad> getAllAdsByFilters(@RequestParam(value = "keyoword", required = false) String keyword, @RequestParam(value = "category", required = false) String category) {
+    public List<Ad> getAllAdsByFilters(@RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "category", required = false) String category) {
         return adService.getAllByFilters(keyword, category);
     }
 
