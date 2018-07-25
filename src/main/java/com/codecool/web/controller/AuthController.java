@@ -1,15 +1,14 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.exception.WrongVerificationCodeException;
 import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 
@@ -23,6 +22,13 @@ public class AuthController {
     @GetMapping("")
     public User get(Principal principal) {
         return userService.getUserbyUserName(principal.getName());
+    }
+
+    @PostMapping("/verificate")
+    public User verificateEmail(@RequestBody Map<String, String> map) throws WrongVerificationCodeException {
+        String userName = map.get("userName");
+        String verificationCode = map.get("code");
+        return userService.verificate(userName, verificationCode);
     }
 
     @DeleteMapping("")

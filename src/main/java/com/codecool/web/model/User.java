@@ -124,6 +124,11 @@ public class User implements Serializable {
 
     private Boolean enabled;
 
+    private Boolean verificated;
+
+    @Column(name = "verification_code")
+    private String verificationCode;
+
     public User() {
     }
 
@@ -157,7 +162,7 @@ public class User implements Serializable {
         enabled = true;
     }
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled, Boolean verificated, String verificationCode) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
@@ -184,9 +189,11 @@ public class User implements Serializable {
         this.blocked = blocked;
         this.ableToAd = ableToAd;
         this.enabled = enabled;
+        this.verificated = verificated;
+        this.verificationCode = verificationCode;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -202,8 +209,16 @@ public class User implements Serializable {
         return employeeRatings;
     }
 
+    public BigDecimal getEmployeeRatingScore() {
+        return employeeRatingScore;
+    }
+
     public List<EmployerRating> getEmployerRatings() {
         return employerRatings;
+    }
+
+    public void setEmployeeRatingScore(BigDecimal employeeRatingScore) {
+        this.employeeRatingScore = employeeRatingScore;
     }
 
     public List<EmployeeRating> getRatedEmployees() {
@@ -212,14 +227,6 @@ public class User implements Serializable {
 
     public List<EmployerRating> getRatedEmployers() {
         return ratedEmployers;
-    }
-
-    public BigDecimal getEmployeeRatingScore() {
-        return employeeRatingScore;
-    }
-
-    public void setEmployeeRatingScore(BigDecimal employeeRatingScore) {
-        this.employeeRatingScore = employeeRatingScore;
     }
 
     public List<Application> getApplications() {
@@ -282,28 +289,48 @@ public class User implements Serializable {
         return reported;
     }
 
-    public void setReported(Integer reported) {
-        this.reported = reported;
+    public void setEmployerRatingScore(BigDecimal employerRatingScore) {
+        this.employerRatingScore = employerRatingScore;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public Boolean getAbleToAd() {
+        return ableToAd;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public Boolean getVerificated() {
+        return verificated;
     }
 
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
     }
 
-    public void setAds(List<Ad> ads) {
-        this.ads = ads;
-    }
-
-    public Boolean isBlocked() {
-        return blocked;
-    }
-
     public void setEmployeeRatings(List<EmployeeRating> employeeRatings) {
         this.employeeRatings = employeeRatings;
     }
 
+    public void setVerificated(Boolean verificated) {
+        this.verificated = verificated;
+    }
+
     public void setEmployerRatings(List<EmployerRating> employerRatings) {
         this.employerRatings = employerRatings;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
     public void setRatedEmployees(List<EmployeeRating> ratedEmployees) {
@@ -312,14 +339,6 @@ public class User implements Serializable {
 
     public void setRatedEmployers(List<EmployerRating> ratedEmployers) {
         this.ratedEmployers = ratedEmployers;
-    }
-
-    public void setEmployerRatingScore(BigDecimal employerRatingScore) {
-        this.employerRatingScore = employerRatingScore;
-    }
-
-    public String getPictureLink() {
-        return pictureLink;
     }
 
     public void setApplications(List<Application> applications) {
@@ -354,10 +373,6 @@ public class User implements Serializable {
         this.pictureLink = pictureLink;
     }
 
-    public void setBalance(Integer balance) {
-        this.balance = balance;
-    }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
@@ -378,12 +393,12 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public Boolean isAbleToAd() {
-        return ableToAd;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
-    public Boolean isEnabled() {
-        return enabled;
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
     }
 
     public void setBlocked(Boolean blocked) {
@@ -397,4 +412,13 @@ public class User implements Serializable {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public void setReported(Integer reported) {
+        this.reported = reported;
+    }
+
 }

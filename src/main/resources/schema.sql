@@ -24,7 +24,9 @@ CREATE TABLE users (
     employee_rating_score NUMERIC ,
     employer_rating_score NUMERIC ,
     able_to_ad BOOLEAN ,
-    enabled boolean
+    enabled BOOLEAN,
+    verificated BOOLEAN,
+    verification_code TEXT,
 );
 
 CREATE TABLE authorities (
