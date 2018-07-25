@@ -50,7 +50,7 @@ public class AdsController {
         return adService.getAllByKeywordAndType(keywordOrNull, typeOrNull);
     }
 
-    @GetMapping(path = "/keyword-category")
+    @GetMapping(path = "/keywords-categories")
     public List<Ad> getAllAdsByKeywordAndCategory(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull) {
         return adService.getAllByKeywordAndCategory(keywordOrNull, categoryOrNull);
     }
