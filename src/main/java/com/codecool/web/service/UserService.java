@@ -2,6 +2,7 @@ package com.codecool.web.service;
 
 import com.codecool.web.Utility;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
+import com.codecool.web.exception.WrongVerificationCodeException;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Component
@@ -24,6 +26,7 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -43,6 +46,16 @@ public class UserService {
         return user;
     }
 
+    public User verificate(String userName, String verificationCode) throws WrongVerificationCodeException {
+        User user = userRepository.findByUserNameAndVerificationCode(userName, verificationCode);
+        if (user == null) {
+            throw new WrongVerificationCodeException();
+        }
+        user.setVerificated(true);
+        userRepository.save(user);
+        return user;
+    }
+
 
     public void registerUser(String email, String username, String password, String type) throws UserAlreadyRegisteredException {
         if (userRepository.findByEmail(email) != null || userRepository.findByUserName(username) != null) {
@@ -53,7 +66,12 @@ public class UserService {
             passwordEncoder.encode(password),
             AuthorityUtils.createAuthorityList("USER_ROLE")));
         User registeredUser = userRepository.findByUserName(username);
+
+        String verificationCode = UUID.randomUUID().toString().substring(0, 8);
+        registeredUser.setVerificationCode(verificationCode);
+        registeredUser.setVerificated(false);
         registeredUser.setEmail(email);
+        Utility.sendEmail(registeredUser);
         registeredUser.setType(type);
         userRepository.save(registeredUser);
     }
