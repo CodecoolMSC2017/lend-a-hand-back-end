@@ -26,7 +26,7 @@ CREATE TABLE users (
     able_to_ad BOOLEAN ,
     enabled BOOLEAN,
     verificated BOOLEAN,
-    verification_code TEXT,
+    verification_code TEXT
 );
 
 CREATE TABLE authorities (
