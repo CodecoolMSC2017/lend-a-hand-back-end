@@ -1,10 +1,12 @@
 package com.codecool.web.controller;
+
 import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -26,10 +28,14 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PutMapping(path = "",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public User updateUser(@RequestBody User user) {
-        return userService.updateUserData(user);
+    @PutMapping(path = "")
+    public User updateUser(@RequestBody Map<String, String> map) {
+        int id = Integer.parseInt(map.get("id"));
+        String fullName = map.get("fullName");
+        String phone = map.get("phone");
+        String postalCode = map.get("postalCode");
+        String city = map.get("city");
+        String address = map.get("address");
+        return userService.updateUserData(id, fullName, phone, postalCode, city, address);
     }
 }

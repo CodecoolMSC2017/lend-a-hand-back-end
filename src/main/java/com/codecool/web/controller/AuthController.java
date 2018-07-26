@@ -31,6 +31,7 @@ public class AuthController {
         return userService.verificate(userName, verificationCode);
     }
 
+
     @DeleteMapping("")
     public void delete(HttpSession session) {
         session.invalidate();

@@ -80,8 +80,13 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateUserData(User user) {
-        userRepository.save(user);
-        return user;
+    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address) {
+        User savedUser = userRepository.findById(id);
+        savedUser.setFullName(fullName);
+        savedUser.setPhone(phone);
+        savedUser.setPostalCode(postalCode);
+        savedUser.setCity(city);
+        savedUser.setAddress(address);
+        return userRepository.save(savedUser);
     }
 }
