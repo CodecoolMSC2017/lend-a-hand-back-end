@@ -7,16 +7,16 @@ VALUES ('lorinc.hunyadi@gmail.com','+36706743245','Lorincke23','Hunyadi Lorinc',
 
 
 INSERT INTO ads (advertiser_id, chosen_applicant_id, title, description, payment, category, is_premium, timestamp, type)
-VALUES (1, 2, 'Looking for babysitter', 'Want a cute person to look after my children.', 500, 'Babysitting', false, '2018-8-04 10:23:54', 'Hire'),
+VALUES (1, 2, 'Looking for babysitter', 'Want a cute person to look after my children.', 500, 'Child care', false, '2018-8-04 10:23:54', 'Hire'),
 (2, 1, 'HTML programmer', 'I am a hackerman, I code HTML, I know you need me!', 10000, 'IT', true, '2018-8-04 12:23:54', 'Offer'),
 (2, 1, 'Gardening mowing outdoor solutions', 'Hi, We are a team of 2 professional Gardeners! Contact us today to get a free quotation!', 20, 'Garden', true, '2018-8-05 14:23:54', 'Offer'),
-(2, 1, 'Builder and Plasterer', 'Experienced Builder and Plasterer Specializing in Restoration. Providing quality work and excellent customer service.', 11, 'Building', true, '2018-8-06 17:23:54', 'Offer'),
-(2, 1, 'French Private Lessons & PR Services', 'Newly established by a dynamic professional, Aegean Consultancy provides French and English tuition.', 22, 'Learning', true, '2018-8-06 09:23:54', 'Offer'),
-(2, 1, 'Young babysitter', 'Hi! I am Jemma, 22 years old. I love children so much. I am responsible.', 33, 'Babysitting', true, '2018-8-07 10:23:54', 'Offer'),
+(2, 1, 'Builder and Plasterer', 'Experienced Builder and Plasterer Specializing in Restoration. Providing quality work and excellent customer service.', 11, 'Construction', true, '2018-8-06 17:23:54', 'Offer'),
+(2, 1, 'French Private Lessons & PR Services', 'Newly established by a dynamic professional, Aegean Consultancy provides French and English tuition.', 22, 'Education', true, '2018-8-06 09:23:54', 'Offer'),
+(2, 1, 'Young babysitter', 'Hi! I am Jemma, 22 years old. I love children so much. I am responsible.', 33, 'Child care', true, '2018-8-07 10:23:54', 'Offer'),
 (2, 1, 'Looking for C# developers', 'Our company needs a C# developer. Maybe you are the one?', 44, 'IT', true, '2018-8-07 11:23:54', 'Hire'),
 (2, 1, 'K&S Express Mowing Service', 'K&S Express Mowing Service offers a great friendly service along with a Affordable Price.', 55, 'Garden', true, '2018-8-08 10:23:54', 'Offer'),
-(2, 1, 'Plastering & Rendering', 'We Provide all services to do with plastering and rendering across the Staffordshire area.', 55, 'Building', true, '2018-8-08 12:23:54', 'Offer'),
-(2, 1, 'Coding lessons', 'Coding lessons available in Java, C#, C++ languages', 55, 'Learning', true, '2018-8-09 10:23:54', 'Offer'),
+(2, 1, 'Plastering & Rendering', 'We Provide all services to do with plastering and rendering across the Staffordshire area.', 55, 'Construction', true, '2018-8-08 12:23:54', 'Offer'),
+(2, 1, 'Coding lessons', 'Coding lessons available in Java, C#, C++ languages', 55, 'Edcucation', true, '2018-8-09 10:23:54', 'Offer'),
 (3, 2, 'Searching for gardener', 'Hi, We need a team of 2 professional Gardeners! We want them to be really responsible and gentle with our amazing and beautiful plants. They are our life. So let us know, if you find yourselves appropriate. Cheers!', 44, 'Garden', false, '2018-8-10 19:23:54', 'Hire');
 
 INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
