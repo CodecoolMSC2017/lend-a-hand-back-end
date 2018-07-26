@@ -14,7 +14,6 @@ public class Utility {
 
     public static BigDecimal evaluateEmployeeRating(User user) {
         int numOfRatings = user.getEmployeeRatings().size();
-        System.out.println(numOfRatings);
         if (numOfRatings != 0) {
             double totalRatingValue = 0;
             for (EmployeeRating rating : user.getEmployeeRatings()) {
@@ -29,7 +28,6 @@ public class Utility {
 
     public static BigDecimal evaluateEmployerRating(User user) {
         int numOfRatings = user.getEmployerRatings().size();
-        System.out.println(numOfRatings);
         if (numOfRatings != 0) {
             int totalRatingValue = 0;
             for (EmployerRating rating : user.getEmployerRatings()) {
