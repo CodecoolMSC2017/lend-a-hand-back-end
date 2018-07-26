@@ -16,7 +16,7 @@ VALUES (1, 2, 'Looking for babysitter', 'Want a cute person to look after my chi
 (2, 1, 'Looking for C# developers', 'Our company needs a C# developer. Maybe you are the one?', 44, 'IT', true, '2018-8-07 11:23:54', 'Hire'),
 (2, 1, 'K&S Express Mowing Service', 'K&S Express Mowing Service offers a great friendly service along with a Affordable Price.', 55, 'Garden', true, '2018-8-08 10:23:54', 'Offer'),
 (2, 1, 'Plastering & Rendering', 'We Provide all services to do with plastering and rendering across the Staffordshire area.', 55, 'Construction', true, '2018-8-08 12:23:54', 'Offer'),
-(2, 1, 'Coding lessons', 'Coding lessons available in Java, C#, C++ languages', 55, 'Edcucation', true, '2018-8-09 10:23:54', 'Offer'),
+(2, 1, 'Coding lessons', 'Coding lessons available in Java, C#, C++ languages', 55, 'Education', true, '2018-8-09 10:23:54', 'Offer'),
 (3, 2, 'Searching for gardener', 'Hi, We need a team of 2 professional Gardeners! We want them to be really responsible and gentle with our amazing and beautiful plants. They are our life. So let us know, if you find yourselves appropriate. Cheers!', 44, 'Garden', false, '2018-8-10 19:23:54', 'Hire');
 
 INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
