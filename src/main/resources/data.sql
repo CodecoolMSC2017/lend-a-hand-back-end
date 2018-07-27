@@ -28,7 +28,7 @@ VALUES (1, 2, 'Looking for babysitter', 'Want a cute person to look after my chi
 INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
                                                     ('Lorincke23','USER'),
                                                     ('user','USER');
-INSERT INTO employee_ratings (rater_i, rdated_id, rating)
+INSERT INTO employee_ratings (rater_id, rated_id, rating)
 VALUES (1,2,5),
 (1,3,2),
 (2,1,4),
