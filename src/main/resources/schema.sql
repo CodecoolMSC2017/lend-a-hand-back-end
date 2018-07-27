@@ -60,6 +60,7 @@ CREATE TABLE ads (
   chosen_applicant_id INTEGER,
   title VARCHAR(64) NOT NULL,
   description TEXT NOT NULL,
+  picture_link TEXT,
   payment INTEGER,
   category VARCHAR(32) NOT NULL,
   is_premium BOOLEAN NOT NULL,

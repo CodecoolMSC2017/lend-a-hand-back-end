@@ -26,6 +26,8 @@ public class AdDto {
 
     private String advertiserName;
 
+    private String pictureLink;
+
     public AdDto(Ad ad) {
         this.id = ad.getId();
         this.title = ad.getTitle();
@@ -37,6 +39,7 @@ public class AdDto {
         this.type = ad.getType();
         this.advertiserId = ad.getAdvertiser().getId();
         this.advertiserName = ad.getAdvertiser().getUserName();
+        this.pictureLink = ad.getPictureLink();
     }
 
 

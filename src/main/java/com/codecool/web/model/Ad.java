@@ -39,6 +39,9 @@ public class Ad {
     @NotNull
     private String description;
 
+    @Column(name = "picture_link")
+    private String pictureLink;
+
     private int payment;
 
     @NotNull
@@ -67,12 +70,13 @@ public class Ad {
         this.type = type;
     }
 
-    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, int payment, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
+    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, String pictureLink, int payment, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
         this.advertiser = advertiser;
         this.chosenApplicant = chosenApplicant;
         this.applications = applications;
         this.title = title;
         this.description = description;
+        this.pictureLink = pictureLink;
         this.payment = payment;
         this.category = category;
         this.isPremium = isPremium;
@@ -108,6 +112,10 @@ public class Ad {
         return payment;
     }
 
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -138,6 +146,10 @@ public class Ad {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
     }
 
     public void setDescription(String description) {
