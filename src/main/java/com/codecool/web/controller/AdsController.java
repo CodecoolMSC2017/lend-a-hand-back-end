@@ -1,5 +1,7 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.Utility;
+import com.codecool.web.dto.AdDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,55 +23,55 @@ public class AdsController {
     }
 
     @GetMapping(path = "/advertisers/{id}")
-    public List<Ad> getAllAdsByAdvertiser(@PathVariable("id") int id) {
-        return adService.getAllByAdvertiserId(id);
+    public List<AdDto> getAllAdsByAdvertiser(@PathVariable("id") int id) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByAdvertiserId(id));
     }
 
     @GetMapping(path = "/categories")
-    public List<Ad> getAllAdsByCategory(@RequestParam(value = "category", required = false) String categoryOrNull) {
-        return adService.getAllByCategory(categoryOrNull);
+    public List<AdDto> getAllAdsByCategory(@RequestParam(value = "category", required = false) String categoryOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByCategory(categoryOrNull));
     }
 
     @GetMapping(path = "/keywords")
-    public List<Ad> getAllAdsByKeyword(@RequestParam(value = "keyword", required = false) String keywordOrNull) {
-        return adService.getAllByTitleOrDescriptionContaining(keywordOrNull);
+    public List<AdDto> getAllAdsByKeyword(@RequestParam(value = "keyword", required = false) String keywordOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByTitleOrDescriptionContaining(keywordOrNull));
     }
 
     @GetMapping(path = "/types")
-    public List<Ad> getAllAdsByType(@RequestParam(value = "type", required = false) String typeOrNull) {
-        return adService.getAllByType(typeOrNull);
+    public List<AdDto> getAllAdsByType(@RequestParam(value = "type", required = false) String typeOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByType(typeOrNull));
     }
 
     @GetMapping(path = "/categories-types")
-    public List<Ad> getAllAdsByCategoryAndType(@RequestParam(value = "category", required = false) String categoryOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
-        return adService.getAllByCategoryAndType(categoryOrNull, typeOrNull);
+    public List<AdDto> getAllAdsByCategoryAndType(@RequestParam(value = "category", required = false) String categoryOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByCategoryAndType(categoryOrNull, typeOrNull));
     }
 
     @GetMapping(path = "/keywords-types")
-    public List<Ad> getAllAdsByKeywordAndType(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
-        return adService.getAllByKeywordAndType(keywordOrNull, typeOrNull);
+    public List<AdDto> getAllAdsByKeywordAndType(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByKeywordAndType(keywordOrNull, typeOrNull));
     }
 
     @GetMapping(path = "/keywords-categories")
-    public List<Ad> getAllAdsByKeywordAndCategory(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull) {
-        return adService.getAllByKeywordAndCategory(keywordOrNull, categoryOrNull);
+    public List<AdDto> getAllAdsByKeywordAndCategory(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByKeywordAndCategory(keywordOrNull, categoryOrNull));
     }
 
     @GetMapping(path = "/keywords-categories-types")
-    public List<Ad> getAllAdsByKeywordAndCategoryAndType(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
-        return adService.getAllByKeywordAndCategoryAndType(keywordOrNull, categoryOrNull, typeOrNull);
+    public List<AdDto> getAllAdsByKeywordAndCategoryAndType(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByKeywordAndCategoryAndType(keywordOrNull, categoryOrNull, typeOrNull));
     }
 
     @GetMapping(path = "/{id}")
-    public Ad getAdById(@PathVariable("id") int id) {
-        return adService.getById(id);
+    public AdDto getAdById(@PathVariable("id") int id) {
+        return new AdDto(adService.getById(id));
     }
 
     @PostMapping(path = "/new",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public Ad createNewAd(@RequestBody Ad ad) {
-        return adService.addNewAd(ad);
+    public AdDto createNewAd(@RequestBody Ad ad) {
+        return new AdDto(adService.addNewAd(ad));
     }
 
     @DeleteMapping(path = "/delete/{id}")
