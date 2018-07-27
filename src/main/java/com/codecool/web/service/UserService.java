@@ -56,6 +56,14 @@ public class UserService {
         return user;
     }
 
+    public void resendEmail(String userName) {
+        User user = userRepository.findByUserName(userName);
+        String verificationCode = UUID.randomUUID().toString().substring(0, 8);
+        user.setVerificationCode(verificationCode);
+        userRepository.save(user);
+        Utility.sendEmail(user);
+    }
+
 
     public void registerUser(String email, String username, String password, String type) throws UserAlreadyRegisteredException {
         if (userRepository.findByEmail(email) != null || userRepository.findByUserName(username) != null) {

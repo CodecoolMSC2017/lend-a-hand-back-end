@@ -31,6 +31,11 @@ public class AuthController {
         return userService.verificate(userName, verificationCode);
     }
 
+    @PutMapping("/resend")
+    public void resendEmail(@RequestBody Map<String, String> map) {
+        String userName = map.get("userName");
+        userService.resendEmail(userName);
+    }
 
     @DeleteMapping("")
     public void delete(HttpSession session) {
