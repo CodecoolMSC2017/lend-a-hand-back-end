@@ -122,4 +122,12 @@ public class AdDto {
     public void setAdvertiserName(String advertiserName) {
         this.advertiserName = advertiserName;
     }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
 }
