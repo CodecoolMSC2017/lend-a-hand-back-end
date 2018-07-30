@@ -40,4 +40,6 @@ public interface AdRepository extends JpaRepository<Ad, Integer> {
     List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryAndType(@Nullable String keyword, @Nullable String category, @Nullable String type);
 
 
+
+
 }

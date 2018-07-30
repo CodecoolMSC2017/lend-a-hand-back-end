@@ -1,11 +1,14 @@
 package com.codecool.web.service;
 
+import com.codecool.web.dto.AdDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.repository.AdRepository;
+import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -13,6 +16,8 @@ public class AdService {
 
     @Autowired
     private AdRepository adRepository;
+    @Autowired
+    private UserRepository uRepo;
 
     public List<Ad> getAll() {
         return adRepository.findAll();
@@ -82,7 +87,11 @@ public class AdService {
         return adRepository.findById(id);
     }
 
-    public Ad addNewAd(Ad ad) {
+    public Ad addNewAd(AdDto adDto) {
+        System.out.println(adDto.getAdvertiserId());
+        System.out.println(uRepo.findByUserName(adDto.getAdvertiserName()));
+        Ad ad = new Ad(uRepo.findById(adDto.getAdvertiserId()),adDto.getTitle(),adDto.getDescription(),adDto.getCategory(),adDto.isPremium(),adDto.getTimestamp(),adDto.getType());
+        System.out.println(ad.getTitle());
         adRepository.save(ad);
         return ad;
     }

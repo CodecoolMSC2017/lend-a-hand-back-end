@@ -22,6 +22,8 @@ public class AdsController {
         return adService.getAll();
     }
 
+
+
     @GetMapping(path = "/advertisers/{id}")
     public List<AdDto> getAllAdsByAdvertiser(@PathVariable("id") int id) {
         return Utility.convertAdListtoAdDtoList(adService.getAllByAdvertiserId(id));
@@ -68,10 +70,11 @@ public class AdsController {
     }
 
     @PostMapping(path = "/new",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public AdDto createNewAd(@RequestBody Ad ad) {
-        return new AdDto(adService.addNewAd(ad));
+    public AdDto createNewAd(@RequestBody AdDto ad) {
+        Ad tmpAd = adService.addNewAd(ad);
+        return new AdDto(tmpAd);
     }
 
     @DeleteMapping(path = "/delete/{id}")
