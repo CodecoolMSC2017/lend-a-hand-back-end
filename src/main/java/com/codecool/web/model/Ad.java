@@ -51,7 +51,7 @@ public class Ad {
     @Column(name = "is_premium")
     private boolean isPremium;
 
-
+    @NotNull
     private LocalDateTime timestamp;
 
     @NotNull
