@@ -1,5 +1,7 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.Utility;
+import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.model.Application;
 import com.codecool.web.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,28 +17,28 @@ public class ApplicationController {
     ApplicationService applicationService;
 
     @GetMapping(path = "")
-    public List<Application> getAllApplications() {
-        return applicationService.getAll();
+    public List<ApplicationDto> getAllApplications() {
+        return Utility.convertApplicationListToApplicationDtoList(applicationService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Application getApplicationById(@PathVariable("id") int id) {
-        return applicationService.getById(id);
+    public ApplicationDto getApplicationById(@PathVariable("id") int id) {
+        return new ApplicationDto(applicationService.getById(id));
     }
 
     @GetMapping("/applicants/{id}")
-    public List<Application> getAllApplicationsByApplicantId(@PathVariable("id") int id) {
-        return applicationService.getAllByApplicantIdOrderByTimestampDesc(id);
+    public List<ApplicationDto> getAllApplicationsByApplicantId(@PathVariable("id") int id) {
+        return Utility.convertApplicationListToApplicationDtoList(applicationService.getAllByApplicantIdOrderByTimestampDesc(id));
     }
 
     @GetMapping("/ads/{id}")
-    public List<Application> getAllApplicationsByAdId(@PathVariable("id") int id) {
-        return applicationService.getAllByAdIdOrderByTimestampAsc(id);
+    public List<ApplicationDto> getAllApplicationsByAdId(@PathVariable("id") int id) {
+        return Utility.convertApplicationListToApplicationDtoList(applicationService.getAllByAdIdOrderByTimestampAsc(id));
     }
 
     @PostMapping("/new")
-    public Application createNewApplication(@RequestBody Application application) {
-        return applicationService.addNewApplication(application);
+    public ApplicationDto createNewApplication(@RequestBody Application application) {
+        return new ApplicationDto(applicationService.addNewApplication(application));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -45,7 +47,7 @@ public class ApplicationController {
     }
 
     @PutMapping("/update")
-    public Application updateApplication(@RequestBody Application application) {
-        return applicationService.updateApplicationData(application);
+    public ApplicationDto updateApplication(@RequestBody Application application) {
+        return new ApplicationDto(applicationService.updateApplicationData(application));
     }
 }

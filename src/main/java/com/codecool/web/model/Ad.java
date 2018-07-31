@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.codecool.web.dto.AdDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -82,6 +83,18 @@ public class Ad {
         this.isPremium = isPremium;
         this.timestamp = timestamp;
         this.type = type;
+    }
+
+    public Ad(AdDto adDto, User user) {
+        this.advertiser = user;
+        this.title = adDto.getTitle();
+        this.description = adDto.getDescription();
+        this.category = adDto.getCategory();
+        this.isPremium = adDto.isPremium();
+        this.payment = adDto.getPayment();
+        this.timestamp = adDto.getTimestamp();
+        this.type = adDto.getType();
+        this.pictureLink = adDto.getPictureLink();
     }
 
 

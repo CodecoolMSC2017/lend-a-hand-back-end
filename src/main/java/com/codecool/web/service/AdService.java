@@ -7,12 +7,9 @@ import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -93,9 +90,7 @@ public class AdService {
 
     public Ad addNewAd(AdDto adDto) {
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-        Ad ad = new Ad(uRepo.findById(adDto.getAdvertiserId()),adDto.getTitle(),adDto.getDescription(),adDto.getCategory(),adDto.isPremium(),new Timestamp(new Date().getTime()).toLocalDateTime(),adDto.getType());
-        System.out.println(ad.getTitle());
+        Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
         adRepository.save(ad);
         return ad;
     }
