@@ -29,6 +29,13 @@ public class AdsController {
         return Utility.convertAdListtoAdDtoList(adService.getAllByAdvertiserId(id));
     }
 
+    @GetMapping(path = "/filters")
+    public List<AdDto> getAllAdsByFilter(@RequestParam(value = "keyword", required = false) String keywordOrNull,
+                                         @RequestParam(value = "category", required = false) String categoryOrNull,
+                                         @RequestParam(value = "type", required = false) String typeOrNull) {
+        return Utility.convertAdListtoAdDtoList(adService.getAllByFilter(keywordOrNull, categoryOrNull, typeOrNull));
+    }
+    /*
     @GetMapping(path = "/categories")
     public List<AdDto> getAllAdsByCategory(@RequestParam(value = "category", required = false) String categoryOrNull) {
         return Utility.convertAdListtoAdDtoList(adService.getAllByCategory(categoryOrNull));
@@ -63,6 +70,7 @@ public class AdsController {
     public List<AdDto> getAllAdsByKeywordAndCategoryAndType(@RequestParam(value = "keyword", required = false) String keywordOrNull, @RequestParam(value = "category", required = false) String categoryOrNull, @RequestParam(value = "type", required = false) String typeOrNull) {
         return Utility.convertAdListtoAdDtoList(adService.getAllByKeywordAndCategoryAndType(keywordOrNull, categoryOrNull, typeOrNull));
     }
+    */
 
     @GetMapping(path = "/{id}")
     public AdDto getAdById(@PathVariable("id") int id) {

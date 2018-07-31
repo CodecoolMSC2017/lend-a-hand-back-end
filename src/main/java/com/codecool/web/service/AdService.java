@@ -21,28 +21,28 @@ public class AdService {
     private UserRepository uRepo;
 
     public List<Ad> getAll() {
-        return adRepository.findAll();
+        return adRepository.findAllByOrderByTimestampDesc();
     }
 
     public List<Ad> getAllByAdvertiserId(int id) {
-        return adRepository.findAllByAdvertiser_Id(id);
+        return adRepository.findAllByAdvertiser_IdOrderByTimestampDesc(id);
     }
 
     public List<Ad> getAllByCategory(String category) {
-        return adRepository.findAllByCategory(category);
+        return adRepository.findAllByCategoryOrderByTimestampDesc(category);
     }
 
     public List<Ad> getAllByType(String type) {
-        return adRepository.findAllByType(type);
+        return adRepository.findAllByTypeOrderByTimestampDesc(type);
     }
 
     public List<Ad> getAllByCategoryAndType(String category, String type) {
-        return adRepository.findAllByCategoryAndType(category, type);
+        return adRepository.findAllByCategoryAndTypeOrderByTimestampDesc(category, type);
     }
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCase(keyword));
-        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCase(keyword);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseOrderByTimestampDesc(keyword));
+        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCaseOrderByTimestampDesc(keyword);
         for (Ad ad : adsByDescription){
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -52,8 +52,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategory(String keyword, String category) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategory(keyword, category));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategory(keyword, category);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryOrderByTimestampDesc(keyword, category));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryOrderByTimestampDesc(keyword, category);
         for (Ad ad : adsByDescriptionAndCategory) {
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -63,8 +63,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndType(String keyword, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndType(keyword, type));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndType(keyword, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndTypeOrderByTimestampDesc(keyword, type));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndTypeOrderByTimestampDesc(keyword, type);
         for (Ad ad : adsByDescriptionAndCategory) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
@@ -74,8 +74,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategoryAndType(String keyword, String category, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryAndType(keyword, category, type));
-        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryAndType(keyword, category, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(keyword, category, type));
+        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(keyword, category, type);
         for (Ad ad : adsByDescriptionAndCategoryAndType) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
@@ -85,55 +85,40 @@ public class AdService {
     }
 
     public List<Ad> getAllByFilter(String keyword, String category, String type) {
-        if (keyword != "" && category == "All" && type == "All") {
-            this.gem.updateKeywordFilter(this.filterSettings.keyword);
+        List<Ad> filteredAds = new ArrayList<>();
+        if (keyword.equals("") && category.equals("All") && type.equals("All")) {
+            filteredAds = getAll();
         }
 
-        if (this.filterSettings.selectedCategory != = 'All'
-            && this.filterSettings.keyword == = ''
-            && this.filterSettings.selectedType == = 'All') {
-            this.gem.updateCategoryFilter(this.filterSettings.selectedCategory);
+        if (!keyword.equals("") && category.equals("All") && type.equals("All")) {
+            filteredAds = getAllByTitleOrDescriptionContaining(keyword);
         }
 
-        if (this.filterSettings.selectedType != = 'All'
-            && this.filterSettings.keyword == = ''
-            && this.filterSettings.selectedCategory == = 'All') {
-            this.gem.updateTypeFilter(this.filterSettings.selectedType);
+        if (keyword.equals("") && !category.equals("All") && type.equals("All")) {
+            filteredAds = getAllByCategory(category);
         }
 
-        if (this.filterSettings.keyword != = ''
-            && this.filterSettings.selectedCategory != = 'All'
-            && this.filterSettings.selectedType == = 'All') {
-            this.gem.updateKeywordCategoryFilter(new KeywordCategoryFilterModel(this.filterSettings.keyword,
-                this.filterSettings.selectedCategory));
+        if (keyword.equals("") && category.equals("All") && !type.equals("All")) {
+            filteredAds = getAllByType(type);
         }
 
-        if (this.filterSettings.keyword != = ''
-            && this.filterSettings.selectedType != = 'All'
-            && this.filterSettings.selectedCategory == = 'All') {
-            this.gem.updateKeywordTypeFilter(new KeywordTypeFilterModel(this.filterSettings.keyword,
-                this.filterSettings.selectedType));
+        if (!keyword.equals("") && !category.equals("All") && type.equals("All")) {
+            filteredAds = getAllByKeywordAndCategory(keyword, category);
         }
 
-        if (this.filterSettings.selectedCategory != = 'All'
-            && this.filterSettings.selectedType != = 'All'
-            && this.filterSettings.keyword == = '') {
-            this.gem.updateCategoryTypeFilter(new CategoryTypeFilterModel(this.filterSettings.selectedCategory,
-                this.filterSettings.selectedType));
+        if (!keyword.equals("") && category.equals("All") && !type.equals("All")) {
+            filteredAds = getAllByKeywordAndType(keyword, type);
         }
 
-        if (this.filterSettings.keyword != = ''
-            && this.filterSettings.selectedCategory != = 'All'
-            && this.filterSettings.selectedType != = 'All') {
-            this.gem.updateKeywordCategoryTypeFilter(new KeywordCategoryTypeFilterModel(this.filterSettings.keyword,
-                this.filterSettings.selectedCategory, this.filterSettings.selectedType));
+        if (keyword.equals("") && !category.equals("All") && !type.equals("All")) {
+            filteredAds = getAllByCategoryAndType(category, type);
         }
 
-        if (this.filterSettings.keyword == = ''
-            && this.filterSettings.selectedCategory == = 'All'
-            && this.filterSettings.selectedType == = 'All') {
-            this.gem.updateNoFilter('No filter');
+        if (!keyword.equals("") && !category.equals("All") && !type.equals("All")) {
+            filteredAds = getAllByKeywordAndCategoryAndType(keyword, category, type);
         }
+
+        return filteredAds;
     }
 
     public Ad getById(int id) {

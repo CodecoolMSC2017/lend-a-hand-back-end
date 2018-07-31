@@ -8,36 +8,36 @@ import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 
-    @Override
-    List<Ad> findAll();
+    List<Ad> findAllByOrderByTimestampDesc();
 
-    List<Ad> findAllByAdvertiser_Id(int id);
+    List<Ad> findAllByAdvertiser_IdOrderByTimestampDesc(int id);
 
     Ad findById(int id);
 
-    List<Ad> findAllByCategory(String category);
+    List<Ad> findAllByCategoryOrderByTimestampDesc(String category);
 
-    List<Ad> findAllByTitleContainingIgnoreCase(@Nullable String keyword);
+    List<Ad> findAllByTitleContainingIgnoreCaseOrderByTimestampDesc(@Nullable String keyword);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCase(@Nullable String keyword);
+    List<Ad> findAllByDescriptionContainingIgnoreCaseOrderByTimestampDesc(@Nullable String keyword);
 
-    List<Ad> findAllByType(@Nullable String type);
+    List<Ad> findAllByTypeOrderByTimestampDesc(@Nullable String type);
 
-    List<Ad> findAllByCategoryAndType(@Nullable String category, @Nullable String type);
+    List<Ad> findAllByCategoryAndTypeOrderByTimestampDesc(@Nullable String category, @Nullable String type);
 
     //Find ads by keyword and category
-    List<Ad> findAllByTitleContainingIgnoreCaseAndCategory(@Nullable String keyword, @Nullable String category);
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategory(@Nullable String keyword, @Nullable String category);
+    List<Ad> findAllByTitleContainingIgnoreCaseAndCategoryOrderByTimestampDesc(@Nullable String keyword, @Nullable String category);
+
+    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryOrderByTimestampDesc(@Nullable String keyword, @Nullable String category);
 
     //Find ads by keyword and type
-    List<Ad> findAllByTitleContainingIgnoreCaseAndType(@Nullable String keyword, @Nullable String type);
+    List<Ad> findAllByTitleContainingIgnoreCaseAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String type);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndType(@Nullable String keyword, @Nullable String type);
+    List<Ad> findAllByDescriptionContainingIgnoreCaseAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String type);
 
     //Find ads by keyword, category and type
-    List<Ad> findAllByTitleContainingIgnoreCaseAndCategoryAndType(@Nullable String keyword, @Nullable String category, @Nullable String type);
+    List<Ad> findAllByTitleContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String category, @Nullable String type);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryAndType(@Nullable String keyword, @Nullable String category, @Nullable String type);
+    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String category, @Nullable String type);
 
 
 
