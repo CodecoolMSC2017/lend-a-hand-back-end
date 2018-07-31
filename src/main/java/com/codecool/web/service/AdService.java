@@ -84,6 +84,58 @@ public class AdService {
         return ads;
     }
 
+    public List<Ad> getAllByFilter(String keyword, String category, String type) {
+        if (keyword != "" && category == "All" && type == "All") {
+            this.gem.updateKeywordFilter(this.filterSettings.keyword);
+        }
+
+        if (this.filterSettings.selectedCategory != = 'All'
+            && this.filterSettings.keyword == = ''
+            && this.filterSettings.selectedType == = 'All') {
+            this.gem.updateCategoryFilter(this.filterSettings.selectedCategory);
+        }
+
+        if (this.filterSettings.selectedType != = 'All'
+            && this.filterSettings.keyword == = ''
+            && this.filterSettings.selectedCategory == = 'All') {
+            this.gem.updateTypeFilter(this.filterSettings.selectedType);
+        }
+
+        if (this.filterSettings.keyword != = ''
+            && this.filterSettings.selectedCategory != = 'All'
+            && this.filterSettings.selectedType == = 'All') {
+            this.gem.updateKeywordCategoryFilter(new KeywordCategoryFilterModel(this.filterSettings.keyword,
+                this.filterSettings.selectedCategory));
+        }
+
+        if (this.filterSettings.keyword != = ''
+            && this.filterSettings.selectedType != = 'All'
+            && this.filterSettings.selectedCategory == = 'All') {
+            this.gem.updateKeywordTypeFilter(new KeywordTypeFilterModel(this.filterSettings.keyword,
+                this.filterSettings.selectedType));
+        }
+
+        if (this.filterSettings.selectedCategory != = 'All'
+            && this.filterSettings.selectedType != = 'All'
+            && this.filterSettings.keyword == = '') {
+            this.gem.updateCategoryTypeFilter(new CategoryTypeFilterModel(this.filterSettings.selectedCategory,
+                this.filterSettings.selectedType));
+        }
+
+        if (this.filterSettings.keyword != = ''
+            && this.filterSettings.selectedCategory != = 'All'
+            && this.filterSettings.selectedType != = 'All') {
+            this.gem.updateKeywordCategoryTypeFilter(new KeywordCategoryTypeFilterModel(this.filterSettings.keyword,
+                this.filterSettings.selectedCategory, this.filterSettings.selectedType));
+        }
+
+        if (this.filterSettings.keyword == = ''
+            && this.filterSettings.selectedCategory == = 'All'
+            && this.filterSettings.selectedType == = 'All') {
+            this.gem.updateNoFilter('No filter');
+        }
+    }
+
     public Ad getById(int id) {
         return adRepository.findById(id);
     }
