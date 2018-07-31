@@ -1,6 +1,7 @@
 package com.codecool.web;
 
 import com.codecool.web.dto.AdDto;
+import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.EmployeeRating;
 import com.codecool.web.model.EmployerRating;
@@ -82,5 +83,14 @@ public class Utility {
             adDtos.add(new AdDto(ad));
         }
         return adDtos;
+    }
+
+
+    public static List<ApplicationDto> convertApplicationListToApplicationDtoList(List<com.codecool.web.model.Application> applications) {
+        List<ApplicationDto> appDtos = new ArrayList<>();
+        for (com.codecool.web.model.Application app : applications) {
+            appDtos.add(new ApplicationDto());
+        }
+        return appDtos;
     }
 }

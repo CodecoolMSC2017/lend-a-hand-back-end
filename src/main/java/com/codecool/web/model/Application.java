@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.codecool.web.dto.ApplicationDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -41,7 +42,7 @@ public class Application {
         this.ad = ad;
         this.applicant = applicant;
         this.timestamp = timestamp;
-        this.state = state; //TODO: should be determined here???
+        this.state = state;
     }
 
     public Application(@NotNull Ad ad, @NotNull User applicant, String message, @NotNull LocalDateTime timestamp, @NotNull String state) {
@@ -49,7 +50,15 @@ public class Application {
         this.applicant = applicant;
         this.message = message;
         this.timestamp = timestamp;
-        this.state = state; //TODO: should be determined here???
+        this.state = state;
+    }
+
+    public Application(ApplicationDto applicationDto, Ad ad, User user) {
+        this.ad = ad;
+        this.applicant = user;
+        this.message = applicationDto.getMessage();
+        this.timestamp = applicationDto.getTimestamp();
+        this.state = applicationDto.getState();
     }
 
     public int getId() {
