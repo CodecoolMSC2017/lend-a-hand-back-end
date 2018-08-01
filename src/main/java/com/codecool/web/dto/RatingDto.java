@@ -7,28 +7,29 @@ import java.util.List;
 
 public class RatingDto implements Serializable {
 
-    private List<EmployeeRating> employeeRatings;
-    private List<EmployerRating> employerRatings;
+    private List<RatingTransferObject> employeeRatings;
+    private List<RatingTransferObject> employerRatings;
 
 
-    public RatingDto(List<EmployeeRating> employeeRatings, List<EmployerRating> employerRatings) {
+    public RatingDto(List<RatingTransferObject> employeeRatings, List<RatingTransferObject> employerRatings) {
         this.employeeRatings = employeeRatings;
         this.employerRatings = employerRatings;
     }
 
-    public List<EmployeeRating> getEmployeeRatings() {
+    public List<RatingTransferObject> getEmployeeRatings() {
         return employeeRatings;
     }
 
-    public void setEmployeeRatings(List<EmployeeRating> employeeRatings) {
-        this.employeeRatings = employeeRatings;
-    }
-
-    public List<EmployerRating> getEmployerRatings() {
+    public List<RatingTransferObject> getEmployerRatings() {
         return employerRatings;
     }
 
-    public void setEmployerRatings(List<EmployerRating> employerRatings) {
+
+    public void setEmployeeRatings(List<RatingTransferObject> employeeRatings) {
+        this.employeeRatings = employeeRatings;
+    }
+
+    public void setEmployerRatings(List<RatingTransferObject> employerRatings) {
         this.employerRatings = employerRatings;
     }
 }
