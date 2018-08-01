@@ -37,7 +37,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/new")
-    public ApplicationDto createNewApplication(@RequestBody Application application) {
+    public ApplicationDto createNewApplication(@RequestBody ApplicationDto application) {
         return new ApplicationDto(applicationService.addNewApplication(application));
     }
 
