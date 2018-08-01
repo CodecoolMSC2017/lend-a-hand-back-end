@@ -32,7 +32,7 @@ public class AdDto implements Serializable {
 
 
     public AdDto(Ad ad) {
-        this.id = ad.getId();
+
         this.title = ad.getTitle();
         this.description = ad.getDescription();
         this.payment = ad.getPayment();
