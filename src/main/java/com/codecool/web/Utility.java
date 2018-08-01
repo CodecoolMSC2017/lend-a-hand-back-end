@@ -89,7 +89,7 @@ public class Utility {
     public static List<ApplicationDto> convertApplicationListToApplicationDtoList(List<com.codecool.web.model.Application> applications) {
         List<ApplicationDto> appDtos = new ArrayList<>();
         for (com.codecool.web.model.Application app : applications) {
-            appDtos.add(new ApplicationDto());
+            appDtos.add(new ApplicationDto(app));
         }
         return appDtos;
     }
