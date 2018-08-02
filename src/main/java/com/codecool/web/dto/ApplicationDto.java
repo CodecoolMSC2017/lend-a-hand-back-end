@@ -1,8 +1,10 @@
 package com.codecool.web.dto;
 
+import com.codecool.web.Utility;
 import com.codecool.web.model.Application;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ApplicationDto implements Serializable {
@@ -17,13 +19,19 @@ public class ApplicationDto implements Serializable {
 
     private String applicantName;
 
+    private String applicantPictureLink;
+
+    private BigDecimal employeeRatingScore;
+
+    private BigDecimal employerRatingScore;
+
     private String message;
 
     private String state;
 
     private LocalDateTime timestamp;
 
-    private String pictureLink;
+    private String adPictureLink;
 
     private int payment;
 
@@ -39,9 +47,12 @@ public class ApplicationDto implements Serializable {
         this.message = application.getMessage();
         this.timestamp = application.getTimestamp();
         this.state = application.getState();
-        this.pictureLink = application.getAd().getPictureLink();
+        this.adPictureLink = application.getAd().getPictureLink();
         this.payment = application.getAd().getPayment();
         this.type = application.getAd().getType();
+        this.applicantPictureLink = application.getApplicant().getPictureLink();
+        this.employeeRatingScore = Utility.evaluateEmployeeRating(application.getApplicant());
+        this.employerRatingScore = Utility.evaluateEmployerRating(application.getApplicant());
     }
 
     public ApplicationDto(int id, int adId, String adTitle, int applicantId, String applicantName, String message, String state, LocalDateTime timestamp) {
@@ -122,12 +133,12 @@ public class ApplicationDto implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getPictureLink() {
-        return pictureLink;
+    public String getAdPictureLink() {
+        return adPictureLink;
     }
 
-    public void setPictureLink(String pictureLink) {
-        this.pictureLink = pictureLink;
+    public void setAdPictureLink(String adPictureLink) {
+        this.adPictureLink = adPictureLink;
     }
 
     public int getPayment() {
@@ -144,5 +155,29 @@ public class ApplicationDto implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getApplicantPictureLink() {
+        return applicantPictureLink;
+    }
+
+    public void setApplicantPictureLink(String applicantPictureLink) {
+        this.applicantPictureLink = applicantPictureLink;
+    }
+
+    public BigDecimal getEmployeeRatingScore() {
+        return employeeRatingScore;
+    }
+
+    public void setEmployeeRatingScore(BigDecimal employeeRatingScore) {
+        this.employeeRatingScore = employeeRatingScore;
+    }
+
+    public BigDecimal getEmployerRatingScore() {
+        return employerRatingScore;
+    }
+
+    public void setEmployerRatingScore(BigDecimal employerRatingScore) {
+        this.employerRatingScore = employerRatingScore;
     }
 }
