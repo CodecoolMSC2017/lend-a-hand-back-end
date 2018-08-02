@@ -23,6 +23,12 @@ public class ApplicationDto implements Serializable {
 
     private LocalDateTime timestamp;
 
+    private String pictureLink;
+
+    private int payment;
+
+    private String type;
+
 
     public ApplicationDto(Application application) {
         this.id = application.getId();
@@ -33,6 +39,9 @@ public class ApplicationDto implements Serializable {
         this.message = application.getMessage();
         this.timestamp = application.getTimestamp();
         this.state = application.getState();
+        this.pictureLink = application.getAd().getPictureLink();
+        this.payment = application.getAd().getPayment();
+        this.type = application.getAd().getType();
     }
 
     public ApplicationDto(int id, int adId, String adTitle, int applicantId, String applicantName, String message, String state, LocalDateTime timestamp) {
@@ -111,5 +120,29 @@ public class ApplicationDto implements Serializable {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
