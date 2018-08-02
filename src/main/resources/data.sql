@@ -3,7 +3,10 @@ VALUES ('semmiertelme13@gmail.com', 'Beagun','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1C
        ('user@user.com','user','User1', 'person', 1, 1, false, false, true, 'https://mork.nyugat.hu/Scopes/nyugat2015/var//improxy/NyugatWXGAPicture/22/29/222914_mosomedve.jpg',true);
 
 INSERT INTO users (email, phone, username, full_name, password, type, balance, reported,blocked, able_to_ad,enabled, picture_link, postal_code, city, address, verificated )
-VALUES ('lorinc.hunyadi@gmail.com','+36706743245','Lorincke23','Hunyadi Lorinc','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q','person',3,0,false,true,true,'https://image.shutterstock.com/image-photo/portrait-handsome-gardener-black-apron-260nw-465594779.jpg','2074','Perbal','Kossuth utca 66',true);
+VALUES ('lorinc.hunyadi@gmail.com','+36706743245','Lorincke23','Lorinc Hunyadi','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q','person',3,0,false,true,true,'https://image.shutterstock.com/image-photo/portrait-handsome-gardener-black-apron-260nw-465594779.jpg','2074','Perbal','Kossuth utca 66',true),
+('msalexapekar@gmail.com', '+36306623455', 'AlexaPekar', 'Alexa Pekar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 12, 0, false, true, true, '', '3535', 'Miskolc', 'Bajcsy u. 4.', true),
+('krisztiankollar@gmail.com', '+36205623895', 'KrisztianKollar', 'Krisztian Kollar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 18, 0, false, true, true, '', '3533', 'Miskolc', 'Kazinczy u. 16.', true);
+
 
 
 INSERT INTO ads (advertiser_id, chosen_applicant_id, title, description, payment, category, is_premium, timestamp, type, picture_link)
