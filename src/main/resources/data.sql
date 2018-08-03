@@ -1,11 +1,11 @@
 INSERT INTO users (email, username, password, type, balance, reported,blocked, able_to_ad,enabled, picture_link,verificated)
-VALUES ('semmiertelme13@gmail.com', 'Beagun','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 0, 0, false, true, true, 'https://hir.ma/wp-content/uploads/2016/01/all-1024x853.jpg',true),
-       ('user@user.com','user','User1', 'person', 1, 1, false, false, true, 'https://mork.nyugat.hu/Scopes/nyugat2015/var//improxy/NyugatWXGAPicture/22/29/222914_mosomedve.jpg',true);
+VALUES ('semmiertelme13@gmail.com', 'Beagun','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 0, 0, false, true, true, 'https://www.dailydot.com/wp-content/uploads/7ba/bf/bf1b9c3fd70bf7ddda1bcda4b2405d4f.jpg',true),
+       ('fernandes@gmail.com','Mendes','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 1, 1, false, false, true, 'http://www.guidingyourcredit.com/testimonials%204.18/man%201.jpg?algorithm=fill_proportional',true);
 
 INSERT INTO users (email, phone, username, full_name, password, type, balance, reported,blocked, able_to_ad,enabled, picture_link, postal_code, city, address, verificated )
 VALUES ('lorinc.hunyadi@gmail.com','+36706743245','Lorincke23','Lorinc Hunyadi','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q','person',3,0,false,true,true,'https://image.shutterstock.com/image-photo/portrait-handsome-gardener-black-apron-260nw-465594779.jpg','2074','Perbal','Kossuth utca 66',true),
 ('msalexapekar@gmail.com', '+36306623455', 'AlexaPekar', 'Alexa Pekar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 12, 0, false, true, true, '', '3535', 'Miskolc', 'Bajcsy u. 4.', true),
-('krisztiankollar@gmail.com', '+36205623895', 'KrisztianKollar', 'Krisztian Kollar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 18, 0, false, true, true, '', '3533', 'Miskolc', 'Kazinczy u. 16.', true);
+('krisztiankollar@gmail.com', '+36205623895', 'KrisztianKollar', 'Krisztian Kollar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 18, 0, false, true, true, 'https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-9/398634_172275892881028_772439791_n.jpg?_nc_cat=0&oh=68b3c6d05f72701b2915833be974f531&oe=5C12E788', '3533', 'Miskolc', 'Kazinczy u. 16.', true);
 
 
 
@@ -42,7 +42,9 @@ VALUES (1, 2, 'Looking for babysitter', 'Want a cute person to look after my chi
 
 INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
                                                     ('Lorincke23','USER'),
-                                                    ('user','USER');
+                                                    ('Mendes','USER'),
+                                                    ('AlexaPekar', 'USER'),
+                                                    ('KrisztianKollar', 'USER');
 INSERT INTO employee_ratings (rater_id, rated_id, rating)
 VALUES (1,2,5),
 (1,3,2),
