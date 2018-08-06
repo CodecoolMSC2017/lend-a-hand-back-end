@@ -11,6 +11,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 
     Application findById(int id);
 
+    Application findByAd_IdAndApplicant_Id(int adId, int applicantId);
+
     List<Application> findAllByApplicant_IdOrderByTimestampDesc(int id);
 
     List<Application> findAllByAd_IdOrderByTimestampAsc(int id);

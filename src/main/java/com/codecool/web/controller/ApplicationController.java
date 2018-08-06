@@ -2,6 +2,7 @@ package com.codecool.web.controller;
 
 import com.codecool.web.Utility;
 import com.codecool.web.dto.ApplicationDto;
+import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/new")
-    public ApplicationDto createNewApplication(@RequestBody ApplicationDto application) {
+    public ApplicationDto createNewApplication(@RequestBody ApplicationDto application) throws AlreadyAppliedException {
         return new ApplicationDto(applicationService.addNewApplication(application));
     }
 

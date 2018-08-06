@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.dto.ApplicationDto;
+import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.Application;
 import com.codecool.web.model.User;
@@ -43,7 +44,10 @@ public class ApplicationService {
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(id);
     }
 
-    public Application addNewApplication(ApplicationDto application) {
+    public Application addNewApplication(ApplicationDto application) throws AlreadyAppliedException {
+        if (applicationRepository.findByAd_IdAndApplicant_Id(application.getAdId(), application.getApplicantId()) != null) {
+            throw new AlreadyAppliedException();
+        }
         application.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         return applicationRepository.save(new Application(application,adRepo.findById(application.getAdId()),uRepo.findById(application.getApplicantId())));
 
