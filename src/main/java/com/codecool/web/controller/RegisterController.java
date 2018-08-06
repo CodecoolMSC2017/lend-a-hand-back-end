@@ -1,7 +1,7 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.dto.MessageDto;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
-import com.codecool.web.model.MessageDto;
 import com.codecool.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
