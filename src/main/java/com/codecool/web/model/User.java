@@ -21,7 +21,6 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
     @JsonManagedReference(value = "user-ads")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Ad> ads;
 
     @ElementCollection
@@ -72,14 +71,17 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-sent-messages")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-received-messages")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> receivedMessages;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference(value = "user-notification")
+    private List<Notification> notifications;
 
 
     @Size(max = 32)
@@ -162,7 +164,8 @@ public class User implements Serializable {
         enabled = true;
     }
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled, Boolean verificated, String verificationCode) {
+
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, List<Notification> notifications, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled, Boolean verificated, String verificationCode) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
@@ -174,6 +177,7 @@ public class User implements Serializable {
         this.applications = applications;
         this.sentMessages = sentMessages;
         this.receivedMessages = receivedMessages;
+        this.notifications = notifications;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
@@ -421,4 +425,15 @@ public class User implements Serializable {
         this.reported = reported;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
 }
