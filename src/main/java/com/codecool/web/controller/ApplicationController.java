@@ -2,7 +2,6 @@ package com.codecool.web.controller;
 
 import com.codecool.web.Utility;
 import com.codecool.web.dto.ApplicationDto;
-import com.codecool.web.model.Application;
 import com.codecool.web.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +45,13 @@ public class ApplicationController {
         applicationService.deleteApplication(id);
     }
 
-    @PutMapping("/update")
-    public ApplicationDto updateApplication(@RequestBody Application application) {
-        return new ApplicationDto(applicationService.updateApplicationData(application));
+    @PutMapping("/accept/{id}")
+    public List<ApplicationDto> acceptApplication(@PathVariable("id") int id) {
+        return Utility.convertApplicationListToApplicationDtoList(applicationService.acceptApplication(id));
+    }
+
+    @PutMapping("/decline/{id}")
+    public List<ApplicationDto> declineApplication(@PathVariable("id") int id) {
+        return Utility.convertApplicationListToApplicationDtoList(applicationService.declineApplication(id));
     }
 }

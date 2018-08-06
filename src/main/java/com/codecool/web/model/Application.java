@@ -54,6 +54,7 @@ public class Application {
     }
 
     public Application(ApplicationDto applicationDto, Ad ad, User user) {
+        this.id = applicationDto.getId();
         this.ad = ad;
         this.applicant = user;
         this.message = applicationDto.getMessage();

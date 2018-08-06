@@ -93,4 +93,11 @@ public class Utility {
         }
         return appDtos;
     }
+
+    public static List<com.codecool.web.model.Application> changeStateOfApplicaions(List<com.codecool.web.model.Application> applications, String state) {
+        for (com.codecool.web.model.Application app : applications) {
+            app.setState(state);
+        }
+        return applications;
+    }
 }

@@ -1,7 +1,9 @@
 package com.codecool.web.service;
 
 import com.codecool.web.dto.ApplicationDto;
+import com.codecool.web.model.Ad;
 import com.codecool.web.model.Application;
+import com.codecool.web.model.User;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.ApplicationRepository;
 import com.codecool.web.repository.UserRepository;
@@ -45,6 +47,29 @@ public class ApplicationService {
         application.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         return applicationRepository.save(new Application(application,adRepo.findById(application.getAdId()),uRepo.findById(application.getApplicantId())));
 
+    }
+
+    public List<Application> declineApplication(int id) {
+        ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
+        Ad ad = adRepo.findById(applicationDto.getAdId());
+        User user = uRepo.findById(applicationDto.getApplicantId());
+        applicationDto.setState("Declined");
+        Application application = new Application(applicationDto, ad, user);
+        applicationRepository.save(application);
+        return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
+    }
+
+    public List<Application> acceptApplication(int id) {
+        ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
+        Ad ad = adRepo.findById(applicationDto.getAdId());
+        User user = uRepo.findById(applicationDto.getApplicantId());
+        applicationDto.setState("Accepted");
+        ad.setChosenApplicant(user);
+        Application application = new Application(applicationDto, ad, user);
+        adRepo.save(ad);
+        uRepo.save(user);
+        applicationRepository.save(application);
+        return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
     public void deleteApplication(int id) {
