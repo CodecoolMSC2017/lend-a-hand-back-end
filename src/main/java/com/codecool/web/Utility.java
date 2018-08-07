@@ -2,18 +2,16 @@ package com.codecool.web;
 
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
-import com.codecool.web.model.Ad;
-import com.codecool.web.model.EmployeeRating;
-import com.codecool.web.model.EmployerRating;
-import com.codecool.web.model.User;
+import com.codecool.web.model.*;
 
-import javax.mail.*;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class Utility {
 
@@ -63,9 +61,9 @@ public class Utility {
                 }
             });
         try {
-            Message message = new MimeMessage(session);
+            javax.mail.Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("reminder.myschedule@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
+            message.setRecipients(javax.mail.Message.RecipientType.TO,
                 InternetAddress.parse(user.getEmail()));
             message.setSubject("Account verification");
             message.setText(String.format("Dear %s,\n\nYou are successfully registered to the Lend a hand website.\n\nYou must verificate your account using the code below.\n\nVerification code: %s ", user.getUserName(), user.getVerificationCode()));
@@ -99,5 +97,18 @@ public class Utility {
             app.setState(state);
         }
         return applications;
+    }
+
+    public static Set<User> convertMessagesToUserSet(List<Message> messages, int userId) {
+        Set<User> users = new HashSet<>();
+        for (Message message : messages) {
+            if (message.getReceiver().getId() != userId) {
+                users.add(message.getReceiver());
+            }
+            if (message.getSender().getId() != userId) {
+                users.add(message.getSender());
+            }
+        }
+        return users;
     }
 }
