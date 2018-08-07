@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.codecool.web.dto.MessageDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -40,6 +41,14 @@ public class Message {
         this.receiver = receiver;
         this.text = text;
         this.timestamp = timestamp;
+    }
+
+    public Message(MessageDto messageDto, User sender, User receiver) {
+        this.id = messageDto.getId();
+        this.sender = sender;
+        this.receiver = receiver;
+        this.text = messageDto.getText();
+        this.timestamp = messageDto.getTimestamp();
     }
 
     public int getId() {

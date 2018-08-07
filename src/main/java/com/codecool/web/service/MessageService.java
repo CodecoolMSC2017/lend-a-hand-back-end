@@ -6,9 +6,13 @@ import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.MessageRepository;
+import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -16,6 +20,9 @@ public class MessageService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Message> getAllBySender_IdAndReceiver_IdOrderByTimestampAsc(int senderId, int receiverId) {
         return messageRepository.findAllBySender_IdAndReceiver_IdOrderByTimestampAsc(senderId, receiverId);
@@ -25,9 +32,14 @@ public class MessageService {
         return messageRepository.findAllBySender_IdAndReceiver_IdAndTextContainingOrderByTimestampAsc(senderId, receiverId, keyword);
     }
 
-    public Message addNewMessage(Message message) {
+    public MessageDto addNewMessage(MessageDto messageDto) {
+        User sender = userRepository.findById(messageDto.getSenderId());
+        User receiver = userRepository.findById(messageDto.getReceiverId());
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        messageDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
+        Message message = new Message(messageDto, sender, receiver);
         messageRepository.save(message);
-        return message;
+        return new MessageDto(message);
     }
 
     public List<Contact> getContactsByUserId(int userId) {

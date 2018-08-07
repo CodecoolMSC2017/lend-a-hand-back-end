@@ -1,9 +1,11 @@
 package com.codecool.web.controller;
 
 import com.codecool.web.dto.Contact;
+import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.Message;
 import com.codecool.web.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +32,10 @@ public class MessageController {
         return messageService.getContactsByUserId(userId);
     }
 
-    @PostMapping("/new")
-    public Message createNewMessage(@RequestBody Message message) {
-        return messageService.addNewMessage(message);
+    @PostMapping(path = "/new",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public MessageDto createNewMessage(@RequestBody MessageDto messageDto) {
+        return messageService.addNewMessage(messageDto);
     }
 }
