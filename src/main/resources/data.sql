@@ -74,21 +74,20 @@ VALUES (1,2,2),
 (3,1,2);
 
 INSERT INTO messages (sender_id, receiver_id, text, timestamp)
-VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-08 10:23:54'),
-(2,1,'Hi, Of course i can pay 20$/ minute for it.','2018-8-08 10:24:05'),
-(1,2,'It is wonderful!','2018-8-08 10:24:20'),
-(1,2,'So when can i go and do the work for you?','2018-8-08 10:24:44'),
-(2,1,'Is this afternoon okay for you?','2018-8-08 10:24:55'),
-(1,2,'Of course, i will be there at 6pm','2018-8-08 10:25:20' ),
-(2,1,'Fine, thanks!','2018-8-08 10:25:30'),
+VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-04 10:23:54'),
+(2,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-04 10:24:05'),
+(1,2,'It is wonderful!','2018-8-04 10:24:20'),
+(1,2,'So when can i go and do the work for you?','2018-8-04 10:24:44'),
+(2,1,'Is this afternoon okay for you?','2018-8-04 10:24:55'),
+(1,2,'Of course, i will be there at 6pm','2018-8-04 10:25:20' ),
+(2,1,'Fine, thanks!','2018-8-04 10:25:30'),
 
-(1,4,'Hello, I am Beagun can i ask about the payment?','2018-8-08 10:23:54'),
-(4,1,'Hi, Of course i can pay 20$/ minute for it.','2018-8-08 10:24:05'),
-(1,4,'It is wonderful!','2018-8-08 10:24:20'),
-(1,4,'So when can i go and do the work for you?','2018-8-08 10:24:44'),
-(4,1,'Is this afternoon okay for you?','2018-8-08 10:24:55'),
-(1,4,'Of course, i will be there at 6pm','2018-8-08 10:25:20' ),
-(4,1,'Fine, thanks!','2018-8-08 10:25:30');
+(1,4,'Hello, I am Beagun can i ask about the payment?','2018-8-05 10:23:54'),
+(4,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-05 10:24:05'),
+(1,4,'Sorry, it is not enough for me.','2018-8-05 10:24:20'),
+(4,1,'Maybe 22$/hour','2018-8-05 10:24:55'),
+(1,4,'Sorry, not enough','2018-8-05 10:25:20' ),
+(4,1,'That is the maximum i can afford. Bye!','2018-8-05 10:25:30');
 
 
 
