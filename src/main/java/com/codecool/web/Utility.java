@@ -2,6 +2,7 @@ package com.codecool.web;
 
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
+import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.*;
 
 import javax.mail.MessagingException;
@@ -81,6 +82,13 @@ public class Utility {
             adDtos.add(new AdDto(ad));
         }
         return adDtos;
+    }
+    public static List<MessageDto> convertMessageListtoMessageDtoList(List<Message> messages) {
+        List<MessageDto> messageDtos = new ArrayList<>();
+        for (Message message : messages) {
+            messageDtos.add(new MessageDto(message));
+        }
+        return messageDtos;
     }
 
 

@@ -2,6 +2,7 @@ package com.codecool.web.service;
 
 import com.codecool.web.Utility;
 import com.codecool.web.dto.Contact;
+import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.MessageRepository;
@@ -38,7 +39,8 @@ public class MessageService {
             List<Message> receivedMessages = messageRepository.findAllBySender_IdAndReceiver_IdOrderByTimestampAsc(user.getId(), userId);
             receivedMessages.addAll(sentMessages);
             Collections.sort(receivedMessages, Comparator.comparing(Message::getTimestamp));
-            Contact contact = new Contact(user, receivedMessages, receivedMessages.get(receivedMessages.size() - 1));
+            List<MessageDto> messageDtos = Utility.convertMessageListtoMessageDtoList(receivedMessages);
+            Contact contact = new Contact(user, messageDtos, messageDtos.get(messageDtos.size()-1));
             contacts.add(contact);
         }
         return contacts;

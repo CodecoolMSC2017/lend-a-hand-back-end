@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Contact implements Serializable {
     private User user;
-    private List<Message> messages;
-    private Message lastMessage;
+    private List<MessageDto> messages;
+    private MessageDto lastMessage;
 
-    public Contact(User user, List<Message> messages, Message lastMessage) {
+    public Contact(User user, List<MessageDto> messages, MessageDto lastMessage) {
         this.user = user;
         this.messages = messages;
         this.lastMessage = lastMessage;
@@ -25,19 +25,19 @@ public class Contact implements Serializable {
         this.user = user;
     }
 
-    public List<Message> getMessages() {
+    public List<MessageDto> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(List<MessageDto> messages) {
         this.messages = messages;
     }
 
-    public Message getLastMessage() {
+    public MessageDto getLastMessage() {
         return lastMessage;
     }
 
-    public void setLastMessage(Message lastMessage) {
+    public void setLastMessage(MessageDto lastMessage) {
         this.lastMessage = lastMessage;
     }
 }

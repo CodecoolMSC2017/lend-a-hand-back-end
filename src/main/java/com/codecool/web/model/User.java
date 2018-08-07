@@ -69,12 +69,10 @@ public class User implements Serializable {
     private List<Application> applications;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-sent-messages")
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-received-messages")
     private List<Message> receivedMessages;
 
