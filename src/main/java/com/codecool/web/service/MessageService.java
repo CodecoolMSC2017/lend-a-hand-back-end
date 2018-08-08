@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.Utility;
+import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.Contact;
 import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.Ad;
@@ -58,7 +59,7 @@ public class MessageService {
             receivedMessages.addAll(sentMessages);
             Collections.sort(receivedMessages, Comparator.comparing(Message::getTimestamp));
             List<MessageDto> messageDtos = Utility.convertMessageListtoMessageDtoList(receivedMessages);
-            Ad ad = receivedMessages.get(0).getAd();
+            AdDto ad = new AdDto(receivedMessages.get(receivedMessages.size() - 1).getAd());
             Contact contact = new Contact(user, messageDtos, messageDtos.get(messageDtos.size() - 1), ad);
             contacts.add(contact);
         }
