@@ -58,7 +58,6 @@ CREATE TABLE employer_ratings (
 CREATE TABLE ads (
   id SERIAL PRIMARY KEY,
   advertiser_id INTEGER NOT NULL,
-  chosen_applicant_id INTEGER,
   title VARCHAR(64) NOT NULL,
   description TEXT NOT NULL,
   picture_link TEXT,
@@ -67,8 +66,8 @@ CREATE TABLE ads (
   is_premium BOOLEAN NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   type VARCHAR(16) NOT NULL,
-  FOREIGN KEY (advertiser_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (chosen_applicant_id) REFERENCES users("id") ON DELETE CASCADE
+  state TEXT NOT NULL,
+  FOREIGN KEY (advertiser_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE applications (

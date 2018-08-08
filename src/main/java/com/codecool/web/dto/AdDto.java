@@ -1,7 +1,6 @@
 package com.codecool.web.dto;
 
 import com.codecool.web.model.Ad;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -30,6 +29,8 @@ public class AdDto implements Serializable {
 
     private String pictureLink;
 
+    private String state;
+
 
     public AdDto(Ad ad) {
         this.id = ad.getId();
@@ -43,6 +44,7 @@ public class AdDto implements Serializable {
         this.advertiserId = ad.getAdvertiser().getId();
         this.advertiserName = ad.getAdvertiser().getUserName();
         this.pictureLink = ad.getPictureLink();
+        this.state = ad.getState();
     }
     public AdDto(String title, String description, String category, boolean isPremium,  String type, int advertiserId, String advertiserName) {
 
@@ -57,7 +59,9 @@ public class AdDto implements Serializable {
         this.advertiserName = advertiserName;
 
     }
-    public AdDto(){};
+
+    public AdDto() {
+    }
 
     public int getId() {
         return id;
@@ -146,4 +150,14 @@ public class AdDto implements Serializable {
     public void setPictureLink(String pictureLink) {
         this.pictureLink = pictureLink;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
 }

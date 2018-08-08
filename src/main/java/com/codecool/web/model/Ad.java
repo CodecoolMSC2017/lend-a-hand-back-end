@@ -24,10 +24,6 @@ public class Ad {
     @NotNull
     private User advertiser;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "chosen_applicant_id")
-    @JsonBackReference(value = "ad-user")
-    private User chosenApplicant;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
     @JsonManagedReference(value = "ad-applications")
@@ -58,10 +54,13 @@ public class Ad {
     @NotNull
     private String type;
 
+    @NotNull
+    private String state;
+
     public Ad() {
     }
 
-    public Ad(@NotNull User advertiser, @NotNull @Size(max = 64) String title, @NotNull String description, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
+    public Ad(@NotNull User advertiser, @NotNull @Size(max = 64) String title, @NotNull String description, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type, @NotNull String state) {
         this.advertiser = advertiser;
         this.title = title;
         this.description = description;
@@ -69,11 +68,11 @@ public class Ad {
         this.isPremium = isPremium;
         this.timestamp = timestamp;
         this.type = type;
+        this.state = state;
     }
 
-    public Ad(@NotNull User advertiser, User chosenApplicant, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, String pictureLink, int payment, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type) {
+    public Ad(@NotNull User advertiser, List<Application> applications, @NotNull @Size(max = 64) String title, @NotNull String description, String pictureLink, int payment, @NotNull @Size(max = 32) String category, boolean isPremium, @NotNull LocalDateTime timestamp, @NotNull String type, @NotNull String state) {
         this.advertiser = advertiser;
-        this.chosenApplicant = chosenApplicant;
         this.applications = applications;
         this.title = title;
         this.description = description;
@@ -83,6 +82,7 @@ public class Ad {
         this.isPremium = isPremium;
         this.timestamp = timestamp;
         this.type = type;
+        this.state = state;
     }
 
     public Ad(AdDto adDto, User user) {
@@ -95,9 +95,8 @@ public class Ad {
         this.timestamp = adDto.getTimestamp();
         this.type = adDto.getType();
         this.pictureLink = adDto.getPictureLink();
+        this.state = adDto.getState();
     }
-
-
 
     public int getId() {
         return id;
@@ -105,10 +104,6 @@ public class Ad {
 
     public User getAdvertiser() {
         return advertiser;
-    }
-
-    public User getChosenApplicant() {
-        return chosenApplicant;
     }
 
     public List<Application> getApplications() {
@@ -151,10 +146,6 @@ public class Ad {
         this.advertiser = advertiser;
     }
 
-    public void setChosenApplicant(User chosenApplicant) {
-        this.chosenApplicant = chosenApplicant;
-    }
-
     public void setApplications(List<Application> applications) {
         this.applications = applications;
     }
@@ -189,5 +180,17 @@ public class Ad {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

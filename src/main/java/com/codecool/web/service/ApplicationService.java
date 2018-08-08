@@ -68,7 +68,6 @@ public class ApplicationService {
         Ad ad = adRepo.findById(applicationDto.getAdId());
         User user = uRepo.findById(applicationDto.getApplicantId());
         applicationDto.setState("Accepted");
-        ad.setChosenApplicant(user);
         Application application = new Application(applicationDto, ad, user);
         adRepo.save(ad);
         uRepo.save(user);
