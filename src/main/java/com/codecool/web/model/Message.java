@@ -22,6 +22,12 @@ public class Message {
     private User sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ad_id")
+    @JsonBackReference(value = "ad-messages")
+    @NotNull
+    private Ad ad;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
     @JsonBackReference(value = "user-received-messages")
     @NotNull
@@ -36,19 +42,21 @@ public class Message {
     public Message() {
     }
 
-    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp) {
+    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp, @NotNull Ad ad) {
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
         this.timestamp = timestamp;
+        this.ad = ad;
     }
 
-    public Message(MessageDto messageDto, User sender, User receiver) {
+    public Message(MessageDto messageDto, User sender, User receiver, Ad ad) {
         this.id = messageDto.getId();
         this.sender = sender;
         this.receiver = receiver;
         this.text = messageDto.getText();
         this.timestamp = messageDto.getTimestamp();
+        this.ad = ad;
     }
 
     public int getId() {
@@ -85,5 +93,17 @@ public class Message {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Ad getAd() {
+        return ad;
+    }
+
+    public void setAd(Ad ad) {
+        this.ad = ad;
     }
 }
