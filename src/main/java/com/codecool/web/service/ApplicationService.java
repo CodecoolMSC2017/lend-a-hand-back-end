@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.Utility;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.Ad;
@@ -69,20 +70,33 @@ public class ApplicationService {
         User user = uRepo.findById(applicationDto.getApplicantId());
         applicationDto.setState("Accepted");
         Application application = new Application(applicationDto, ad, user);
-        adRepo.save(ad);
-        uRepo.save(user);
         applicationRepository.save(application);
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
- /*   public List<Contact> failApplication(int id){
+    public ApplicationDto failApplication(int id) {
         ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
         Ad ad = adRepo.findById(applicationDto.getAdId());
         User user = uRepo.findById(applicationDto.getApplicantId());
         applicationDto.setState("Failed");
-
+        Application application = new Application(applicationDto, ad, user);
+        applicationRepository.save(application);
+        return new ApplicationDto(applicationRepository.findById(application.getId()));
     }
-    */
+
+    public ApplicationDto completeApplication(int id) {
+        ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
+        Ad ad = adRepo.findById(applicationDto.getAdId());
+        User user = uRepo.findById(applicationDto.getApplicantId());
+        applicationDto.setState("Completed");
+        ad.setState("Completed");
+        ad.setApplications(Utility.changeStateOfApplicaions(ad.getApplications(), "Declined", applicationDto.getId()));
+        Application application = new Application(applicationDto, ad, user);
+        applicationRepository.save(application);
+        adRepo.save(ad);
+        return new ApplicationDto(applicationRepository.findById(application.getId()));
+    }
+
 
     public void deleteApplication(int id) {
         applicationRepository.deleteById(id);
