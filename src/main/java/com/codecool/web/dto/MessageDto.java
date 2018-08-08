@@ -14,6 +14,7 @@ public class MessageDto implements Serializable {
     private LocalDateTime timestamp;
     private int adId;
     private String adTitle;
+    private int applicationId;
 
     public MessageDto() {
 
@@ -25,8 +26,9 @@ public class MessageDto implements Serializable {
         this.receiverId = message.getReceiver().getId();
         this.text = message.getText();
         this.timestamp = message.getTimestamp();
-        this.adId = message.getAd().getId();
-        this.adTitle = message.getAd().getTitle();
+        this.adId = message.getApplication().getAd().getId();
+        this.adTitle = message.getApplication().getAd().getTitle();
+        this.applicationId = message.getApplication().getId();
     }
 
     public int getId() {
@@ -83,6 +85,14 @@ public class MessageDto implements Serializable {
 
     public void setAdTitle(String adTitle) {
         this.adTitle = adTitle;
+    }
+
+    public int getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(int applicationId) {
+        this.applicationId = applicationId;
     }
 }
 

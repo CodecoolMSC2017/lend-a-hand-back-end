@@ -73,21 +73,25 @@ VALUES (1,2,2),
 (4,1,5),
 (3,1,2);
 
-INSERT INTO messages (sender_id, receiver_id, text, timestamp,ad_id)
-VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-04 10:23:54',2),
-(2,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-04 10:24:05',2),
-(1,2,'It is wonderful!','2018-8-04 10:24:20',2),
-(1,2,'So when can i go and do the work for you?','2018-8-04 10:24:44',2),
-(2,1,'Is this afternoon okay for you?','2018-8-04 10:24:55',2),
-(1,2,'Of course, i will be there at 6pm','2018-8-04 10:25:20',2 ),
-(2,1,'Fine, thanks!','2018-8-04 10:25:30',2),
+INSERT INTO applications (ad_id, applicant_id, message, timestamp, state)
+VALUES(2,1,'I have a lot of HTML programming experience and i do every programming jobs fast and clean','2018-8-04 10:00:05','Applied'),
+(10,1,'Hi i am Beagun and i have a lot of HTML programming experience, but now i want to learn some new programming languages like Java and C#','2018-8-05 10:00:05','Applied');
 
-(1,4,'Hello, I am Beagun can i ask about the payment?','2018-8-05 10:23:54',10),
-(4,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-05 10:24:05',10),
-(1,4,'Sorry, it is not enough for me.','2018-8-05 10:24:20',10),
-(4,1,'Maybe 22$/hour','2018-8-05 10:24:55',10),
-(1,4,'Sorry, not enough','2018-8-05 10:25:20',10 ),
-(4,1,'That is the maximum i can afford. Bye!','2018-8-05 10:25:30',10);
+INSERT INTO messages (sender_id, receiver_id, text, timestamp,application_id)
+VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-04 10:23:54',1),
+(2,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-04 10:24:05',1),
+(1,2,'It is wonderful!','2018-8-04 10:24:20',1),
+(1,2,'So when can i go and do the work for you?','2018-8-04 10:24:44',1),
+(2,1,'Is this afternoon okay for you?','2018-8-04 10:24:55',1),
+(1,2,'Of course, i will be there at 6pm','2018-8-04 10:25:20',1 ),
+(2,1,'Fine, thanks!','2018-8-04 10:25:30',1),
+
+(1,4,'Hello, I am Beagun can i ask about the payment?','2018-8-05 10:23:54',2),
+(4,1,'Hi, Of course i can pay 20$/hour for it.','2018-8-05 10:24:05',2),
+(1,4,'Sorry, it is not enough for me.','2018-8-05 10:24:20',2),
+(4,1,'Maybe 22$/hour','2018-8-05 10:24:55',2),
+(1,4,'Sorry, not enough','2018-8-05 10:25:20',2),
+(4,1,'That is the maximum i can afford. Bye!','2018-8-05 10:25:30',2);
 
 
 

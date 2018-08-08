@@ -75,6 +75,15 @@ public class ApplicationService {
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
+ /*   public List<Contact> failApplication(int id){
+        ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
+        Ad ad = adRepo.findById(applicationDto.getAdId());
+        User user = uRepo.findById(applicationDto.getApplicantId());
+        applicationDto.setState("Failed");
+
+    }
+    */
+
     public void deleteApplication(int id) {
         applicationRepository.deleteById(id);
     }
