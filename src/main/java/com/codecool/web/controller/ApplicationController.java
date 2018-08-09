@@ -55,4 +55,14 @@ public class ApplicationController {
     public List<ApplicationDto> declineApplication(@PathVariable("id") int id) {
         return Utility.convertApplicationListToApplicationDtoList(applicationService.declineApplication(id));
     }
+
+    @PutMapping("/fail/{id}")
+    public ApplicationDto failedApplication(@PathVariable("id") int id) {
+        return applicationService.failApplication(id);
+    }
+
+    @PutMapping("/complete/{id}")
+    public ApplicationDto completeApplication(@PathVariable("id") int id) {
+        return applicationService.completeApplication(id);
+    }
 }

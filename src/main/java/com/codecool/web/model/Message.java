@@ -22,10 +22,10 @@ public class Message {
     private User sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ad_id")
-    @JsonBackReference(value = "ad-messages")
+    @JoinColumn(name = "application_id")
+    @JsonBackReference(value = "application-messages")
     @NotNull
-    private Ad ad;
+    private Application application;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
@@ -42,21 +42,21 @@ public class Message {
     public Message() {
     }
 
-    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp, @NotNull Ad ad) {
+    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp, @NotNull Application application) {
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
         this.timestamp = timestamp;
-        this.ad = ad;
+        this.application = application;
     }
 
-    public Message(MessageDto messageDto, User sender, User receiver, Ad ad) {
+    public Message(MessageDto messageDto, User sender, User receiver, Application application) {
         this.id = messageDto.getId();
         this.sender = sender;
         this.receiver = receiver;
         this.text = messageDto.getText();
         this.timestamp = messageDto.getTimestamp();
-        this.ad = ad;
+        this.application = application;
     }
 
     public int getId() {
@@ -99,11 +99,11 @@ public class Message {
         this.id = id;
     }
 
-    public Ad getAd() {
-        return ad;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setAd(Ad ad) {
-        this.ad = ad;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 }

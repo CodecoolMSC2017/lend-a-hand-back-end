@@ -8,14 +8,16 @@ import java.util.List;
 public class Contact implements Serializable {
     private User user;
     private AdDto ad;
+    private ApplicationDto application;
     private List<MessageDto> messages;
     private MessageDto lastMessage;
 
-    public Contact(User user, List<MessageDto> messages, MessageDto lastMessage, AdDto ad) {
+    public Contact(User user, List<MessageDto> messages, MessageDto lastMessage, AdDto ad, ApplicationDto application) {
         this.user = user;
         this.messages = messages;
         this.lastMessage = lastMessage;
         this.ad = ad;
+        this.application = application;
     }
 
     public User getUser() {
@@ -48,5 +50,13 @@ public class Contact implements Serializable {
 
     public void setAd(AdDto ad) {
         this.ad = ad;
+    }
+
+    public ApplicationDto getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationDto application) {
+        this.application = application;
     }
 }

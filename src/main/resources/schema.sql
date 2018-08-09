@@ -91,12 +91,11 @@ CREATE TABLE messages (
   id SERIAL PRIMARY KEY,
   sender_id INTEGER NOT NULL,
   receiver_id INTEGER NOT NULL,
-  ad_id INTEGER NOT NULL,
+  application_id INTEGER NOT NULL,
   text TEXT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (receiver_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (ad_id) REFERENCES ads("id") ON DELETE CASCADE
+  FOREIGN KEY (receiver_id) REFERENCES users("id") ON DELETE CASCADE
 
 );
 

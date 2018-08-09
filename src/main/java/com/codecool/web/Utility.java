@@ -83,6 +83,7 @@ public class Utility {
         }
         return adDtos;
     }
+
     public static List<MessageDto> convertMessageListtoMessageDtoList(List<Message> messages) {
         List<MessageDto> messageDtos = new ArrayList<>();
         for (Message message : messages) {
@@ -100,9 +101,11 @@ public class Utility {
         return appDtos;
     }
 
-    public static List<com.codecool.web.model.Application> changeStateOfApplicaions(List<com.codecool.web.model.Application> applications, String state) {
+    public static List<com.codecool.web.model.Application> changeStateOfApplicaions(List<com.codecool.web.model.Application> applications, String state, int applicationId) {
         for (com.codecool.web.model.Application app : applications) {
-            app.setState(state);
+            if (app.getId() != applicationId) {
+                app.setState(state);
+            }
         }
         return applications;
     }
