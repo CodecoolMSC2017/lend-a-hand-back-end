@@ -42,7 +42,10 @@ CREATE TABLE employee_ratings (
   rater_id INTEGER NOT NULL,
   rated_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
+  rating_text TEXT NOT NULL,
+  application_id INTEGER NOT NULL,
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (rater_id) REFERENCES users("id"),
   FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
@@ -51,7 +54,10 @@ CREATE TABLE employer_ratings (
   rater_id INTEGER NOT NULL,
   rated_id INTEGER NOT NULL,
   rating INTEGER NOT NULL,
-  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
+  rating_text TEXT NOT NULL,
+  application_id INTEGER NOT NULL,
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (rater_id) REFERENCES users("id"),
   FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
