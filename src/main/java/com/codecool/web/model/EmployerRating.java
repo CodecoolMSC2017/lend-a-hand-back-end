@@ -40,7 +40,7 @@ public class EmployerRating {
     public EmployerRating() {
     }
 
-    public EmployerRating(@NotNull User rater, @NotNull User rated, @NotNull int rating, @NotNull String ratingText, @NotNull int applicationId) {
+    public EmployerRating(@NotNull User rater, @NotNull User rated, @NotNull int rating, @NotNull String ratingText, @NotNull Application application) {
         this.rater = rater;
         this.rated = rated;
         this.rating = rating;
