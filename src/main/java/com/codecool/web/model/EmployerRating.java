@@ -28,13 +28,24 @@ public class EmployerRating {
     @NotNull
     private int rating;
 
+    @NotNull
+    @JoinColumn(name = "rating_text")
+    private String ratingText;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @NotNull
+    @JoinColumn(name = "application_id")
+    private Application application;
+
     public EmployerRating() {
     }
 
-    public EmployerRating(@NotNull User rater, @NotNull User rated, @NotNull int rating) {
+    public EmployerRating(@NotNull User rater, @NotNull User rated, @NotNull int rating, @NotNull String ratingText, @NotNull int applicationId) {
         this.rater = rater;
         this.rated = rated;
         this.rating = rating;
+        this.ratingText = ratingText;
+        this.application = application;
     }
 
     public int getId() {
@@ -63,5 +74,21 @@ public class EmployerRating {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getRatingText() {
+        return ratingText;
+    }
+
+    public void setRatingText(String ratingText) {
+        this.ratingText = ratingText;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 }
