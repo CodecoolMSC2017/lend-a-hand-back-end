@@ -21,6 +21,7 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "advertiser")
     @JsonManagedReference(value = "user-ads")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Ad> ads;
 
     @ElementCollection
@@ -70,15 +71,18 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     @JsonManagedReference(value = "user-sent-messages")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> sentMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @JsonManagedReference(value = "user-received-messages")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> receivedMessages;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-notification")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Notification> notifications;
 
 
