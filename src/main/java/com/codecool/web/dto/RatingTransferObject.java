@@ -8,9 +8,9 @@ public class RatingTransferObject {
     private String ratedName;
     private int rating;
     private String ratingText;
-    private Application application;
+    private ApplicationDto application;
 
-    public RatingTransferObject(int id, String raterName, String ratedName, int rating, String ratingText, Application application) {
+    public RatingTransferObject(int id, String raterName, String ratedName, int rating, String ratingText, ApplicationDto application) {
         this.id = id;
         this.raterName = raterName;
         this.ratedName = ratedName;
@@ -59,11 +59,11 @@ public class RatingTransferObject {
         this.ratingText = ratingText;
     }
 
-    public Application getApplication() {
+    public ApplicationDto getApplication() {
         return application;
     }
 
-    public void setApplication(Application application) {
+    public void setApplicationDto(ApplicationDto application) {
         this.application = application;
     }
 }

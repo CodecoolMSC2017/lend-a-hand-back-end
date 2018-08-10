@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.dto.RatingTransferObject;
 import com.codecool.web.model.EmployeeRating;
 import com.codecool.web.model.EmployerRating;
@@ -46,7 +47,7 @@ public class RatingService {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
         for (EmployeeRating er : fromList){
-            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), er.getApplication()));
+            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), new ApplicationDto(er.getApplication())));
         }
 
         return rtoList;
@@ -57,7 +58,7 @@ public class RatingService {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
         for (EmployerRating er : fromList){
-            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), er.getApplication()));
+            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), new ApplicationDto(er.getApplication())));
         }
 
         return rtoList;
