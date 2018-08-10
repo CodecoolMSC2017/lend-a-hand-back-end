@@ -69,6 +69,7 @@ public class MessageService {
             Contact contact = new Contact(user, messageDtos, messageDtos.get(messageDtos.size() - 1), ad, application);
             contacts.add(contact);
         }
+        Collections.sort(contacts, (o1, o2) -> o2.getLastMessage().getTimestamp().compareTo(o1.getLastMessage().getTimestamp()));
         return contacts;
     }
 
