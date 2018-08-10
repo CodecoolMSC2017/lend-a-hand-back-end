@@ -5,14 +5,17 @@ import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.Application;
+import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.ApplicationRepository;
+import com.codecool.web.repository.MessageRepository;
 import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +30,9 @@ public class ApplicationService {
 
     @Autowired
     private AdRepository adRepo;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
 
     public List<Application> getAll() {
@@ -64,12 +70,27 @@ public class ApplicationService {
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
+    private void sendAcceptanceMessage(User applicant, User advertiser, Application application) {
+        LocalDateTime timestamp = new Timestamp(new Date().getTime()).toLocalDateTime();
+        String initialMessage = "Dear " + applicant.getUserName() +
+            ", I am interested in your application. We can discuss the details here.";
+        Message message = new Message(advertiser, applicant, initialMessage, timestamp,
+            application);
+        messageRepository.save(message);
+    }
+
     public List<Application> acceptApplication(int id) {
         ApplicationDto applicationDto = new ApplicationDto(applicationRepository.findById(id));
         Ad ad = adRepo.findById(applicationDto.getAdId());
         User user = uRepo.findById(applicationDto.getApplicantId());
         applicationDto.setState("Accepted");
         Application application = new Application(applicationDto, ad, user);
+
+        //Send automatic message to applicant
+        User applicant = application.getApplicant();
+        User advertiser = ad.getAdvertiser();
+        sendAcceptanceMessage(applicant, advertiser, application);
+
         applicationRepository.save(application);
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
