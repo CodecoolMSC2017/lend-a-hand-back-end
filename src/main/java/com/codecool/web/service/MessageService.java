@@ -73,4 +73,15 @@ public class MessageService {
         return contacts;
     }
 
+
+    public boolean isContactedWithUser(int userId, int profileOwnerId) {
+        List<Contact> contacts = getContactsByUserId(userId);
+        for (Contact contact : contacts) {
+            if (contact.getUser().getId() == profileOwnerId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
