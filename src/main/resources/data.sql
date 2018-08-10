@@ -45,37 +45,21 @@ INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
                                                     ('Mendes','USER'),
                                                     ('AlexaPekar', 'USER'),
                                                     ('KrisztianKollar', 'USER');
-INSERT INTO employee_ratings (rater_id, rated_id, rating)
-VALUES (1,2,5),
-(1,3,2),
-(2,1,4),
-(2,3,1),
-(3,2,1),
-(3,5,3),
-(5,4,5),
-(5,3,4),
-(4,5,5),
-(4,2,3),
-(3,1,5);
-
-
-INSERT INTO employer_ratings (rater_id, rated_id, rating)
-VALUES (1,2,2),
-(1,3,1),
-(2,1,5),
-(2,3,3),
-(3,2,4),
-(3,5,3),
-(5,4,5),
-(5,3,4),
-(4,5,5),
-(4,3,4),
-(4,1,5),
-(3,1,2);
 
 INSERT INTO applications (ad_id, applicant_id, message, timestamp, state)
 VALUES(2,1,'I have a lot of HTML programming experience and i do every programming jobs fast and clean','2018-8-04 10:00:05','Applied'),
 (10,1,'Hi i am Beagun and i have a lot of HTML programming experience, but now i want to learn some new programming languages like Java and C#','2018-8-05 10:00:05','Applied');
+
+INSERT INTO employee_ratings (rater_id, rated_id, rating, rating_text, application_id)
+VALUES
+(2,1,4,'Everything was fine.',1),
+(3,1,1,'Everything was fine.',2);
+
+INSERT INTO employer_ratings (rater_id, rated_id, rating, rating_text, application_id)
+VALUES
+(2,1,5,'Everything was ok.',1),
+(3,1,4,'Everything was ok.',2);
+
 
 INSERT INTO messages (sender_id, receiver_id, text, timestamp,application_id)
 VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-04 10:23:54',1),

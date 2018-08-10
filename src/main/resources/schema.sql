@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS messages;
-DROP TABLE IF EXISTS applications;
-DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS employer_ratings;
 DROP TABLE IF EXISTS employee_ratings;
+DROP TABLE IF EXISTS applications;
+DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS users CASCADE;
 
@@ -37,24 +37,6 @@ CREATE TABLE authorities (
     UNIQUE (username, authority)
 );
 
-CREATE TABLE employee_ratings (
-  id SERIAL PRIMARY KEY,
-  rater_id INTEGER NOT NULL,
-  rated_id INTEGER NOT NULL,
-  rating INTEGER NOT NULL,
-  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
-);
-
-CREATE TABLE employer_ratings (
-  id SERIAL PRIMARY KEY,
-  rater_id INTEGER NOT NULL,
-  rated_id INTEGER NOT NULL,
-  rating INTEGER NOT NULL,
-  FOREIGN KEY (rater_id) REFERENCES users("id") ON DELETE CASCADE,
-  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
-);
-
 CREATE TABLE ads (
   id SERIAL PRIMARY KEY,
   advertiser_id INTEGER NOT NULL,
@@ -79,6 +61,30 @@ CREATE TABLE applications (
   state TEXT NOT NULL,
   FOREIGN KEY (ad_id) REFERENCES ads("id") ON DELETE CASCADE,
   FOREIGN KEY (applicant_id) REFERENCES users("id") ON DELETE CASCADE
+);
+
+CREATE TABLE employee_ratings (
+  id SERIAL PRIMARY KEY,
+  rater_id INTEGER NOT NULL,
+  rated_id INTEGER NOT NULL,
+  rating INTEGER NOT NULL,
+  rating_text TEXT NOT NULL,
+  application_id INTEGER NOT NULL,
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (rater_id) REFERENCES users("id"),
+  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
+);
+
+CREATE TABLE employer_ratings (
+  id SERIAL PRIMARY KEY,
+  rater_id INTEGER NOT NULL,
+  rated_id INTEGER NOT NULL,
+  rating INTEGER NOT NULL,
+  rating_text TEXT NOT NULL,
+  application_id INTEGER NOT NULL,
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (rater_id) REFERENCES users("id"),
+  FOREIGN KEY (rated_id) REFERENCES users("id") ON DELETE CASCADE
 );
 
 CREATE TABLE messages (
