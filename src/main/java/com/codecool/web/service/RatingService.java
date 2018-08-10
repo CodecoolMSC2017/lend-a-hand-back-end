@@ -46,7 +46,7 @@ public class RatingService {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
         for (EmployeeRating er : fromList){
-            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating()));
+            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), er.getApplication()));
         }
 
         return rtoList;
@@ -57,7 +57,7 @@ public class RatingService {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
         for (EmployerRating er : fromList){
-            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating()));
+            rtoList.add(new RatingTransferObject(er.getId(),er.getRater().getUserName(),er.getRated().getUserName(),er.getRating(), er.getRatingText(), er.getApplication()));
         }
 
         return rtoList;
