@@ -1,8 +1,11 @@
 package com.codecool.web.controller;
 
 import com.codecool.web.dto.RatingDto;
+import com.codecool.web.dto.RatingTransferObject;
+import com.codecool.web.model.User;
 import com.codecool.web.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,18 +25,11 @@ public class RatingsController {
         return new RatingDto(ratingService.getAllEmployeeRatingByRatedId(id), ratingService.getAllEmployerRatingByRatedId(id));
     }
 
-
-
-//    @DeleteMapping(path = "/delete/{id}")
-//    public void deleteAdById(@PathVariable("id") int id) {
-//        ratingService.deleteAd(id);
-//    }
-//
-//    @PutMapping(path = "/update",
-//        consumes = MediaType.APPLICATION_JSON_VALUE,
-//        produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Ad updateAd(@RequestBody Ad ad) {
-//        return ratingService.updateAdData(ad);
-//    }
+    @PostMapping(path = "/new",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public User createNewMessage(@RequestBody RatingTransferObject ratingTransferObject) {
+        return ratingService.addNewRating(ratingTransferObject);
+    }
 
 }
