@@ -26,7 +26,7 @@ public class Application extends WebSecurityConfigurerAdapter {
         http.csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/register", "/ads/*", "/auth", "/auth/*", "/user", "/user/*", "ads/advertisers/").permitAll()
+            .antMatchers("/register", "/ads/*", "/auth", "/auth/*", "/user", "/user/*", "/ads/advertisers/", "/applications/ads/*").permitAll()
             .anyRequest().authenticated()
             .and()
             .httpBasic();
