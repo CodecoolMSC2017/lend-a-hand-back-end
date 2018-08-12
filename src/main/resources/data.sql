@@ -47,8 +47,8 @@ INSERT INTO authorities (username, authority) values ('Beagun', 'ADMIN'),
                                                     ('KrisztianKollar', 'USER');
 
 INSERT INTO applications (ad_id, applicant_id, message, timestamp, state)
-VALUES(2,1,'I have a lot of HTML programming experience and i do every programming jobs fast and clean','2018-8-04 10:00:05','Applied'),
-(10,1,'Hi i am Beagun and i have a lot of HTML programming experience, but now i want to learn some new programming languages like Java and C#','2018-8-05 10:00:05','Applied');
+VALUES(2,1,'I have a lot of HTML programming experience and i do every programming jobs fast and clean','2018-8-04 10:00:05','Accepted'),
+(10,1,'Hi i am Beagun and i have a lot of HTML programming experience, but now i want to learn some new programming languages like Java and C#','2018-8-05 10:00:05','Accepted');
 
 INSERT INTO employee_ratings (rater_id, rated_id, rating, rating_text, application_id)
 VALUES
