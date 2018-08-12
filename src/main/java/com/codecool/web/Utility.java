@@ -4,11 +4,9 @@ import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.*;
+import com.codecool.web.model.Message;
 
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.math.BigDecimal;
@@ -56,7 +54,7 @@ public class Utility {
 
 
         Session session = Session.getInstance(props,
-            new javax.mail.Authenticator() {
+            new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);
                 }
