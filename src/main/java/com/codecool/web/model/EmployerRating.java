@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.codecool.web.dto.RatingTransferObject;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -45,6 +46,15 @@ public class EmployerRating {
         this.rated = rated;
         this.rating = rating;
         this.ratingText = ratingText;
+        this.application = application;
+    }
+
+    public EmployerRating(User rater, User rated, RatingTransferObject ratingTransferObject, Application application) {
+        this.id = ratingTransferObject.getId();
+        this.rater = rater;
+        this.rated = rated;
+        this.rating = ratingTransferObject.getRating();
+        this.ratingText = ratingTransferObject.getRatingText();
         this.application = application;
     }
 

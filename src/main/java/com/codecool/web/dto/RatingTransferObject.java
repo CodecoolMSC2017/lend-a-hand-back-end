@@ -1,8 +1,11 @@
 package com.codecool.web.dto;
 
-import com.codecool.web.model.Application;
+import com.codecool.web.model.EmployeeRating;
+import com.codecool.web.model.EmployerRating;
 
-public class RatingTransferObject {
+import java.io.Serializable;
+
+public class RatingTransferObject implements Serializable {
     private int id;
     private String raterName;
     private String ratedName;
@@ -17,6 +20,28 @@ public class RatingTransferObject {
         this.rating = rating;
         this.ratingText = ratingText;
         this.application = application;
+    }
+
+    public RatingTransferObject(EmployerRating employerRating, ApplicationDto application) {
+        this.id = employerRating.getId();
+        this.raterName = employerRating.getRater().getUserName();
+        this.ratedName = employerRating.getRated().getUserName();
+        this.rating = employerRating.getRating();
+        this.ratingText = employerRating.getRatingText();
+        this.application = application;
+    }
+
+    public RatingTransferObject(EmployeeRating employeeRating, ApplicationDto application) {
+        this.id = employeeRating.getId();
+        this.raterName = employeeRating.getRater().getUserName();
+        this.ratedName = employeeRating.getRated().getUserName();
+        this.rating = employeeRating.getRating();
+        this.ratingText = employeeRating.getRatingText();
+        this.application = application;
+    }
+
+    public RatingTransferObject() {
+
     }
 
     public int getId() {
