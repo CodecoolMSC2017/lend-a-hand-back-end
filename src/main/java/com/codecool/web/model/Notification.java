@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notifications")
@@ -53,43 +54,50 @@ public class Notification {
     @NotNull
     private Boolean read;
 
+    @NotNull
+    private LocalDateTime timestamp;
+
     public Notification() {
     }
 
-    Notification(User from, User to, Ad ad, String type, String text) {
+    Notification(User from, User to, Ad ad, String type, String text, LocalDateTime timestamp) {
         this.from = from;
         this.to = to;
         this.ad = ad;
         this.read = false;
         this.type = type;
         this.text = text;
+        this.timestamp = timestamp;
     }
 
-    Notification(User from, User to, Application application, String type, String text) {
+    Notification(User from, User to, Application application, String type, String text, LocalDateTime timestamp) {
         this.from = from;
         this.to = to;
         this.application = application;
         this.read = false;
         this.type = type;
         this.text = text;
+        this.timestamp = timestamp;
     }
 
-    Notification(User from, User to, EmployeeRating employeeRating, String type, String text) {
+    Notification(User from, User to, EmployeeRating employeeRating, String type, String text, LocalDateTime timestamp) {
         this.from = from;
         this.to = to;
         this.employeeRating = employeeRating;
         this.type = type;
         this.text = text;
         this.read = false;
+        this.timestamp = timestamp;
     }
 
-    Notification(User from, User to, EmployerRating employerRating, String type, String text) {
+    Notification(User from, User to, EmployerRating employerRating, String type, String text, LocalDateTime timestamp) {
         this.from = from;
         this.to = to;
         this.employerRating = employerRating;
         this.type = type;
         this.text = text;
         this.read = false;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -164,5 +172,19 @@ public class Notification {
         this.read = read;
     }
 
+    public Ad getAd() {
+        return ad;
+    }
 
+    public void setAd(Ad ad) {
+        this.ad = ad;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

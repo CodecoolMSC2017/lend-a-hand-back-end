@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -47,7 +45,6 @@ public class MessageService {
         User sender = userRepository.findById(messageDto.getSenderId());
         User receiver = userRepository.findById(messageDto.getReceiverId());
         Application application = applicationRepository.findById(messageDto.getApplicationId());
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         messageDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         Message message = new Message(messageDto, sender, receiver, application);
         messageRepository.save(message);
