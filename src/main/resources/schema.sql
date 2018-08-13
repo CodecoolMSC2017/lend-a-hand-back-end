@@ -101,8 +101,18 @@ CREATE TABLE messages (
 
 CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
-  receiver_id INTEGER NOT NULL,
+  from_id INTEGER NOT NULL,
+  to_id INTEGER,
+  ad_id INTEGER,
+  application_id INTEGER,
+  employee_rating_id INTEGER,
+  employer_rating_id INTEGER,
   text TEXT NOT NULL,
   read BOOLEAN NOT NULL,
-  FOREIGN KEY (receiver_id) REFERENCES users("id") ON DELETE CASCADE
+  FOREIGN KEY (from_id) REFERENCES users("id"),
+  FOREIGN KEY (to_id) REFERENCES users("id"),
+  FOREIGN KEY (ad_id) REFERENCES ads("id"),
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (employee_rating_id) REFERENCES employee_ratings("id"),
+  FOREIGN KEY (employer_rating_id) REFERENCES employer_ratings("id")
 );
