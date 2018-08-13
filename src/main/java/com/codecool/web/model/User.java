@@ -79,9 +79,9 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Message> receivedMessages;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "to")
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonManagedReference(value = "user-notification")
+    @JsonManagedReference(value = "to-notification")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Notification> notifications;
 

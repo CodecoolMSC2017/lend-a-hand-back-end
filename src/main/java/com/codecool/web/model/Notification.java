@@ -14,13 +14,41 @@ public class Notification {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "receiver_id")
-    @JsonBackReference(value = "user-notification")
+    @JoinColumn(name = "from_id")
+    @JsonBackReference(value = "from-notification")
+    private User from;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "to_id")
+    @JsonBackReference(value = "to-notification")
     @NotNull
-    private User receiver;
+    private User to;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ad_id")
+    @JsonBackReference(value = "ad-notification")
+    private Ad ad;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "application_id")
+    @JsonBackReference(value = "application-notification")
+    private Application application;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_rating_id")
+    @JsonBackReference(value = "employee-notification")
+    private EmployeeRating employeeRating;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employer_rating_id")
+    @JsonBackReference(value = "employer-notification")
+    private EmployerRating employerRating;
 
     @NotNull
     private String text;
+
+    @NotNull
+    private String type;
 
     @NotNull
     private Boolean read;
@@ -28,10 +56,40 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(@NotNull User receiver, @NotNull String text, @NotNull Boolean read) {
-        this.receiver = receiver;
+    Notification(User from, User to, Ad ad, String type, String text) {
+        this.from = from;
+        this.to = to;
+        this.ad = ad;
+        this.read = false;
+        this.type = type;
         this.text = text;
-        this.read = read;
+    }
+
+    Notification(User from, User to, Application application, String type, String text) {
+        this.from = from;
+        this.to = to;
+        this.application = application;
+        this.read = false;
+        this.type = type;
+        this.text = text;
+    }
+
+    Notification(User from, User to, EmployeeRating employeeRating, String type, String text) {
+        this.from = from;
+        this.to = to;
+        this.employeeRating = employeeRating;
+        this.type = type;
+        this.text = text;
+        this.read = false;
+    }
+
+    Notification(User from, User to, EmployerRating employerRating, String type, String text) {
+        this.from = from;
+        this.to = to;
+        this.employerRating = employerRating;
+        this.type = type;
+        this.text = text;
+        this.read = false;
     }
 
     public int getId() {
@@ -42,12 +100,44 @@ public class Notification {
         this.id = id;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public User getFrom() {
+        return from;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setFrom(User from) {
+        this.from = from;
+    }
+
+    public User getTo() {
+        return to;
+    }
+
+    public void setTo(User to) {
+        this.to = to;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public EmployeeRating getEmployeeRating() {
+        return employeeRating;
+    }
+
+    public void setEmployeeRating(EmployeeRating employeeRating) {
+        this.employeeRating = employeeRating;
+    }
+
+    public EmployerRating getEmployerRating() {
+        return employerRating;
+    }
+
+    public void setEmployerRating(EmployerRating employerRating) {
+        this.employerRating = employerRating;
     }
 
     public String getText() {
@@ -58,6 +148,14 @@ public class Notification {
         this.text = text;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Boolean getRead() {
         return read;
     }
@@ -65,4 +163,6 @@ public class Notification {
     public void setRead(Boolean read) {
         this.read = read;
     }
+
+
 }
