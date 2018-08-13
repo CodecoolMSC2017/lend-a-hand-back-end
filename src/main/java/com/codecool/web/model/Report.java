@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="reports")
@@ -32,14 +33,17 @@ public class Report {
     @Column(name = "report_text")
     private String reportText;
 
+    private LocalDateTime timestamp;
+
     public Report() {
     }
 
-    public Report(@NotNull User reporter, User reportedUser, Ad reportedAd, String reportText) {
+    public Report(@NotNull User reporter, User reportedUser, Ad reportedAd, String reportText, LocalDateTime timestamp) {
         this.reporter = reporter;
         this.reportedUser = reportedUser;
         this.reportedAd = reportedAd;
         this.reportText = reportText;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -76,5 +80,13 @@ public class Report {
 
     public void setReportText(String reportText) {
         this.reportText = reportText;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }
