@@ -1,5 +1,6 @@
 package com.codecool.web.model;
 
+import com.codecool.web.dto.ReportDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -46,8 +47,20 @@ public class Report {
         this.timestamp = timestamp;
     }
 
+    public Report(ReportDto reportDto, User reporter, User reportedUser, Ad reportedAd) {
+        this.reporter = reporter;
+        this.reportedUser = reportedUser;
+        this.reportedAd = reportedAd;
+        this.reportText = reportDto.getReportText();
+        this.timestamp = reportDto.getTimestamp();
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public User getReporter() {
