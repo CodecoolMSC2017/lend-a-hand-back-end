@@ -86,7 +86,7 @@ public class User implements Serializable {
     private List<Notification> notifications;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reporter")
-    @JsonManagedReference(value = "user-reports")
+    @JsonManagedReference(value = "sent-user-reports")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Report> reports;
 
