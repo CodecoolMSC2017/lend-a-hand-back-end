@@ -85,6 +85,10 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Notification> notifications;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reporter")
+    @JsonManagedReference(value = "sent-user-reports")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Report> reports;
 
     @Size(max = 32)
     private String email;
@@ -167,7 +171,15 @@ public class User implements Serializable {
     }
 
 
-    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings, BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore, List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications, List<Message> sentMessages, List<Message> receivedMessages, List<Notification> notifications, @Size(max = 32) String email, @Size(max = 32) String phone, @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink, String fullName, String type, @Size(max = 16) String postalCode, String city, String address, Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled, Boolean verificated, String verificationCode) {
+    public User(List<Ad> ads, List<String> authorities, List<EmployeeRating> employeeRatings,
+                BigDecimal employeeRatingScore, List<EmployerRating> employerRatings, BigDecimal employerRatingScore,
+                List<EmployeeRating> ratedEmployees, List<EmployerRating> ratedEmployers, List<Application> applications,
+                List<Message> sentMessages, List<Message> receivedMessages, List<Notification> notifications,
+                List<Report> reports, @Size(max = 32) String email, @Size(max = 32) String phone,
+                @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink,
+                String fullName, String type, @Size(max = 16) String postalCode, String city, String address,
+                Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled,
+                Boolean verificated, String verificationCode) {
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
@@ -180,6 +192,7 @@ public class User implements Serializable {
         this.sentMessages = sentMessages;
         this.receivedMessages = receivedMessages;
         this.notifications = notifications;
+        this.reports = reports;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
@@ -437,5 +450,13 @@ public class User implements Serializable {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 }

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS reports;
 DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS employer_ratings;
@@ -117,4 +118,15 @@ CREATE TABLE notifications (
   FOREIGN KEY (application_id) REFERENCES applications("id"),
   FOREIGN KEY (employee_rating_id) REFERENCES employee_ratings("id"),
   FOREIGN KEY (employer_rating_id) REFERENCES employer_ratings("id")
+);
+
+CREATE TABLE reports (
+  id SERIAL PRIMARY KEY,
+  reporter_id INTEGER NOT NULL,
+  reported_user_id INTEGER,
+  reported_ad_id INTEGER,
+  report_text TEXT NOT NULL,
+  FOREIGN KEY (reporter_id) REFERENCES users("id"),
+  FOREIGN KEY (reported_user_id) REFERENCES users("id"),
+  FOREIGN KEY (reported_ad_id) REFERENCES ads("id")
 );
