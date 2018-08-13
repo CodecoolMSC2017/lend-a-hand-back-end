@@ -3,14 +3,8 @@ package com.codecool.web.service;
 import com.codecool.web.Utility;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
-import com.codecool.web.model.Ad;
-import com.codecool.web.model.Application;
-import com.codecool.web.model.Message;
-import com.codecool.web.model.User;
-import com.codecool.web.repository.AdRepository;
-import com.codecool.web.repository.ApplicationRepository;
-import com.codecool.web.repository.MessageRepository;
-import com.codecool.web.repository.UserRepository;
+import com.codecool.web.model.*;
+import com.codecool.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +28,9 @@ public class ApplicationService {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;
+
 
     public List<Application> getAll() {
         return applicationRepository.findAll();
@@ -51,12 +48,18 @@ public class ApplicationService {
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(id);
     }
 
-    public Application addNewApplication(ApplicationDto application) throws AlreadyAppliedException {
-        if (applicationRepository.findByAd_IdAndApplicant_Id(application.getAdId(), application.getApplicantId()) != null) {
+    public Application addNewApplication(ApplicationDto applicationDto) throws AlreadyAppliedException {
+        if (applicationRepository.findByAd_IdAndApplicant_Id(applicationDto.getAdId(), applicationDto.getApplicantId()) != null) {
             throw new AlreadyAppliedException();
         }
-        application.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
-        return applicationRepository.save(new Application(application,adRepo.findById(application.getAdId()),uRepo.findById(application.getApplicantId())));
+        applicationDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
+        Ad ad = adRepo.findById(applicationDto.getAdId());
+        User applicant = uRepo.findById(applicationDto.getApplicantId());
+        //Create and save notification
+        Notification notification = NotificationCreater.createApplyNotification(applicant, ad.getAdvertiser(), ad);
+        notificationRepository.save(notification);
+        
+        return applicationRepository.save(new Application(applicationDto, ad, applicant));
 
     }
 
@@ -67,6 +70,10 @@ public class ApplicationService {
         applicationDto.setState("Declined");
         Application application = new Application(applicationDto, ad, user);
         applicationRepository.save(application);
+        //Create and save notification
+        Notification notification = NotificationCreater.createDeclineNotification(ad.getAdvertiser(), user, application);
+        notificationRepository.save(notification);
+
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
@@ -91,6 +98,10 @@ public class ApplicationService {
         User advertiser = ad.getAdvertiser();
         sendAcceptanceMessage(applicant, advertiser, application);
 
+        //Create and save notification
+        Notification notification = NotificationCreater.createAcceptedNotification(ad.getAdvertiser(), user, application);
+        notificationRepository.save(notification);
+
         applicationRepository.save(application);
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
@@ -101,6 +112,11 @@ public class ApplicationService {
         User user = uRepo.findById(applicationDto.getApplicantId());
         applicationDto.setState("Failed");
         Application application = new Application(applicationDto, ad, user);
+
+        //Create and save notification
+        Notification notification = NotificationCreater.createFailedNotification(ad.getAdvertiser(), user, application);
+        notificationRepository.save(notification);
+
         applicationRepository.save(application);
         return new ApplicationDto(applicationRepository.findById(application.getId()));
     }
@@ -113,6 +129,11 @@ public class ApplicationService {
         ad.setState("Completed");
         ad.setApplications(Utility.changeStateOfApplicaions(ad.getApplications(), "Declined", applicationDto.getId()));
         Application application = new Application(applicationDto, ad, user);
+
+        //Create and save notification
+        Notification notification = NotificationCreater.createCompletedNotification(ad.getAdvertiser(), user, application);
+        notificationRepository.save(notification);
+
         applicationRepository.save(application);
         adRepo.save(ad);
         return new ApplicationDto(applicationRepository.findById(application.getId()));
