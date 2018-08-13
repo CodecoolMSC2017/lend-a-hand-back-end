@@ -3,11 +3,12 @@ package com.codecool.web.service;
 import com.codecool.web.model.Notification;
 import com.codecool.web.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class NotificationService {
-
 
     @Autowired
     private NotificationRepository notificationRepository;
