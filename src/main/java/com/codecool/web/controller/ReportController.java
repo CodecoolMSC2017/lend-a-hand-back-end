@@ -1,5 +1,7 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.Utility;
+import com.codecool.web.dto.ReportDto;
 import com.codecool.web.model.Report;
 import com.codecool.web.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,17 @@ public class ReportController {
     ReportService reportService;
 
     @GetMapping(path = "")
-    public List<Report> getAllReports() {
-        return reportService.getAll();
+    public List<ReportDto> getAllReports() {
+        return Utility.convertReportListToReportDtoList(reportService.getAll());
     }
 
     @GetMapping(path = "/users/{id}")
-    public List<Report> getAllReportsByReportedUsers(@PathVariable("id") int id) {
-        return reportService.getAllByReportedUserId(id);
+    public List<ReportDto> getAllReportsByReportedUsers(@PathVariable("id") int id) {
+        return Utility.convertReportListToReportDtoList(reportService.getAllByReportedUserId(id));
     }
 
     @GetMapping(path = "/ads/{id}")
-    public List<Report> getAllReportsByReportedAds(@PathVariable("id") int id) {
-        return reportService.getAllByReportedAdId(id);
+    public List<ReportDto> getAllReportsByReportedAds(@PathVariable("id") int id) {
+        return Utility.convertReportListToReportDtoList(reportService.getAllByReportedAdId(id));
     }
 }

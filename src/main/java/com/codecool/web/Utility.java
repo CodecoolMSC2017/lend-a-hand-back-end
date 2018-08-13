@@ -3,6 +3,7 @@ package com.codecool.web;
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.dto.MessageDto;
+import com.codecool.web.dto.ReportDto;
 import com.codecool.web.model.*;
 import com.codecool.web.model.Message;
 
@@ -119,5 +120,13 @@ public class Utility {
             }
         }
         return users;
+    }
+
+    public static List<ReportDto> convertReportListToReportDtoList(List<Report> reports) {
+        List<ReportDto> reportDtos = new ArrayList<>();
+        for (Report report : reports) {
+            reportDtos.add(new ReportDto(report));
+        }
+        return reportDtos;
     }
 }
