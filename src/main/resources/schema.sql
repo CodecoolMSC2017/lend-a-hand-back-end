@@ -101,14 +101,15 @@ CREATE TABLE messages (
 
 CREATE TABLE notifications (
   id SERIAL PRIMARY KEY,
-  from_id INTEGER NOT NULL,
-  to_id INTEGER,
+  from_id INTEGER,
+  to_id INTEGER NOT NULL,
   ad_id INTEGER,
   application_id INTEGER,
   employee_rating_id INTEGER,
   employer_rating_id INTEGER,
   text TEXT NOT NULL,
   read BOOLEAN NOT NULL,
+  type TEXT NOT NULL,
   FOREIGN KEY (from_id) REFERENCES users("id"),
   FOREIGN KEY (to_id) REFERENCES users("id"),
   FOREIGN KEY (ad_id) REFERENCES ads("id"),
