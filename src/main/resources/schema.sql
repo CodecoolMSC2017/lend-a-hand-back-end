@@ -110,6 +110,7 @@ CREATE TABLE notifications (
   text TEXT NOT NULL,
   read BOOLEAN NOT NULL,
   type TEXT NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
   FOREIGN KEY (from_id) REFERENCES users("id"),
   FOREIGN KEY (to_id) REFERENCES users("id"),
   FOREIGN KEY (ad_id) REFERENCES ads("id"),

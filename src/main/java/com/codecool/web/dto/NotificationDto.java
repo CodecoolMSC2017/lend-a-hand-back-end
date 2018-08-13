@@ -2,6 +2,8 @@ package com.codecool.web.dto;
 
 import com.codecool.web.model.Notification;
 
+import java.time.LocalDateTime;
+
 public class NotificationDto {
 
     private int id;
@@ -28,8 +30,10 @@ public class NotificationDto {
 
     private Boolean read;
 
+    private LocalDateTime timestamp;
+
     public NotificationDto(Notification notification, AdDto ad, ApplicationDto application, RatingTransferObject employeeRating, RatingTransferObject employerRating, String text, String type, Boolean
-        read) {
+        read, LocalDateTime timestamp) {
         this.id = notification.getId();
         this.fromId = notification.getFrom().getId();
         this.fromName = notification.getFrom().getUserName();
@@ -42,6 +46,7 @@ public class NotificationDto {
         this.text = text;
         this.type = type;
         this.read = read;
+        this.timestamp = timestamp;
     }
 
     public int getId() {
