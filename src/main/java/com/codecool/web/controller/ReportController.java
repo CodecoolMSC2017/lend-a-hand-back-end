@@ -25,12 +25,12 @@ public class ReportController {
     }
 
     @GetMapping(path = "/users/{id}")
-    public List<ReportDto> getAllReportsByReportedUsers(@PathVariable("id") int id) {
+    public List<ReportDto> getAllReportsByReportedUser(@PathVariable("id") int id) {
         return Utility.convertReportListToReportDtoList(reportService.getAllByReportedUserId(id));
     }
 
     @GetMapping(path = "/ads/{id}")
-    public List<ReportDto> getAllReportsByReportedAds(@PathVariable("id") int id) {
+    public List<ReportDto> getAllReportsByReportedAd(@PathVariable("id") int id) {
         return Utility.convertReportListToReportDtoList(reportService.getAllByReportedAdId(id));
     }
 }
