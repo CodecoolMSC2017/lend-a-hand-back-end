@@ -23,7 +23,7 @@ public class AdService {
     private UserRepository uRepo;
 
     public List<Ad> getAll() {
-        return adRepository.findAllByOrderByIsPremiumDescTimestampDesc();
+        return adRepository.findAllByStateAndOrderByIsPremiumDescTimestampDesc("Pending");
     }
 
     public List<Ad> getAllByAdvertiserId(int id) {
@@ -31,20 +31,20 @@ public class AdService {
     }
 
     public List<Ad> getAllByCategory(String category) {
-        return adRepository.findAllByCategoryOrderByIsPremiumDescTimestampDesc(category);
+        return adRepository.findAllByStateAndCategoryOrderByIsPremiumDescTimestampDesc("Pending", category);
     }
 
     public List<Ad> getAllByType(String type) {
-        return adRepository.findAllByTypeOrderByIsPremiumDescTimestampDesc(type);
+        return adRepository.findAllByStateAndTypeOrderByIsPremiumDescTimestampDesc("Pending",type);
     }
 
     public List<Ad> getAllByCategoryAndType(String category, String type) {
-        return adRepository.findAllByCategoryAndTypeOrderByIsPremiumDescTimestampDesc(category, type);
+        return adRepository.findAllByStateAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",category, type);
     }
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc(keyword));
-        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc(keyword);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc("Pending",keyword));
+        List<Ad> adsByDescription = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc("Pending",keyword);
         for (Ad ad : adsByDescription){
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -54,8 +54,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategory(String keyword, String category) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc(keyword, category));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc(keyword, category);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc("Pending",keyword, category));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc("Pending",keyword, category);
         for (Ad ad : adsByDescriptionAndCategory) {
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -65,8 +65,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndType(String keyword, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc(keyword, type));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc(keyword, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, type));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, type);
         for (Ad ad : adsByDescriptionAndCategory) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
@@ -76,8 +76,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategoryAndType(String keyword, String category, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc(keyword, category, type));
-        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc(keyword, category, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, category, type));
+        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, category, type);
         for (Ad ad : adsByDescriptionAndCategoryAndType) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
