@@ -12,6 +12,8 @@ public interface AdRepository extends JpaRepository<Ad, Integer> {
 
     List<Ad> findAllByAdvertiser_IdOrderByIsPremiumDescTimestampDesc(int id);
 
+    List<Ad> findAllByOrderByIsPremiumDescTimestampDesc();
+
     Ad findById(int id);
 
     List<Ad> findAllByStateAndCategoryOrderByIsPremiumDescTimestampDesc(String state,String category);

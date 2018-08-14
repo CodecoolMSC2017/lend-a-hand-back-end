@@ -22,6 +22,10 @@ public class AdService {
     @Autowired
     private UserRepository uRepo;
 
+    public List<Ad> getAllForAdmin(){
+        return adRepository.findAllByOrderByIsPremiumDescTimestampDesc();
+    }
+
     public List<Ad> getAll() {
         return adRepository.findAllByStateAndOrderByIsPremiumDescTimestampDesc("Pending");
     }
