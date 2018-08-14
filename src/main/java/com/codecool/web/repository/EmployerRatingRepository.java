@@ -10,6 +10,8 @@ public interface EmployerRatingRepository extends JpaRepository<EmployerRating, 
     @Override
     List<EmployerRating> findAll();
 
+    EmployerRating findById(int id);
+
     List<EmployerRating> findAllByRater_Id(int id);
 
     List<EmployerRating> findAllByRated_Id(int id);

@@ -56,9 +56,9 @@ public class ApplicationService {
         Ad ad = adRepo.findById(applicationDto.getAdId());
         User applicant = uRepo.findById(applicationDto.getApplicantId());
         //Create and save notification
-        Notification notification = NotificationCreater.createApplyNotification(applicant, ad.getAdvertiser(), ad);
+        Notification notification = NotificationBuilder.createApplyNotification(applicant, ad.getAdvertiser(), ad);
         notificationRepository.save(notification);
-        
+
         return applicationRepository.save(new Application(applicationDto, ad, applicant));
 
     }
@@ -71,7 +71,7 @@ public class ApplicationService {
         Application application = new Application(applicationDto, ad, user);
         applicationRepository.save(application);
         //Create and save notification
-        Notification notification = NotificationCreater.createDeclineNotification(ad.getAdvertiser(), user, application);
+        Notification notification = NotificationBuilder.createDeclineNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
 
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
@@ -99,7 +99,7 @@ public class ApplicationService {
         sendAcceptanceMessage(applicant, advertiser, application);
 
         //Create and save notification
-        Notification notification = NotificationCreater.createAcceptedNotification(ad.getAdvertiser(), user, application);
+        Notification notification = NotificationBuilder.createAcceptedNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
@@ -114,7 +114,7 @@ public class ApplicationService {
         Application application = new Application(applicationDto, ad, user);
 
         //Create and save notification
-        Notification notification = NotificationCreater.createFailedNotification(ad.getAdvertiser(), user, application);
+        Notification notification = NotificationBuilder.createFailedNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
@@ -131,7 +131,7 @@ public class ApplicationService {
         Application application = new Application(applicationDto, ad, user);
 
         //Create and save notification
-        Notification notification = NotificationCreater.createCompletedNotification(ad.getAdvertiser(), user, application);
+        Notification notification = NotificationBuilder.createCompletedNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
