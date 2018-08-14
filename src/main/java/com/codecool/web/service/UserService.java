@@ -95,6 +95,7 @@ public class UserService {
         savedUser.setPostalCode(postalCode);
         savedUser.setCity(city);
         savedUser.setAddress(address);
+        savedUser.setAbleToAd(true);
         return userRepository.save(savedUser);
     }
 }
