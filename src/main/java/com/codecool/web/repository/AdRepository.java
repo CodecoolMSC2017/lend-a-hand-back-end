@@ -2,15 +2,17 @@ package com.codecool.web.repository;
 
 import com.codecool.web.model.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
 import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 
     List<Ad> findAllByStateOrderByIsPremiumDescTimestampDesc(String state);
 
-    List<Ad> findAllByAdvertiser_IdOrderByIsPremiumDescTimestampDesc(int id);
+    List<Ad> findAllByStateAndAdvertiser_IdOrderByIsPremiumDescTimestampDesc(String state,int id);
 
     List<Ad> findAllByOrderByIsPremiumDescTimestampDesc();
 

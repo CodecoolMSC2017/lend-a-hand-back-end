@@ -5,6 +5,7 @@ import com.codecool.web.model.Ad;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -31,7 +32,7 @@ public class AdService {
     }
 
     public List<Ad> getAllByAdvertiserId(int id) {
-        return adRepository.findAllByAdvertiser_IdOrderByIsPremiumDescTimestampDesc(id);
+        return adRepository.findAllByStateAndAdvertiser_IdOrderByIsPremiumDescTimestampDesc("Pending",id);
     }
 
     public List<Ad> getAllByCategory(String category) {
@@ -140,7 +141,9 @@ public class AdService {
     }
 
     public void deleteAd(int id) {
-        adRepository.deleteById(id);
+        Ad ad = adRepository.findById(id);
+        ad.setState("Archive");
+        adRepository.save(ad);
     }
 
     public Ad updateAdData(Ad ad) {

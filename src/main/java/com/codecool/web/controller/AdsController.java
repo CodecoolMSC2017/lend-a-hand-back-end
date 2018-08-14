@@ -2,6 +2,7 @@ package com.codecool.web.controller;
 
 import com.codecool.web.Utility;
 import com.codecool.web.dto.AdDto;
+import com.codecool.web.dto.SystemMessageDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class AdsController {
     public List<Ad> getAllAds() {
         return adService.getAll();
     }
-    
+
     @GetMapping(path = "/advertisers/{id}")
     public List<AdDto> getAllAdsByAdvertiser(@PathVariable("id") int id) {
         return Utility.convertAdListtoAdDtoList(adService.getAllByAdvertiserId(id));
@@ -48,8 +49,10 @@ public class AdsController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteAdById(@PathVariable("id") int id) {
+    public SystemMessageDto deleteAdById(@PathVariable("id") int id) {
+        System.out.println(id);
         adService.deleteAd(id);
+        return new SystemMessageDto("Delete completed");
     }
 
     @PutMapping(path = "/update",
