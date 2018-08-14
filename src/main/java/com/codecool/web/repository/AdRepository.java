@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 
-    List<Ad> findAllByStateAndOrderByIsPremiumDescTimestampDesc(String state);
+    List<Ad> findAllByStateOrderByIsPremiumDescTimestampDesc(String state);
 
     List<Ad> findAllByAdvertiser_IdOrderByIsPremiumDescTimestampDesc(int id);
 

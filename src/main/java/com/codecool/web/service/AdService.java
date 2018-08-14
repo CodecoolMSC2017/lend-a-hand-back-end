@@ -27,7 +27,7 @@ public class AdService {
     }
 
     public List<Ad> getAll() {
-        return adRepository.findAllByStateAndOrderByIsPremiumDescTimestampDesc("Pending");
+        return adRepository.findAllByStateOrderByIsPremiumDescTimestampDesc("Pending");
     }
 
     public List<Ad> getAllByAdvertiserId(int id) {
