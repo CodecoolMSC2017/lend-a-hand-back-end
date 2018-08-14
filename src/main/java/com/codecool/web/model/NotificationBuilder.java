@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class NotificationCreater {
+public class NotificationBuilder {
 
     public static Notification createApplyNotification(User from, User to, Ad ad) {
         String type = "Apply";
