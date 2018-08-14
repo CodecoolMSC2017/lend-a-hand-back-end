@@ -55,7 +55,6 @@ public class ReportService {
     public Report handleReport(int id) {
         Report report = reportRepository.findById(id);
         report.setHandled(true);
-        reportRepository.save(report);
-        return report;
+        return reportRepository.save(report);
     }
 }
