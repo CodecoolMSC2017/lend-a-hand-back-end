@@ -100,6 +100,7 @@ public class Utility {
         return appDtos;
     }
 
+
     public static List<com.codecool.web.model.Application> changeStateOfApplicaions(List<com.codecool.web.model.Application> applications, String state, int applicationId) {
         for (com.codecool.web.model.Application app : applications) {
             if (app.getId() != applicationId) {
