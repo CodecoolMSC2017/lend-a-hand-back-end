@@ -11,4 +11,5 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     List<Report> findAll();
     List<Report> findAllByReportedUser_Id(int id);
     List<Report> findAllByReportedAd_Id(int id);
+    Report findById(int id);
 }

@@ -25,11 +25,14 @@ public class ReportDto implements Serializable {
 
     private LocalDateTime timestamp;
 
+    private boolean isHandled;
+
     public ReportDto() {
     }
 
     public ReportDto(int reporterId, String reporterUsername, int reportedUserId, String reportedUsername,
-                     int reportedAdId, String reportedAdTitle, String reportText, LocalDateTime timestamp) {
+                     int reportedAdId, String reportedAdTitle, String reportText, LocalDateTime timestamp,
+                     boolean isHandled) {
         this.reporterId = reporterId;
         this.reporterUsername = reporterUsername;
         this.reportedUserId = reportedUserId;
@@ -38,6 +41,7 @@ public class ReportDto implements Serializable {
         this.reportedAdTitle = reportedAdTitle;
         this.reportText = reportText;
         this.timestamp = timestamp;
+        this.isHandled = isHandled;
     }
 
     public ReportDto(Report report) {
@@ -50,6 +54,7 @@ public class ReportDto implements Serializable {
         this.reportedAdTitle = report.getReportedAd().getTitle();
         this.reportText = report.getReportText();
         this.timestamp = report.getTimestamp();
+        this.isHandled = report.isHandled();
     }
 
     public int getId() {
@@ -122,5 +127,13 @@ public class ReportDto implements Serializable {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean isHandled() {
+        return isHandled;
+    }
+
+    public void setHandled(boolean handled) {
+        isHandled = handled;
     }
 }

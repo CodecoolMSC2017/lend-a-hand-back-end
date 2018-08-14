@@ -132,7 +132,6 @@ public class AdService {
     }
 
     public Ad addNewAd(AdDto adDto) {
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         adDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         adDto.setState("Pending");
         Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
