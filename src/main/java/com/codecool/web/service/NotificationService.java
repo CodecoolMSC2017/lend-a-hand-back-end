@@ -22,9 +22,6 @@ public class NotificationService {
     private AdRepository adRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private ApplicationRepository applicationRepository;
 
     @Autowired
@@ -49,13 +46,27 @@ public class NotificationService {
         return createNotificationDto(notification);
     }
 
+    public NotificationDto setReadToFalse(int id) {
+        Notification notification = notificationRepository.findById(id);
+        notification.setRead(false);
+        notificationRepository.save(notification);
+        return createNotificationDto(notification);
+    }
+
     public List<NotificationDto> getNotificationsByUserId(int id) {
-        List<Notification> notifications = notificationRepository.findAllByTo_IdOrderByTimestampAsc(id);
+        List<Notification> notifications = notificationRepository.findAllByTo_IdAndDeletedFalseOrderByTimestampDesc(id);
         return convertNotificationListToNotificationDtoList(notifications);
     }
 
     public List<NotificationDto> getAllUnreadNotificationsByUserId(int id) {
-        return convertNotificationListToNotificationDtoList(notificationRepository.findAllByTo_IdAndReadFalseOrderByTimestampAsc(id));
+        return convertNotificationListToNotificationDtoList(notificationRepository.findAllByTo_IdAndReadFalseOrderByTimestampDesc(id));
+    }
+
+    public NotificationDto setDeletedToTrue(int id) {
+        Notification notification = notificationRepository.findById(id);
+        notification.setDeleted(true);
+        notificationRepository.save(notification);
+        return createNotificationDto(notification);
     }
 
 
