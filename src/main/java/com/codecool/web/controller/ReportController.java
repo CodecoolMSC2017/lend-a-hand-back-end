@@ -17,9 +17,14 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping(path = "")
-    public List<ReportDto> getAllReports() {
-        return Utility.convertReportListToReportDtoList(reportService.getAll());
+    @GetMapping(path = "/user")
+    public List<ReportDto> getAllUserReports() {
+        return Utility.convertReportListToReportDtoList(reportService.getAllUserReports());
+    }
+
+    @GetMapping(path = "/ad")
+    public List<ReportDto> getAllAdReports() {
+        return Utility.convertReportListToReportDtoList(reportService.getAllAdReports());
     }
 
     @GetMapping(path = "/users/{id}")

@@ -28,8 +28,12 @@ public class ReportService {
     @Autowired
     private AdRepository adRepository;
 
-    public List<Report> getAll() {
-        return reportRepository.findAll();
+    public List<Report> getAllUserReports() {
+        return reportRepository.findAllByReportedAd_Id(null);
+    }
+
+    public List<Report> getAllAdReports() {
+        return reportRepository.findAllByReportedUser_Id(null);
     }
 
     public List<Report> getAllByReportedUserId(int id) {
