@@ -30,9 +30,9 @@ public class NotificationController {
         return notificationService.getNotificationsByUserId(userId);
     }
 
-    @GetMapping("/unread/user/{userId}")
-    public List<NotificationDto> getAllUnreadNotificationsByUser(@PathVariable("userId") int userId) {
-        return notificationService.getAllUnreadNotificationsByUserId(userId);
+    @GetMapping("/new/{userId}")
+    public boolean haveNewNotification(@PathVariable("userId") int userId) {
+        return notificationService.haveNewNotification(userId);
     }
 
     @PutMapping("/read/{id}")

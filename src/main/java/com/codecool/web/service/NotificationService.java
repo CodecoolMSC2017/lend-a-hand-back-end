@@ -58,8 +58,12 @@ public class NotificationService {
         return convertNotificationListToNotificationDtoList(notifications);
     }
 
-    public List<NotificationDto> getAllUnreadNotificationsByUserId(int id) {
-        return convertNotificationListToNotificationDtoList(notificationRepository.findAllByTo_IdAndReadFalseOrderByTimestampDesc(id));
+    private List<Notification> getAllUnreadNotificationsByUserId(int id) {
+        return notificationRepository.findAllByTo_IdAndReadFalseOrderByTimestampDesc(id);
+    }
+
+    public boolean haveNewNotification(int id) {
+        return getAllUnreadNotificationsByUserId(id).size() != 0;
     }
 
     public NotificationDto setDeletedToTrue(int id) {
@@ -77,7 +81,6 @@ public class NotificationService {
         }
         return notificationDtos;
     }
-
 
     private NotificationDto createNotificationDto(Notification notification) {
         AdDto adDto = null;
