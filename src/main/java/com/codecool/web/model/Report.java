@@ -36,7 +36,7 @@ public class Report {
 
     private LocalDateTime timestamp;
 
-    @JoinColumn(name = "handled")
+    @Column(name = "handled")
     private boolean isHandled;
 
     public Report() {
