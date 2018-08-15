@@ -2,42 +2,46 @@ package com.codecool.web.repository;
 
 import com.codecool.web.model.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
 import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 
-    List<Ad> findAllByOrderByTimestampDesc();
+    List<Ad> findAllByStateOrderByIsPremiumDescTimestampDesc(String state);
 
-    List<Ad> findAllByAdvertiser_IdOrderByTimestampDesc(int id);
+    List<Ad> findAllByStateAndAdvertiser_IdOrderByIsPremiumDescTimestampDesc(String state,int id);
+
+    List<Ad> findAllByOrderByIsPremiumDescTimestampDesc();
 
     Ad findById(int id);
 
-    List<Ad> findAllByCategoryOrderByTimestampDesc(String category);
+    List<Ad> findAllByStateAndCategoryOrderByIsPremiumDescTimestampDesc(String state,String category);
 
-    List<Ad> findAllByTitleContainingIgnoreCaseOrderByTimestampDesc(@Nullable String keyword);
+    List<Ad> findAllByStateAndTitleContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseOrderByTimestampDesc(@Nullable String keyword);
+    List<Ad> findAllByStateAndDescriptionContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword);
 
-    List<Ad> findAllByTypeOrderByTimestampDesc(@Nullable String type);
+    List<Ad> findAllByStateAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String type);
 
-    List<Ad> findAllByCategoryAndTypeOrderByTimestampDesc(@Nullable String category, @Nullable String type);
+    List<Ad> findAllByStateAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String category, @Nullable String type);
 
     //Find ads by keyword and category
-    List<Ad> findAllByTitleContainingIgnoreCaseAndCategoryOrderByTimestampDesc(@Nullable String keyword, @Nullable String category);
+    List<Ad> findAllByStateAndTitleContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String category);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryOrderByTimestampDesc(@Nullable String keyword, @Nullable String category);
+    List<Ad> findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String category);
 
     //Find ads by keyword and type
-    List<Ad> findAllByTitleContainingIgnoreCaseAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String type);
+    List<Ad> findAllByStateAndTitleContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String type);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String type);
+    List<Ad> findAllByStateAndDescriptionContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String type);
 
     //Find ads by keyword, category and type
-    List<Ad> findAllByTitleContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String category, @Nullable String type);
+    List<Ad> findAllByStateAndTitleContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String category, @Nullable String type);
 
-    List<Ad> findAllByDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(@Nullable String keyword, @Nullable String category, @Nullable String type);
+    List<Ad> findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc(String state, @Nullable String keyword, @Nullable String category, @Nullable String type);
 
 
 

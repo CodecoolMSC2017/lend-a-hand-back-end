@@ -9,7 +9,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
     Notification findById(int id);
 
-    List<Notification> findAllByTo_IdOrderByTimestampAsc(int userId);
+    List<Notification> findAllByTo_IdAndDeletedFalseOrderByTimestampDesc(int userId);
 
-    List<Notification> findAllByTo_IdAndReadFalseOrderByTimestampAsc(int userId);
+    List<Notification> findAllByTo_IdAndReadFalseOrderByTimestampDesc(int userId);
 }

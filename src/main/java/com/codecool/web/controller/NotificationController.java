@@ -1,7 +1,7 @@
 package com.codecool.web.controller;
 
 
-import com.codecool.web.model.Notification;
+import com.codecool.web.dto.NotificationDto;
 import com.codecool.web.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +16,38 @@ public class NotificationController {
     NotificationService notificationService;
 
     @GetMapping(path = "")
-    public List<Notification> getAllNotifications() {
+    public List<NotificationDto> getAllNotifications() {
         return notificationService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Notification getNotificationById(@PathVariable("id") int id) {
+    public NotificationDto getNotificationById(@PathVariable("id") int id) {
         return notificationService.getById(id);
     }
 
     @GetMapping("/all/user/{userId}")
-    public List<Notification> getAllNotificationsByUser(@PathVariable("userId") int userId) {
+    public List<NotificationDto> getAllNotificationsByUser(@PathVariable("userId") int userId) {
         return notificationService.getNotificationsByUserId(userId);
     }
 
-    @GetMapping("/unread/user/{userId}")
-    public List<Notification> getAllUnreadNotificationsByUser(@PathVariable("userId") int userId) {
-        return notificationService.getAllUnreadNotificationsByUserId(userId);
+    @GetMapping("/new/{userId}")
+    public boolean haveNewNotification(@PathVariable("userId") int userId) {
+        return notificationService.haveNewNotification(userId);
     }
 
-    @PutMapping("/{id}")
-    public Notification readNotification(@PathVariable("id") int id) {
+    @PutMapping("/read/{id}")
+    public NotificationDto readNotification(@PathVariable("id") int id) {
         return notificationService.setReadToTrue(id);
+    }
+
+    @PutMapping("/unread/{id}")
+    public NotificationDto unreadNotification(@PathVariable("id") int id) {
+        return notificationService.setReadToFalse(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public NotificationDto deleteNotification(@PathVariable("id") int id) {
+        return notificationService.setDeletedToTrue(id);
     }
 
 }

@@ -32,21 +32,22 @@ public class NotificationDto {
 
     private LocalDateTime timestamp;
 
-    public NotificationDto(Notification notification, AdDto ad, ApplicationDto application, RatingTransferObject employeeRating, RatingTransferObject employerRating, String text, String type, Boolean
-        read, LocalDateTime timestamp) {
+    private Boolean deleted;
+
+    public NotificationDto(Notification notification) {
         this.id = notification.getId();
         this.fromId = notification.getFrom().getId();
         this.fromName = notification.getFrom().getUserName();
         this.toId = notification.getTo().getId();
         this.toName = notification.getTo().getUserName();
-        this.ad = ad;
-        this.application = application;
-        this.employeeRating = employeeRating;
-        this.employerRating = employerRating;
-        this.text = text;
-        this.type = type;
-        this.read = read;
-        this.timestamp = timestamp;
+        this.text = notification.getText();
+        this.type = notification.getType();
+        this.read = notification.getRead();
+        this.timestamp = notification.getTimestamp();
+        this.deleted = notification.getDeleted();
+    }
+
+    NotificationDto() {
     }
 
     public int getId() {
@@ -145,6 +146,12 @@ public class NotificationDto {
         this.read = read;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }
 

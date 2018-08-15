@@ -7,6 +7,7 @@ import com.codecool.web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -26,29 +27,33 @@ public class AdService {
     @Autowired
     private UserRepository uRepo;
 
+    public List<Ad> getAllForAdmin(){
+        return adRepository.findAllByOrderByIsPremiumDescTimestampDesc();
+    }
+
     public List<Ad> getAll() {
-        return adRepository.findAllByOrderByTimestampDesc();
+        return adRepository.findAllByStateOrderByIsPremiumDescTimestampDesc("Pending");
     }
 
     public List<Ad> getAllByAdvertiserId(int id) {
-        return adRepository.findAllByAdvertiser_IdOrderByTimestampDesc(id);
+        return adRepository.findAllByStateAndAdvertiser_IdOrderByIsPremiumDescTimestampDesc("Pending",id);
     }
 
     public List<Ad> getAllByCategory(String category) {
-        return adRepository.findAllByCategoryOrderByTimestampDesc(category);
+        return adRepository.findAllByStateAndCategoryOrderByIsPremiumDescTimestampDesc("Pending", category);
     }
 
     public List<Ad> getAllByType(String type) {
-        return adRepository.findAllByTypeOrderByTimestampDesc(type);
+        return adRepository.findAllByStateAndTypeOrderByIsPremiumDescTimestampDesc("Pending",type);
     }
 
     public List<Ad> getAllByCategoryAndType(String category, String type) {
-        return adRepository.findAllByCategoryAndTypeOrderByTimestampDesc(category, type);
+        return adRepository.findAllByStateAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",category, type);
     }
 
     public List<Ad> getAllByTitleOrDescriptionContaining(String keyword) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseOrderByTimestampDesc(keyword));
-        List<Ad> adsByDescription = adRepository.findAllByDescriptionContainingIgnoreCaseOrderByTimestampDesc(keyword);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc("Pending",keyword));
+        List<Ad> adsByDescription = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseOrderByIsPremiumDescTimestampDesc("Pending",keyword);
         for (Ad ad : adsByDescription){
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -58,8 +63,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategory(String keyword, String category) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryOrderByTimestampDesc(keyword, category));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryOrderByTimestampDesc(keyword, category);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc("Pending",keyword, category));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryOrderByIsPremiumDescTimestampDesc("Pending",keyword, category);
         for (Ad ad : adsByDescriptionAndCategory) {
             if(!ads.contains(ad)) {
                 ads.add(ad);
@@ -69,8 +74,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndType(String keyword, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndTypeOrderByTimestampDesc(keyword, type));
-        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByDescriptionContainingIgnoreCaseAndTypeOrderByTimestampDesc(keyword, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, type));
+        List<Ad> adsByDescriptionAndCategory = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, type);
         for (Ad ad : adsByDescriptionAndCategory) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
@@ -80,8 +85,8 @@ public class AdService {
     }
 
     public List<Ad> getAllByKeywordAndCategoryAndType(String keyword, String category, String type) {
-        List<Ad> ads = new ArrayList<>(adRepository.findAllByTitleContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(keyword, category, type));
-        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByTimestampDesc(keyword, category, type);
+        List<Ad> ads = new ArrayList<>(adRepository.findAllByStateAndTitleContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, category, type));
+        List<Ad> adsByDescriptionAndCategoryAndType = adRepository.findAllByStateAndDescriptionContainingIgnoreCaseAndCategoryAndTypeOrderByIsPremiumDescTimestampDesc("Pending",keyword, category, type);
         for (Ad ad : adsByDescriptionAndCategoryAndType) {
             if (!ads.contains(ad)) {
                 ads.add(ad);
@@ -132,7 +137,6 @@ public class AdService {
     }
 
     public Ad addNewAd(AdDto adDto) {
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         adDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         adDto.setState("Pending");
         Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
@@ -142,7 +146,9 @@ public class AdService {
     }
 
     public void deleteAd(int id) {
-        adRepository.deleteById(id);
+        Ad ad = adRepository.findById(id);
+        ad.setState("Archive");
+        adRepository.save(ad);
     }
 
     public Ad updateAdData(Ad ad) {

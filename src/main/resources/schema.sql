@@ -112,6 +112,7 @@ CREATE TABLE notifications (
   read BOOLEAN NOT NULL,
   type TEXT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
+  deleted BOOLEAN NOT NULL,
   FOREIGN KEY (from_id) REFERENCES users("id"),
   FOREIGN KEY (to_id) REFERENCES users("id"),
   FOREIGN KEY (ad_id) REFERENCES ads("id"),
@@ -127,6 +128,7 @@ CREATE TABLE reports (
   reported_ad_id INTEGER,
   report_text TEXT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
+  handled BOOLEAN NOT NULL,
   FOREIGN KEY (reporter_id) REFERENCES users("id"),
   FOREIGN KEY (reported_user_id) REFERENCES users("id"),
   FOREIGN KEY (reported_ad_id) REFERENCES ads("id")

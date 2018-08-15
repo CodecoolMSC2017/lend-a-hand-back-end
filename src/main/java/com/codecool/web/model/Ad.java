@@ -18,14 +18,14 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonBackReference(value = "user-ads")
     @JoinColumn(name = "advertiser_id")
     @NotNull
     private User advertiser;
 
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ad")
+    @OneToMany(mappedBy = "ad")
     @JsonManagedReference(value = "ad-applications")
     private List<Application> applications;
 
