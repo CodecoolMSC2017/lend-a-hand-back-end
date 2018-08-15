@@ -32,6 +32,8 @@ public class NotificationDto {
 
     private LocalDateTime timestamp;
 
+    private Boolean deleted;
+
     public NotificationDto(Notification notification) {
         this.id = notification.getId();
         this.fromId = notification.getFrom().getId();
@@ -42,6 +44,7 @@ public class NotificationDto {
         this.type = notification.getType();
         this.read = notification.getRead();
         this.timestamp = notification.getTimestamp();
+        this.deleted = notification.getDeleted();
     }
 
     NotificationDto() {
