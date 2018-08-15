@@ -5,6 +5,8 @@ import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.*;
 import com.codecool.web.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class ApplicationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationService.class);
 
     @Autowired
     private ApplicationRepository applicationRepository;
@@ -58,7 +62,7 @@ public class ApplicationService {
         //Create and save notification
         Notification notification = NotificationCreater.createApplyNotification(applicant, ad.getAdvertiser(), ad);
         notificationRepository.save(notification);
-        
+        logger.info(applicant.getUserName() + " has created a new application for the advertisement " + ad.getTitle() + " with ID " + ad.getId());
         return applicationRepository.save(new Application(applicationDto, ad, applicant));
 
     }
@@ -73,7 +77,6 @@ public class ApplicationService {
         //Create and save notification
         Notification notification = NotificationCreater.createDeclineNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
-
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 

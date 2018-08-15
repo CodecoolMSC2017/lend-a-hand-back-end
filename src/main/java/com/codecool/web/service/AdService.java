@@ -4,6 +4,8 @@ import com.codecool.web.dto.AdDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Component
 public class AdService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdService.class);
 
     @Autowired
     private AdRepository adRepository;
@@ -133,6 +137,7 @@ public class AdService {
         adDto.setState("Pending");
         Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
         adRepository.save(ad);
+        logger.info(ad.getAdvertiser().getUserName() + " has created a new ad in the Category " + ad.getCategory() + " with ID " + ad.getId());
         return ad;
     }
 
