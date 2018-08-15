@@ -35,9 +35,19 @@ public class NotificationController {
         return notificationService.getAllUnreadNotificationsByUserId(userId);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/read/{id}")
     public NotificationDto readNotification(@PathVariable("id") int id) {
         return notificationService.setReadToTrue(id);
+    }
+
+    @PutMapping("/unread/{id}")
+    public NotificationDto unreadNotification(@PathVariable("id") int id) {
+        return notificationService.setReadToFalse(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public NotificationDto deleteNotification(@PathVariable("id") int id) {
+        return notificationService.setDeletedToTrue(id);
     }
 
 }

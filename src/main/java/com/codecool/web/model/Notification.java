@@ -57,6 +57,9 @@ public class Notification {
     @NotNull
     private LocalDateTime timestamp;
 
+    @NotNull
+    private Boolean deleted;
+
     public Notification() {
     }
 
@@ -68,6 +71,7 @@ public class Notification {
         this.type = type;
         this.text = text;
         this.timestamp = timestamp;
+        this.deleted = false;
     }
 
     Notification(User from, User to, Application application, String type, String text, LocalDateTime timestamp) {
@@ -78,6 +82,7 @@ public class Notification {
         this.type = type;
         this.text = text;
         this.timestamp = timestamp;
+        this.deleted = false;
     }
 
     Notification(User from, User to, EmployeeRating employeeRating, String type, String text, LocalDateTime timestamp) {
@@ -88,6 +93,7 @@ public class Notification {
         this.text = text;
         this.read = false;
         this.timestamp = timestamp;
+        this.deleted = false;
     }
 
     Notification(User from, User to, EmployerRating employerRating, String type, String text, LocalDateTime timestamp) {
@@ -98,6 +104,7 @@ public class Notification {
         this.text = text;
         this.read = false;
         this.timestamp = timestamp;
+        this.deleted = false;
     }
 
     public int getId() {
@@ -186,5 +193,13 @@ public class Notification {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

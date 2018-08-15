@@ -112,6 +112,7 @@ CREATE TABLE notifications (
   read BOOLEAN NOT NULL,
   type TEXT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
+  deleted BOOLEAN NOT NULL,
   FOREIGN KEY (from_id) REFERENCES users("id"),
   FOREIGN KEY (to_id) REFERENCES users("id"),
   FOREIGN KEY (ad_id) REFERENCES ads("id"),
