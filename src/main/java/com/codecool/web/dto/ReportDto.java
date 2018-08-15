@@ -48,10 +48,17 @@ public class ReportDto implements Serializable {
         this.id = report.getId();
         this.reporterId = report.getReporter().getId();
         this.reporterUsername = report.getReporter().getUserName();
-        this.reportedUserId = report.getReportedUser().getId();
-        this.reportedUsername = report.getReportedUser().getUserName();
-        this.reportedAdId = report.getReportedAd().getId();
-        this.reportedAdTitle = report.getReportedAd().getTitle();
+
+        if(report.getReportedUser()!=null) {
+            this.reportedUserId = report.getReportedUser().getId();
+            this.reportedUsername = report.getReportedUser().getUserName();
+        }
+
+        if(report.getReportedAd()!=null) {
+            this.reportedAdId = report.getReportedAd().getId();
+            this.reportedAdTitle = report.getReportedAd().getTitle();
+        }
+
         this.reportText = report.getReportText();
         this.timestamp = report.getTimestamp();
         this.isHandled = report.isHandled();
