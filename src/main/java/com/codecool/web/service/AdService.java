@@ -149,10 +149,12 @@ public class AdService {
         Ad ad = adRepository.findById(id);
         ad.setState("Archive");
         adRepository.save(ad);
+        logger.info("The state of the ad with ID " + ad.getId() + " has been changed to 'Archive'");
     }
 
     public Ad updateAdData(Ad ad) {
         adRepository.save(ad);
+        logger.info("The ad with ID " + ad.getId() + " has been updated");
         return ad;
     }
 

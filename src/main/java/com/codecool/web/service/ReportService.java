@@ -7,6 +7,8 @@ import com.codecool.web.model.User;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.ReportRepository;
 import com.codecool.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Component
 public class ReportService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
     @Autowired
     private ReportRepository reportRepository;
@@ -53,6 +57,7 @@ public class ReportService {
         reportDto.setHandled(false);
         Report report = new Report(reportDto, reporter, reportedUser, reportedAd);
         reportRepository.save(report);
+        logger.info("New report was made: ID of reporter: " + reporter + " ID of reported user: " + reportedUser + " ID of reported ad: " + reportedAd);
         return report;
     }
 

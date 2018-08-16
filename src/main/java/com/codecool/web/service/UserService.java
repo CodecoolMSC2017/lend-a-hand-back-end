@@ -5,6 +5,8 @@ import com.codecool.web.exception.UserAlreadyRegisteredException;
 import com.codecool.web.exception.WrongVerificationCodeException;
 import com.codecool.web.model.User;
 import com.codecool.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,8 @@ import java.util.UUID;
 
 @Component
 public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -53,6 +57,7 @@ public class UserService {
         }
         user.setVerificated(true);
         userRepository.save(user);
+        logger.info(user.getUserName() + " has been verificated");
         return user;
     }
 
@@ -62,6 +67,7 @@ public class UserService {
         user.setVerificationCode(verificationCode);
         userRepository.save(user);
         Utility.sendEmail(user);
+        logger.info("Verification email for " + user.getUserName() + " has been resend");
     }
 
 
@@ -82,10 +88,12 @@ public class UserService {
         Utility.sendEmail(registeredUser);
         registeredUser.setType(type);
         userRepository.save(registeredUser);
+        logger.info("User " + registeredUser.getUserName() + " with ID " + registeredUser.getId() + " has registered successfully");
     }
 
     public void deleteUser(int id) {
         userRepository.deleteById(id);
+        logger.info("User with ID " + id + " has been deleted");
     }
 
     public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address) {
@@ -96,6 +104,7 @@ public class UserService {
         savedUser.setCity(city);
         savedUser.setAddress(address);
         savedUser.setAbleToAd(true);
+        logger.info("User with ID " + id + " has been updated");
         return userRepository.save(savedUser);
     }
 }

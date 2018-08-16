@@ -7,6 +7,8 @@ import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.EmployeeRatingRepository;
 import com.codecool.web.repository.EmployerRatingRepository;
 import com.codecool.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Component
 public class RatingService {
 
+    private static final Logger logger = LoggerFactory.getLogger(RatingService.class);
     @Autowired
     private EmployeeRatingRepository employeeRatingRepository;
     @Autowired
@@ -64,10 +67,12 @@ public class RatingService {
         if (applicant.getId() == rated.getId()) {
             EmployeeRating employeeRating = new EmployeeRating(rater, rated, ratingTransferObject, application);
             employeeRatingRepository.save(employeeRating);
+            logger.info(rated + " was rated as a Hand-lender by " + rater + " based on the ad with ID " + ad.getId());
             //If the advertiser is the rated create object and save it
         } else {
             EmployerRating employerRating = new EmployerRating(rater, rated, ratingTransferObject, application);
             employerRatingRepository.save(employerRating);
+            logger.info(rated + " was rated as a Hand-seeker by " + rater + " based on the ad with ID " + ad.getId());
         }
 
         //Read out the rater from database and return it

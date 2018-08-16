@@ -12,6 +12,8 @@ import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.ApplicationRepository;
 import com.codecool.web.repository.MessageRepository;
 import com.codecool.web.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ import java.util.*;
 
 @Component
 public class MessageService {
+
+    private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
     @Autowired
     private MessageRepository messageRepository;
@@ -48,6 +52,7 @@ public class MessageService {
         messageDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         Message message = new Message(messageDto, sender, receiver, application);
         messageRepository.save(message);
+        logger.info(sender.getUserName() + " sent a new message to " + receiver.getUserName() + " at the application with ID " + application.getId());
         return new MessageDto(message);
     }
 
