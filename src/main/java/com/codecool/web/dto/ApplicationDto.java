@@ -21,6 +21,10 @@ public class ApplicationDto implements Serializable {
 
     private String applicantPictureLink;
 
+    private String advertiserName;
+
+    private int advertiserId;
+
     private BigDecimal employeeRatingScore;
 
     private BigDecimal employerRatingScore;
@@ -53,6 +57,8 @@ public class ApplicationDto implements Serializable {
         this.applicantPictureLink = application.getApplicant().getPictureLink();
         this.employeeRatingScore = Utility.evaluateEmployeeRating(application.getApplicant());
         this.employerRatingScore = Utility.evaluateEmployerRating(application.getApplicant());
+        this.advertiserId = application.getAd().getAdvertiser().getId();
+        this.advertiserName = application.getAd().getAdvertiser().getUserName();
     }
 
     public ApplicationDto(int id, int adId, String adTitle, int applicantId, String applicantName, String message, String state, LocalDateTime timestamp) {
@@ -179,5 +185,21 @@ public class ApplicationDto implements Serializable {
 
     public void setEmployerRatingScore(BigDecimal employerRatingScore) {
         this.employerRatingScore = employerRatingScore;
+    }
+
+    public String getAdvertiserName() {
+        return advertiserName;
+    }
+
+    public void setAdvertiserName(String advertiserName) {
+        this.advertiserName = advertiserName;
+    }
+
+    public int getAdvertiserId() {
+        return advertiserId;
+    }
+
+    public void setAdvertiserId(int advertiserId) {
+        this.advertiserId = advertiserId;
     }
 }
