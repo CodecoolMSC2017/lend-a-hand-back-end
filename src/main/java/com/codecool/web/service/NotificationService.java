@@ -69,6 +69,7 @@ public class NotificationService {
     public NotificationDto setDeletedToTrue(int id) {
         Notification notification = notificationRepository.findById(id);
         notification.setDeleted(true);
+        notification.setRead(true);
         notificationRepository.save(notification);
         return createNotificationDto(notification);
     }
