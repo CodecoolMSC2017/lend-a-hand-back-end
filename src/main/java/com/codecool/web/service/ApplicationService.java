@@ -5,6 +5,8 @@ import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.*;
 import com.codecool.web.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class ApplicationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationService.class);
 
     @Autowired
     private ApplicationRepository applicationRepository;
@@ -58,7 +62,7 @@ public class ApplicationService {
         //Create and save notification
         Notification notification = NotificationBuilder.createApplyNotification(applicant, ad.getAdvertiser(), ad);
         notificationRepository.save(notification);
-
+        logger.info(applicant.getUserName() + " has created a new application for the advertisement " + ad.getTitle() + " with ID " + ad.getId());
         return applicationRepository.save(new Application(applicationDto, ad, applicant));
 
     }
@@ -73,7 +77,7 @@ public class ApplicationService {
         //Create and save notification
         Notification notification = NotificationBuilder.createDeclineNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
-
+        logger.info(user.getUserName() + " has declined the application of " + application.getApplicant().getUserName() + " for the advertisement with ID " + ad.getId());
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
@@ -84,6 +88,7 @@ public class ApplicationService {
         Message message = new Message(advertiser, applicant, initialMessage, timestamp,
             application);
         messageRepository.save(message);
+        logger.info("Automathic message from " + advertiser.getUserName() + " to " + applicant.getUserName() + " after accepting the application with ID " + application.getId());
     }
 
     public List<Application> acceptApplication(int id) {
@@ -103,6 +108,7 @@ public class ApplicationService {
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
+        logger.info(user.getUserName() + " has accepted the application of " + application.getApplicant().getUserName() + " for the advertisement with ID " + ad.getId());
         return applicationRepository.findAllByAd_IdOrderByTimestampAsc(ad.getId());
     }
 
@@ -118,6 +124,7 @@ public class ApplicationService {
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
+        logger.info(user.getUserName() + " has marked the application of " + application.getApplicant().getUserName() + " for the advertisement with ID " + ad.getId() + "as 'Failed'");
         return new ApplicationDto(applicationRepository.findById(application.getId()));
     }
 
@@ -136,16 +143,19 @@ public class ApplicationService {
 
         applicationRepository.save(application);
         adRepo.save(ad);
+        logger.info(user.getUserName() + " has marked the application of " + application.getApplicant().getUserName() + " for the advertisement with ID " + ad.getId() + "as 'Completed'. Every other applications for this ad have marked as 'Declined'");
         return new ApplicationDto(applicationRepository.findById(application.getId()));
     }
 
 
     public void deleteApplication(int id) {
         applicationRepository.deleteById(id);
+        logger.info("The application with ID " +id+ " has been deleted");
     }
 
     public Application updateApplicationData(Application application) {
         applicationRepository.save(application);
+        logger.info("The application with ID " +application.getId()+ " has been updated");
         return application;
     }
 

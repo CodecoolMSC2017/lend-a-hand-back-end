@@ -84,8 +84,8 @@ VALUES (1,2,'Hello, I am Beagun can i ask about the payment?','2018-8-04 10:23:5
 
 INSERT INTO reports (reporter_id,reported_user_id,report_text,timestamp,handled)
 VALUES
-(3,1,'He is a fuckface','2018-8-15 10:06:00',false),
-(4,1,'Yep, he is a fuckface','2018-8-15 10:06:00',false);
+(3,1,'He is a duckface','2018-8-15 10:06:00',false),
+(4,1,'Yep, he is a duckface','2018-8-15 10:06:00',false);
 
 
 

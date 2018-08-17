@@ -6,6 +6,8 @@ import com.codecool.web.dto.NotificationDto;
 import com.codecool.web.dto.RatingTransferObject;
 import com.codecool.web.model.*;
 import com.codecool.web.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Component
 public class NotificationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
 
     @Autowired
     private NotificationRepository notificationRepository;
