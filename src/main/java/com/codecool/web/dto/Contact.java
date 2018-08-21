@@ -20,6 +20,9 @@ public class Contact implements Serializable {
         this.application = application;
     }
 
+    public Contact() {
+    }
+
     public User getUser() {
         return user;
     }

@@ -9,6 +9,9 @@ public class UserContactDto implements Serializable {
     private User user;
     private Contact contact;
 
+    public UserContactDto() {
+    }
+
 
     public UserContactDto(User user, Contact contact) {
         this.user = user;
