@@ -86,7 +86,7 @@ public class ApplicationService {
         String initialMessage = "Dear " + applicant.getUserName() +
             ", I am interested in your application. We can discuss the details here.";
         Message message = new Message(advertiser, applicant, initialMessage, timestamp,
-            application);
+            application, false);
         messageRepository.save(message);
         logger.info("Automathic message from " + advertiser.getUserName() + " to " + applicant.getUserName() + " after accepting the application with ID " + application.getId());
     }
