@@ -122,7 +122,7 @@ public class User implements Serializable {
 
     private Integer balance;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer reported;
 
     private Boolean blocked;
