@@ -1,10 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.Utility;
-import com.codecool.web.dto.AdDto;
-import com.codecool.web.dto.ApplicationDto;
-import com.codecool.web.dto.Contact;
-import com.codecool.web.dto.MessageDto;
+import com.codecool.web.dto.*;
 import com.codecool.web.model.Application;
 import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
@@ -85,6 +82,22 @@ public class MessageService {
 
     public boolean haveNewMessage(int receiverId) {
         return this.messageRepository.findAllByReceiver_IdAndReadFalseOrderByTimestampDesc(receiverId).size() != 0;
+    }
+
+    public List<Contact> setReadToTrue(UserContactDto userContactDto) {
+        int receiverId = userContactDto.getUser().getId();
+        Contact contact = userContactDto.getContact();
+        for (MessageDto messageDto : contact.getMessages()) {
+            if (messageDto.getReceiverId() == receiverId && !messageDto.isRead()) {
+                messageDto.setRead(true);
+                User receiver = userRepository.findById(messageDto.getReceiverId());
+                User sender = userRepository.findById(messageDto.getSenderId());
+                Application application = applicationRepository.findById(messageDto.getApplicationId());
+                Message message = new Message(messageDto, sender, receiver, application);
+                messageRepository.save(message);
+            }
+        }
+        return getContactsByUserId(receiverId);
     }
 
 }

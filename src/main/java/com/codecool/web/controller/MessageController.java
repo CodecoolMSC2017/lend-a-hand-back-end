@@ -2,6 +2,7 @@ package com.codecool.web.controller;
 
 import com.codecool.web.dto.Contact;
 import com.codecool.web.dto.MessageDto;
+import com.codecool.web.dto.UserContactDto;
 import com.codecool.web.model.Message;
 import com.codecool.web.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,13 @@ public class MessageController {
     @GetMapping("/new/{userId}")
     public boolean haveNewMessage(@PathVariable("userId") int userId) {
         return messageService.haveNewMessage(userId);
+    }
+
+    @PutMapping(path = "/read",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Contact> readMessages(@RequestBody UserContactDto userContactDto) {
+        return messageService.setReadToTrue(userContactDto);
     }
 
     @PostMapping(path = "/new",
