@@ -3,10 +3,7 @@ package com.codecool.web.service;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.dto.RatingTransferObject;
 import com.codecool.web.model.*;
-import com.codecool.web.repository.AdRepository;
-import com.codecool.web.repository.EmployeeRatingRepository;
-import com.codecool.web.repository.EmployerRatingRepository;
-import com.codecool.web.repository.UserRepository;
+import com.codecool.web.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,8 @@ public class RatingService {
     private UserRepository uRepo;
     @Autowired
     private AdRepository adRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     public List<EmployeeRating> getAllEmployeeRating() {
         return employeeRatingRepository.findAll();
@@ -67,11 +66,19 @@ public class RatingService {
         if (applicant.getId() == rated.getId()) {
             EmployeeRating employeeRating = new EmployeeRating(rater, rated, ratingTransferObject, application);
             employeeRatingRepository.save(employeeRating);
+            //Create and save notification
+            Notification notification = NotificationBuilder.createEmployeeRatingNotification(rater, rated, employeeRating);
+            notificationRepository.save(notification);
+
             logger.info(rated + " was rated as a Hand-lender by " + rater + " based on the ad with ID " + ad.getId());
             //If the advertiser is the rated create object and save it
         } else {
             EmployerRating employerRating = new EmployerRating(rater, rated, ratingTransferObject, application);
             employerRatingRepository.save(employerRating);
+            //Create and save notification
+            Notification notification = NotificationBuilder.createEmployerRatingNotification(rater, rated, employerRating);
+            notificationRepository.save(notification);
+
             logger.info(rated + " was rated as a Hand-seeker by " + rater + " based on the ad with ID " + ad.getId());
         }
 
@@ -79,20 +86,20 @@ public class RatingService {
         return uRepo.findById(rater.getId());
     }
 
-    private List<RatingTransferObject> employeeRatingIntoTransfer(List<EmployeeRating> fromList){
+    private List<RatingTransferObject> employeeRatingIntoTransfer(List<EmployeeRating> fromList) {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
-        for (EmployeeRating er : fromList){
+        for (EmployeeRating er : fromList) {
             rtoList.add(new RatingTransferObject(er, new ApplicationDto(er.getApplication())));
         }
 
         return rtoList;
     }
 
-    private List<RatingTransferObject> employerRatingIntoTransfer(List<EmployerRating> fromList){
+    private List<RatingTransferObject> employerRatingIntoTransfer(List<EmployerRating> fromList) {
         List<RatingTransferObject> rtoList = new ArrayList<>();
 
-        for (EmployerRating er : fromList){
+        for (EmployerRating er : fromList) {
             rtoList.add(new RatingTransferObject(er, new ApplicationDto(er.getApplication())));
         }
 

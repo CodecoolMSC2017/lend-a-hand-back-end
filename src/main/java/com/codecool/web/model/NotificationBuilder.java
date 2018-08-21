@@ -55,6 +55,17 @@ public class NotificationBuilder {
         return new Notification(from, to, employerRating, type, text, createTimeStamp());
     }
 
+    public static Notification createReportNotification(User from, User to, Report report) {
+        String type = "Report";
+        String text;
+        if (report.getReportedUser() != null) {
+            text = from.getUserName() + " reported " + report.getReportedUser().getUserName();
+        } else {
+            text = from.getUserName() + " reported " + report.getReportedAd().getTitle();
+        }
+        return new Notification(from, to, report, type, text, createTimeStamp());
+    }
+
     private static LocalDateTime createTimeStamp() {
         return new Timestamp(new Date().getTime()).toLocalDateTime();
     }

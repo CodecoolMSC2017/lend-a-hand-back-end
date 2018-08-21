@@ -45,6 +45,11 @@ public class Notification {
     @JsonBackReference(value = "employer-notification")
     private EmployerRating employerRating;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "report_id")
+    @JsonBackReference(value = "report-notification")
+    private Report report;
+
     @NotNull
     private String text;
 
@@ -100,6 +105,18 @@ public class Notification {
         this.from = from;
         this.to = to;
         this.employerRating = employerRating;
+        this.type = type;
+        this.text = text;
+        this.read = false;
+        this.timestamp = timestamp;
+        this.deleted = false;
+    }
+
+
+    Notification(User from, User to, Report report, String type, String text, LocalDateTime timestamp) {
+        this.from = from;
+        this.to = to;
+        this.report = report;
         this.type = type;
         this.text = text;
         this.read = false;
@@ -201,5 +218,13 @@ public class Notification {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
     }
 }

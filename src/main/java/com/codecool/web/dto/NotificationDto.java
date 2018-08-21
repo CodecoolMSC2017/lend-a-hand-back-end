@@ -24,6 +24,8 @@ public class NotificationDto {
 
     private RatingTransferObject employerRating;
 
+    private ReportDto report;
+
     private String text;
 
     private String type;
@@ -152,6 +154,22 @@ public class NotificationDto {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public ReportDto getReport() {
+        return report;
+    }
+
+    public void setReport(ReportDto reportDto) {
+        this.report = reportDto;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }
 

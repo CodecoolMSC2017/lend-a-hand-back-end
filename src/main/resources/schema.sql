@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS reports;
 DROP TABLE IF EXISTS notifications;
+DROP TABLE IF EXISTS reports;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS employer_ratings;
 DROP TABLE IF EXISTS employee_ratings;
@@ -101,27 +101,6 @@ CREATE TABLE messages (
 
 );
 
-CREATE TABLE notifications (
-  id SERIAL PRIMARY KEY,
-  from_id INTEGER,
-  to_id INTEGER NOT NULL,
-  ad_id INTEGER,
-  application_id INTEGER,
-  employee_rating_id INTEGER,
-  employer_rating_id INTEGER,
-  text TEXT NOT NULL,
-  read BOOLEAN NOT NULL,
-  type TEXT NOT NULL,
-  timestamp TIMESTAMP NOT NULL,
-  deleted BOOLEAN NOT NULL,
-  FOREIGN KEY (from_id) REFERENCES users("id"),
-  FOREIGN KEY (to_id) REFERENCES users("id"),
-  FOREIGN KEY (ad_id) REFERENCES ads("id"),
-  FOREIGN KEY (application_id) REFERENCES applications("id"),
-  FOREIGN KEY (employee_rating_id) REFERENCES employee_ratings("id"),
-  FOREIGN KEY (employer_rating_id) REFERENCES employer_ratings("id")
-);
-
 CREATE TABLE reports (
   id SERIAL PRIMARY KEY,
   reporter_id INTEGER NOT NULL,
@@ -133,4 +112,28 @@ CREATE TABLE reports (
   FOREIGN KEY (reporter_id) REFERENCES users("id"),
   FOREIGN KEY (reported_user_id) REFERENCES users("id"),
   FOREIGN KEY (reported_ad_id) REFERENCES ads("id")
+);
+
+
+CREATE TABLE notifications (
+  id SERIAL PRIMARY KEY,
+  from_id INTEGER,
+  to_id INTEGER NOT NULL,
+  ad_id INTEGER,
+  application_id INTEGER,
+  employee_rating_id INTEGER,
+  employer_rating_id INTEGER,
+  report_id INTEGER,
+  text TEXT NOT NULL,
+  read BOOLEAN NOT NULL,
+  type TEXT NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
+  deleted BOOLEAN NOT NULL,
+  FOREIGN KEY (from_id) REFERENCES users("id"),
+  FOREIGN KEY (to_id) REFERENCES users("id"),
+  FOREIGN KEY (ad_id) REFERENCES ads("id"),
+  FOREIGN KEY (application_id) REFERENCES applications("id"),
+  FOREIGN KEY (employee_rating_id) REFERENCES employee_ratings("id"),
+  FOREIGN KEY (employer_rating_id) REFERENCES employer_ratings("id"),
+  FOREIGN KEY (report_id) REFERENCES reports("id")
 );
