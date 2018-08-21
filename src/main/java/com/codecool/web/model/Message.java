@@ -39,15 +39,19 @@ public class Message {
     @NotNull
     private LocalDateTime timestamp;
 
+    @NotNull
+    private Boolean read;
+
     public Message() {
     }
 
-    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp, @NotNull Application application) {
+    public Message(@NotNull User sender, @NotNull User receiver, @NotNull String text, @NotNull LocalDateTime timestamp, @NotNull Application application, @NotNull Boolean read) {
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
         this.timestamp = timestamp;
         this.application = application;
+        this.read = read;
     }
 
     public Message(MessageDto messageDto, User sender, User receiver, Application application) {
@@ -57,6 +61,7 @@ public class Message {
         this.text = messageDto.getText();
         this.timestamp = messageDto.getTimestamp();
         this.application = application;
+        this.read = messageDto.isRead();
     }
 
     public int getId() {
@@ -105,5 +110,13 @@ public class Message {
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public Boolean isRead() {
+        return read;
+    }
+
+    public void setRead(Boolean read) {
+        this.read = read;
     }
 }

@@ -94,6 +94,7 @@ CREATE TABLE messages (
   receiver_id INTEGER NOT NULL,
   application_id INTEGER NOT NULL,
   text TEXT NOT NULL,
+  read BOOLEAN NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES users("id") ON DELETE CASCADE,
   FOREIGN KEY (receiver_id) REFERENCES users("id") ON DELETE CASCADE

@@ -15,9 +15,9 @@ public class MessageDto implements Serializable {
     private int adId;
     private String adTitle;
     private int applicationId;
+    private boolean read;
 
     public MessageDto() {
-
     }
 
     public MessageDto(Message message) {
@@ -29,6 +29,7 @@ public class MessageDto implements Serializable {
         this.adId = message.getApplication().getAd().getId();
         this.adTitle = message.getApplication().getAd().getTitle();
         this.applicationId = message.getApplication().getId();
+        this.read = message.isRead();
     }
 
     public int getId() {
@@ -93,6 +94,14 @@ public class MessageDto implements Serializable {
 
     public void setApplicationId(int applicationId) {
         this.applicationId = applicationId;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }
 
