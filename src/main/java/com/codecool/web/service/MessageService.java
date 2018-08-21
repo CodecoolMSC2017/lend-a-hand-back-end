@@ -8,7 +8,6 @@ import com.codecool.web.dto.MessageDto;
 import com.codecool.web.model.Application;
 import com.codecool.web.model.Message;
 import com.codecool.web.model.User;
-import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.ApplicationRepository;
 import com.codecool.web.repository.MessageRepository;
 import com.codecool.web.repository.UserRepository;
@@ -32,9 +31,6 @@ public class MessageService {
     private UserRepository userRepository;
 
     @Autowired
-    private AdRepository adRepository;
-
-    @Autowired
     private ApplicationRepository applicationRepository;
 
     public List<Message> getAllBySender_IdAndReceiver_IdOrderByTimestampAsc(int senderId, int receiverId) {
@@ -50,6 +46,7 @@ public class MessageService {
         User receiver = userRepository.findById(messageDto.getReceiverId());
         Application application = applicationRepository.findById(messageDto.getApplicationId());
         messageDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
+        messageDto.setRead(false);
         Message message = new Message(messageDto, sender, receiver, application);
         messageRepository.save(message);
         logger.info(sender.getUserName() + " sent a new message to " + receiver.getUserName() + " at the application with ID " + application.getId());
@@ -84,6 +81,10 @@ public class MessageService {
             }
         }
         return false;
+    }
+
+    public boolean haveNewMessage(int receiverId) {
+        return this.messageRepository.findAllByReceiver_IdAndReadFalseOrderByTimestampDesc(receiverId).size() != 0;
     }
 
 }

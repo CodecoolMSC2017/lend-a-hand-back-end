@@ -32,6 +32,11 @@ public class MessageController {
         return messageService.getContactsByUserId(userId);
     }
 
+    @GetMapping("/new/{userId}")
+    public boolean haveNewMessage(@PathVariable("userId") int userId) {
+        return messageService.haveNewMessage(userId);
+    }
+
     @PostMapping(path = "/new",
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
