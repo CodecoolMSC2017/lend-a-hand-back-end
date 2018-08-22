@@ -45,6 +45,13 @@ public class MessageController {
         return messageService.setReadToTrue(userContactDto);
     }
 
+    @GetMapping(path = "")
+    public List<Message> getNewMessages(@RequestParam(value = "userId", required = false) int userId,
+                                        @RequestParam(value = "messageId", required = false) Integer messageId,
+                                        @RequestParam(value = "contactedId", required = false) int contactedId) {
+        return messageService.getNewMessages(userId, contactedId, messageId);
+    }
+
     @PostMapping(path = "/new",
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)

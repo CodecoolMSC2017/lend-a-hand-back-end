@@ -100,4 +100,10 @@ public class MessageService {
         return getContactsByUserId(receiverId);
     }
 
+    public List<Message> getNewMessages(int userId, int contactedId, int messageId) {
+        Message lastMessage = messageRepository.findById(messageId);
+        List<Message> messages = messageRepository.findAllBySender_IdAndReceiver_IdAndTimestampGreaterThan(contactedId, userId, lastMessage.getTimestamp());
+        return messages;
+    }
+
 }
