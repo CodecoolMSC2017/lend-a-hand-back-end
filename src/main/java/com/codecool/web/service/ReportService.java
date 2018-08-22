@@ -33,11 +33,11 @@ public class ReportService {
     private NotificationRepository notificationRepository;
 
     public List<Report> getAllUserReports() {
-        return reportRepository.findAllByReportedAdIsNull();
+        return reportRepository.findAllByReportedAdIsNullOrderByIsHandledAscTimestampAsc();
     }
 
     public List<Report> getAllAdReports() {
-        return reportRepository.findAllByReportedUserIsNull();
+        return reportRepository.findAllByReportedUserIsNullOrderByIsHandledAscTimestampAsc();
     }
 
     public Report addNewReport(ReportDto reportDto) {
@@ -63,8 +63,13 @@ public class ReportService {
 
     public List<Report> handleReport(int id) {
         Report report = reportRepository.findById(id);
+        User reporter = report.getReporter();
+
         report.setHandled(true);
         reportRepository.save(report);
+
+        Notification notification = NotificationBuilder.createHandleNotification(reporter, reporter, report);
+        notificationRepository.save(notification);
 
         if (report.getReportedAd() == null) {
             return getAllUserReports();
