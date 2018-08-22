@@ -1,7 +1,6 @@
 package com.codecool.web.service;
 
 import com.codecool.web.Utility;
-import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.*;
@@ -124,6 +123,9 @@ public class ApplicationService {
         Notification notification = NotificationBuilder.createFailedNotification(ad.getAdvertiser(), user, application);
         notificationRepository.save(notification);
 
+        notification = NotificationBuilder.createRateNotification(user, ad.getAdvertiser(), application);
+        notificationRepository.save(notification);
+
         applicationRepository.save(application);
         logger.info(user.getUserName() + " has marked the application of " + application.getApplicant().getUserName() + " for the advertisement with ID " + ad.getId() + "as 'Failed'");
         return new ApplicationDto(applicationRepository.findById(application.getId()));
@@ -140,6 +142,9 @@ public class ApplicationService {
 
         //Create and save notification
         Notification notification = NotificationBuilder.createCompletedNotification(ad.getAdvertiser(), user, application);
+        notificationRepository.save(notification);
+
+        notification = NotificationBuilder.createRateNotification(user, ad.getAdvertiser(), application);
         notificationRepository.save(notification);
 
         applicationRepository.save(application);
