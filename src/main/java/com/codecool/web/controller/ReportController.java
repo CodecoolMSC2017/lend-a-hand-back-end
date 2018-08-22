@@ -27,16 +27,6 @@ public class ReportController {
         return Utility.convertReportListToReportDtoList(reportService.getAllAdReports());
     }
 
-    @GetMapping(path = "/users/{id}")
-    public List<ReportDto> getAllReportsByReportedUser(@PathVariable("id") int id) {
-        return Utility.convertReportListToReportDtoList(reportService.getAllByReportedUserId(id));
-    }
-
-    @GetMapping(path = "/ads/{id}")
-    public List<ReportDto> getAllReportsByReportedAd(@PathVariable("id") int id) {
-        return Utility.convertReportListToReportDtoList(reportService.getAllByReportedAdId(id));
-    }
-
     @PostMapping(path = "/new",
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,10 +35,8 @@ public class ReportController {
         return new ReportDto(report);
     }
 
-    @PutMapping(path = "/update/{id}",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public Report updateReport(@PathVariable int id) {
-        return reportService.handleReport(id);
+    @PutMapping(path = "/update/{id}")
+    public List<ReportDto> updateReport(@PathVariable int id) {
+        return Utility.convertReportListToReportDtoList(reportService.handleReport(id));
     }
 }

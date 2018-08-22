@@ -33,19 +33,11 @@ public class ReportService {
     private NotificationRepository notificationRepository;
 
     public List<Report> getAllUserReports() {
-        return reportRepository.findAllByReportedAd_Id(null);
+        return reportRepository.findAllByReportedAdIsNull();
     }
 
     public List<Report> getAllAdReports() {
-        return reportRepository.findAllByReportedUser_Id(null);
-    }
-
-    public List<Report> getAllByReportedUserId(int id) {
-        return reportRepository.findAllByReportedUser_Id(id);
-    }
-
-    public List<Report> getAllByReportedAdId(int id) {
-        return reportRepository.findAllByReportedAd_Id(id);
+        return reportRepository.findAllByReportedUserIsNull();
     }
 
     public Report addNewReport(ReportDto reportDto) {
@@ -69,9 +61,14 @@ public class ReportService {
         return report;
     }
 
-    public Report handleReport(int id) {
+    public List<Report> handleReport(int id) {
         Report report = reportRepository.findById(id);
         report.setHandled(true);
-        return reportRepository.save(report);
+        reportRepository.save(report);
+
+        if (report.getReportedAd() == null) {
+            return getAllUserReports();
+        }
+        return getAllAdReports();
     }
 }
