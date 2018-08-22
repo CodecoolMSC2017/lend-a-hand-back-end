@@ -33,19 +33,11 @@ public class ReportService {
     private NotificationRepository notificationRepository;
 
     public List<Report> getAllUserReports() {
-        return reportRepository.findAllByReportedAd_Id(null);
+        return reportRepository.findAllByReportedAdIsNull();
     }
 
     public List<Report> getAllAdReports() {
-        return reportRepository.findAllByReportedUser_Id(null);
-    }
-
-    public List<Report> getAllByReportedUserId(int id) {
-        return reportRepository.findAllByReportedUser_Id(id);
-    }
-
-    public List<Report> getAllByReportedAdId(int id) {
-        return reportRepository.findAllByReportedAd_Id(id);
+        return reportRepository.findAllByReportedUserIsNull();
     }
 
     public Report addNewReport(ReportDto reportDto) {
@@ -62,14 +54,21 @@ public class ReportService {
         Notification notification = NotificationBuilder.createReportNotification(reporter, admin, report);
         notificationRepository.save(notification);
 
-
-        logger.info("New report was made: ID of reporter: " + reporter + " ID of reported user: " + reportedUser + " ID of reported ad: " + reportedAd);
+        if (reportDto.getReportedUserId() == 0) {
+            logger.info("New report was made: ID of reporter: " + reportDto.getReporterId() + "; ID of reported ad: " + reportDto.getReportedAdId());
+        } else if (reportDto.getReportedAdId() == 0)
+            logger.info("New report was made: ID of reporter: " + reportDto.getReporterId() + "; ID of reported user: " + reportDto.getReportedUserId());
         return report;
     }
 
-    public Report handleReport(int id) {
+    public List<Report> handleReport(int id) {
         Report report = reportRepository.findById(id);
         report.setHandled(true);
-        return reportRepository.save(report);
+        reportRepository.save(report);
+
+        if (report.getReportedAd() == null) {
+            return getAllUserReports();
+        }
+        return getAllAdReports();
     }
 }

@@ -88,7 +88,7 @@ public class ApplicationService {
         Message message = new Message(advertiser, applicant, initialMessage, timestamp,
             application, false);
         messageRepository.save(message);
-        logger.info("Automathic message from " + advertiser.getUserName() + " to " + applicant.getUserName() + " after accepting the application with ID " + application.getId());
+        logger.info("Automatic message from " + advertiser.getUserName() + " to " + applicant.getUserName() + " after accepting the application with ID " + application.getId());
     }
 
     public List<Application> acceptApplication(int id) {
