@@ -59,11 +59,23 @@ public class NotificationBuilder {
         String type = "Report";
         String text;
         if (report.getReportedUser() != null) {
-            text = from.getUserName() + " reported " + report.getReportedUser().getUserName();
+            text = from.getUserName() + " reported user: " + report.getReportedUser().getUserName();
         } else {
-            text = from.getUserName() + " reported " + report.getReportedAd().getTitle();
+            text = from.getUserName() + " reported ad: " + report.getReportedAd().getTitle();
         }
         return new Notification(from, to, report, type, text, createTimeStamp());
+    }
+
+    // Create handled report notification
+    public static Notification createHandleNotification(User to, Report report) {
+        String type = "Handle";
+        String text;
+        if (report.getReportedUser() != null) {
+            text = "Your report is under consideration about user: " + report.getReportedUser().getUserName();
+        } else {
+            text = "Your report is under consideration about ad: " + report.getReportedAd().getTitle();
+        }
+        return new Notification(to, report, type, text, createTimeStamp());
     }
 
     private static LocalDateTime createTimeStamp() {

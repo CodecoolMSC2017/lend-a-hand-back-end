@@ -63,12 +63,16 @@ public class ReportService {
 
     public List<Report> handleReport(int id) {
         Report report = reportRepository.findById(id);
+        User reporter = report.getReporter();
+
         report.setHandled(true);
         reportRepository.save(report);
 
         if (report.getReportedAd() == null) {
             return getAllUserReports();
         }
+        Notification notification = NotificationBuilder.createHandleNotification(reporter, report);
+        notificationRepository.save(notification);
         return getAllAdReports();
     }
 }
