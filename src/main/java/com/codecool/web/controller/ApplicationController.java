@@ -21,6 +21,11 @@ public class ApplicationController {
         return Utility.convertApplicationListToApplicationDtoList(applicationService.getAll());
     }
 
+    @GetMapping("/applied")
+    public boolean isUserApplied(@RequestParam(value = "userId", required = false) int userId, @RequestParam(value = "adId", required = false) int adId) {
+        return applicationService.isUserAppliedToAd(userId, adId);
+    }
+
     @GetMapping("/{id}")
     public ApplicationDto getApplicationById(@PathVariable("id") int id) {
         return new ApplicationDto(applicationService.getById(id));

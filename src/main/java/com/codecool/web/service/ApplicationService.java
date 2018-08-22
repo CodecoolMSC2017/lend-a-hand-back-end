@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.Utility;
+import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.exception.AlreadyAppliedException;
 import com.codecool.web.model.*;
@@ -150,13 +151,23 @@ public class ApplicationService {
 
     public void deleteApplication(int id) {
         applicationRepository.deleteById(id);
-        logger.info("The application with ID " +id+ " has been deleted");
+        logger.info("The application with ID " + id + " has been deleted");
     }
 
     public Application updateApplicationData(Application application) {
         applicationRepository.save(application);
-        logger.info("The application with ID " +application.getId()+ " has been updated");
+        logger.info("The application with ID " + application.getId() + " has been updated");
         return application;
+    }
+
+    public boolean isUserAppliedToAd(int userId, int adId) {
+        List<Application> applicationsAtAd = getAllByAdIdOrderByTimestampAsc(adId);
+        for (Application application : applicationsAtAd) {
+            if (application.getApplicant().getId() == userId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
