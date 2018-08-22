@@ -87,7 +87,10 @@ VALUES
 (3,1,'He is a duckface','2018-8-15 10:06:00',false),
 (4,1,'Yep, he is a duckface','2018-8-15 10:06:00',false);
 
-
+INSERT INTO reports (reporter_id,reported_ad_id,report_text,timestamp,handled)
+VALUES
+(3,1,'This is a duck','2018-8-15 10:06:00',false),
+(4,1,'Yep, this is a duck','2018-8-15 10:06:00',false);
 
 
 
