@@ -68,11 +68,12 @@ public class ReportService {
         report.setHandled(true);
         reportRepository.save(report);
 
+        Notification notification = NotificationBuilder.createHandleNotification(reporter, reporter, report);
+        notificationRepository.save(notification);
+
         if (report.getReportedAd() == null) {
             return getAllUserReports();
         }
-        Notification notification = NotificationBuilder.createHandleNotification(reporter, reporter, report);
-        notificationRepository.save(notification);
         return getAllAdReports();
     }
 }
