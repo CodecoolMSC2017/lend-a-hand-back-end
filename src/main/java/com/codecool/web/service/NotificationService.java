@@ -1,9 +1,6 @@
 package com.codecool.web.service;
 
-import com.codecool.web.dto.AdDto;
-import com.codecool.web.dto.ApplicationDto;
-import com.codecool.web.dto.NotificationDto;
-import com.codecool.web.dto.RatingTransferObject;
+import com.codecool.web.dto.*;
 import com.codecool.web.model.*;
 import com.codecool.web.repository.*;
 import org.slf4j.Logger;
@@ -33,6 +30,9 @@ public class NotificationService {
 
     @Autowired
     private EmployerRatingRepository employerRatingRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
 
 
     public List<NotificationDto> getAll() {
@@ -92,34 +92,38 @@ public class NotificationService {
         ApplicationDto applicationDto = null;
         RatingTransferObject employeeRatingDto = null;
         RatingTransferObject employerRatingDto = null;
+        ReportDto reportDto = null;
         NotificationDto notificationDto = new NotificationDto(notification);
         if (notification.getAd() != null) {
-            Ad ad = adRepository.findById(notification.getAd().getId());
+            Ad ad = notification.getAd();
             adDto = new AdDto(ad);
         }
         if (notification.getApplication() != null) {
-            Application application = applicationRepository.findById(notification.getApplication().getId());
+            Application application = notification.getApplication();
             applicationDto = new ApplicationDto(application);
         }
         if (notification.getEmployeeRating() != null) {
-            EmployeeRating employeeRating = employeeRatingRepository.findById(notification.getEmployeeRating().getId());
+            EmployeeRating employeeRating = notification.getEmployeeRating();
             Application application = employeeRating.getApplication();
             ApplicationDto empApplicationDto = new ApplicationDto(application);
             employeeRatingDto = new RatingTransferObject(employeeRating, empApplicationDto);
         }
         if (notification.getEmployerRating() != null) {
-            EmployerRating employerRating = employerRatingRepository.findById(notification.getEmployerRating().getId());
+            EmployerRating employerRating = notification.getEmployerRating();
             Application application = employerRating.getApplication();
             ApplicationDto empApplicationDto = new ApplicationDto(application);
             employerRatingDto = new RatingTransferObject(employerRating, empApplicationDto);
+        }
+        if (notification.getReport() != null) {
+            Report report = notification.getReport();
+            reportDto = new ReportDto(report);
         }
         notificationDto.setAd(adDto);
         notificationDto.setApplication(applicationDto);
         notificationDto.setEmployeeRating(employeeRatingDto);
         notificationDto.setEmployerRating(employerRatingDto);
+        notificationDto.setReport(reportDto);
         return notificationDto;
-
-
     }
 
 }
