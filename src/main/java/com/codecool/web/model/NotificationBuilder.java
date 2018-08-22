@@ -73,7 +73,8 @@ public class NotificationBuilder {
         if (report.getReportedUser() != null) {
             text = "Your report is under consideration about user: " + report.getReportedUser().getUserName();
         } else {
-            text = "Your report is under consideration about ad: " + report.getReportedAd().getTitle();
+            text = "Your report is under consideration about ad: " + report.getReportedAd().getTitle()
+                + ", from user: " + report.getReportedAd().getAdvertiser().getUserName();
         }
         return new Notification(from, to, report, type, text, createTimeStamp());
     }
