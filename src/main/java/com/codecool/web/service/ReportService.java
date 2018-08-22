@@ -71,7 +71,7 @@ public class ReportService {
         if (report.getReportedAd() == null) {
             return getAllUserReports();
         }
-        Notification notification = NotificationBuilder.createHandleNotification(reporter, report);
+        Notification notification = NotificationBuilder.createHandleNotification(reporter, reporter, report);
         notificationRepository.save(notification);
         return getAllAdReports();
     }

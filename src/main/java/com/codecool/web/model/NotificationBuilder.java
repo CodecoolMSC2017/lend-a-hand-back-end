@@ -67,7 +67,7 @@ public class NotificationBuilder {
     }
 
     // Create handled report notification
-    public static Notification createHandleNotification(User to, Report report) {
+    public static Notification createHandleNotification(User from, User to, Report report) {
         String type = "Handle";
         String text;
         if (report.getReportedUser() != null) {
@@ -75,7 +75,7 @@ public class NotificationBuilder {
         } else {
             text = "Your report is under consideration about ad: " + report.getReportedAd().getTitle();
         }
-        return new Notification(to, report, type, text, createTimeStamp());
+        return new Notification(from, to, report, type, text, createTimeStamp());
     }
 
     private static LocalDateTime createTimeStamp() {
