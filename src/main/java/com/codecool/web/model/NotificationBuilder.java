@@ -86,6 +86,13 @@ public class NotificationBuilder {
         return new Notification(from, to, report, type, text, createTimeStamp());
     }
 
+    public static Notification createBlockAdNotification(User from, User to, Ad ad) {
+        String type = "BlockAd";
+        String text = "Dear " + to.getUserName() + ", your advertisement called: " + ad.getTitle() +
+            " has been archieved due to not appropriate content.";
+        return new Notification(from, to, ad, type, text, createTimeStamp());
+    }
+
     private static LocalDateTime createTimeStamp() {
         return new Timestamp(new Date().getTime()).toLocalDateTime();
     }

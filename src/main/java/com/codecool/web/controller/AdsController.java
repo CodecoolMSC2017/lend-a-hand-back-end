@@ -55,11 +55,9 @@ public class AdsController {
         return new SystemMessageDto("Delete completed");
     }
 
-    @PutMapping(path = "/update",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public Ad updateAd(@RequestBody Ad ad) {
-        return adService.updateAdData(ad);
+    @PutMapping(path = "/block/{id}")
+    public AdDto updateAd(@PathVariable int id) {
+        return adService.blockAd(id);
     }
 
 }
