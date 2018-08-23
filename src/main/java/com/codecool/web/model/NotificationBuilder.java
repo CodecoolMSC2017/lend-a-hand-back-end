@@ -41,6 +41,13 @@ public class NotificationBuilder {
         return new Notification(from, to, application, type, text, createTimeStamp());
     }
 
+    public static Notification createRateNotification(User from, User to, Application application) {
+        String type = "Rate";
+        String text = "Dear " + to.getUserName() + ", please rate " + from.getUserName()
+            + " about the ad called: " + application.getAd().getTitle() + " if you haven't already!";
+        return new Notification(from, to, application, type, text, createTimeStamp());
+    }
+
     public static Notification createEmployeeRatingNotification(User from, User to, EmployeeRating employeeRating) {
         String type = "EmployeeRated";
         String text = "Dear " + to.getUserName() + ", " + from.getUserName()
