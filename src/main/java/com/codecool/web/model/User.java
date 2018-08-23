@@ -122,7 +122,6 @@ public class User implements Serializable {
 
     private Integer balance;
 
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer reported;
 
     private Boolean blocked;
@@ -178,7 +177,7 @@ public class User implements Serializable {
                 List<Report> reports, @Size(max = 32) String email, @Size(max = 32) String phone,
                 @Size(max = 60) String userName, @Size(max = 60) String password, String pictureLink,
                 String fullName, String type, @Size(max = 16) String postalCode, String city, String address,
-                Integer balance, Integer reported, Boolean blocked, Boolean ableToAd, Boolean enabled,
+                Integer balance, Boolean blocked, Boolean ableToAd, Boolean enabled,
                 Boolean verificated, String verificationCode) {
         this.ads = ads;
         this.authorities = authorities;
@@ -204,7 +203,7 @@ public class User implements Serializable {
         this.city = city;
         this.address = address;
         this.balance = balance;
-        this.reported = reported;
+        this.reported = 0;
         this.blocked = blocked;
         this.ableToAd = ableToAd;
         this.enabled = enabled;
@@ -438,6 +437,14 @@ public class User implements Serializable {
 
     public void setReported(Integer reported) {
         this.reported = reported;
+    }
+
+    public void increaseReported() {
+        if (this.reported != null) {
+            this.reported++;
+        } else {
+            this.reported = 1;
+        }
     }
 
     public void setId(int id) {
