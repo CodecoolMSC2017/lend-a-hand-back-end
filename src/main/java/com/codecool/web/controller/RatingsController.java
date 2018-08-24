@@ -32,4 +32,10 @@ public class RatingsController {
         return ratingService.addNewRating(ratingTransferObject);
     }
 
+    @GetMapping(path = "/rated")
+    public boolean getIsRated(@RequestParam(value = "userId", required = false) int userId,
+                              @RequestParam(value = "applicationId", required = false) Integer applicationId) {
+        return ratingService.getIsRated(userId, applicationId);
+    }
+
 }

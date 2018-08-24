@@ -16,4 +16,6 @@ public interface EmployerRatingRepository extends JpaRepository<EmployerRating, 
 
     List<EmployerRating> findAllByRated_Id(int id);
 
+    EmployerRating findByRater_IdAndApplication_Id(int raterId, int applicationId);
+
 }
