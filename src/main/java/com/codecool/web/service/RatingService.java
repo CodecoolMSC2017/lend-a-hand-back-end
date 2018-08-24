@@ -52,6 +52,13 @@ public class RatingService {
         return employerRatingIntoTransfer(employerRatingRepository.findAllByRater_Id(id));
     }
 
+    public boolean getIsRated(int userId, int applicationId) {
+        EmployeeRating employeeRating = employeeRatingRepository.findByRater_IdAndApplication_Id(userId, applicationId);
+        EmployerRating employerRating = employerRatingRepository.findByRater_IdAndApplication_Id(userId, applicationId);
+        return employeeRating != null || employerRating != null;
+
+    }
+
     public User addNewRating(RatingTransferObject ratingTransferObject) {
         User rated = uRepo.findByUserName(ratingTransferObject.getRatedName());
         User rater = uRepo.findByUserName(ratingTransferObject.getRaterName());
