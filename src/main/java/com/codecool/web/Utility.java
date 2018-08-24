@@ -5,6 +5,7 @@ import com.codecool.web.dto.ApplicationDto;
 import com.codecool.web.dto.MessageDto;
 import com.codecool.web.dto.ReportDto;
 import com.codecool.web.model.*;
+import com.codecool.web.model.Application;
 import com.codecool.web.model.Message;
 
 import javax.mail.*;
@@ -110,6 +111,13 @@ public class Utility {
         return applications;
     }
 
+    public static List<com.codecool.web.model.Application> changeStateOfApplicaions(List<com.codecool.web.model.Application> applications, String state) {
+        for (com.codecool.web.model.Application app : applications) {
+                app.setState(state);
+        }
+        return applications;
+    }
+
     public static Set<User> convertMessagesToUserSet(List<Message> messages, int userId) {
         Set<User> users = new HashSet<>();
         for (Message message : messages) {
@@ -129,5 +137,13 @@ public class Utility {
             reportDtos.add(new ReportDto(report));
         }
         return reportDtos;
+    }
+
+    public static List<User> getApplicantsFromApplications(List<com.codecool.web.model.Application> applications) {
+        List<User> applicants = new ArrayList<>();
+        for (com.codecool.web.model.Application application : applications) {
+            applicants.add(application.getApplicant());
+        }
+        return applicants;
     }
 }

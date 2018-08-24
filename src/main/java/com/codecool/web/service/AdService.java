@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.Utility;
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.Notification;
@@ -158,22 +159,23 @@ public class AdService {
         logger.info("The state of the ad with ID " + ad.getId() + " has been changed to 'Archive'");
     }
 
-    public Ad updateAdData(Ad ad) {
-        adRepository.save(ad);
-        logger.info("The ad with ID " + ad.getId() + " has been updated");
-        return ad;
-    }
-
     public AdDto blockAd(int id) {
         Ad ad = adRepository.findById(id);
         User advertiser = ad.getAdvertiser();
+        List<User> applicants = Utility.getApplicantsFromApplications(ad.getApplications());
 
         ad.setState("Blocked");
+        ad.setApplications(Utility.changeStateOfApplicaions(ad.getApplications(), "Declined"));
         adRepository.save(ad);
 
-        Notification notification = NotificationBuilder.createBlockAdNotification(advertiser, advertiser, ad);
-        notificationRepository.save(notification);
+        Notification blockNotification = NotificationBuilder.createBlockAdNotification(advertiser, advertiser, ad);
+        notificationRepository.save(blockNotification);
 
+        for (User applicant : applicants) {
+            Notification declineNotification
+                = NotificationBuilder.createBlockedAdDeclinedApplicationsNotification(advertiser, applicant, ad);
+            notificationRepository.save(declineNotification);
+        }
         return new AdDto(ad);
     }
 

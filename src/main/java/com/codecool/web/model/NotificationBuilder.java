@@ -93,6 +93,13 @@ public class NotificationBuilder {
         return new Notification(from, to, ad, type, text, createTimeStamp());
     }
 
+    // Create notification for applicants for a blocked ad
+    public static Notification createBlockedAdDeclinedApplicationsNotification(User from, User to, Ad ad) {
+        String type = "BlockedAdDeclinedApplications";
+        String text = "Your application is automatically declined because ad: " + ad.getTitle() + " has been blocked.";
+        return new Notification(from, to, ad, type, text, createTimeStamp());
+    }
+
     private static LocalDateTime createTimeStamp() {
         return new Timestamp(new Date().getTime()).toLocalDateTime();
     }
