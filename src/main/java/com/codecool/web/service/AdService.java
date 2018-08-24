@@ -168,7 +168,7 @@ public class AdService {
         Ad ad = adRepository.findById(id);
         User advertiser = ad.getAdvertiser();
 
-        ad.setState("Completed");
+        ad.setState("Blocked");
         adRepository.save(ad);
 
         Notification notification = NotificationBuilder.createBlockAdNotification(advertiser, advertiser, ad);
