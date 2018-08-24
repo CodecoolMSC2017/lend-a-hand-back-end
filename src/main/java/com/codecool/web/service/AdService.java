@@ -2,7 +2,11 @@ package com.codecool.web.service;
 
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.model.Ad;
+import com.codecool.web.model.Notification;
+import com.codecool.web.model.NotificationBuilder;
+import com.codecool.web.model.User;
 import com.codecool.web.repository.AdRepository;
+import com.codecool.web.repository.NotificationRepository;
 import com.codecool.web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,8 @@ public class AdService {
     private AdRepository adRepository;
     @Autowired
     private UserRepository uRepo;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     public List<Ad> getAllForAdmin(){
         return adRepository.findAllByOrderByIsPremiumDescTimestampDesc();
@@ -156,6 +162,19 @@ public class AdService {
         adRepository.save(ad);
         logger.info("The ad with ID " + ad.getId() + " has been updated");
         return ad;
+    }
+
+    public AdDto blockAd(int id) {
+        Ad ad = adRepository.findById(id);
+        User advertiser = ad.getAdvertiser();
+
+        ad.setState("Blocked");
+        adRepository.save(ad);
+
+        Notification notification = NotificationBuilder.createBlockAdNotification(advertiser, advertiser, ad);
+        notificationRepository.save(notification);
+
+        return new AdDto(ad);
     }
 
 

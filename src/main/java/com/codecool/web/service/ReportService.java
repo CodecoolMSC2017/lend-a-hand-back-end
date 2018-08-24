@@ -44,9 +44,13 @@ public class ReportService {
         User reporter = userRepository.findById(reportDto.getReporterId());
         User reportedUser = userRepository.findById(reportDto.getReportedUserId());
         Ad reportedAd = adRepository.findById(reportDto.getReportedAdId());
+
         reportDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
+
         reportDto.setHandled(false);
+
         Report report = new Report(reportDto, reporter, reportedUser, reportedAd);
+
         reportRepository.save(report);
 
         //Create and save notification
@@ -56,8 +60,14 @@ public class ReportService {
 
         if (reportDto.getReportedUserId() == 0) {
             logger.info("New report was made: ID of reporter: " + reportDto.getReporterId() + "; ID of reported ad: " + reportDto.getReportedAdId());
-        } else if (reportDto.getReportedAdId() == 0)
+        } else if (reportDto.getReportedAdId() == 0) {
+            // Increase number of reports for user and save to database
+            reportedUser.increaseReported();
+            userRepository.save(reportedUser);
+
             logger.info("New report was made: ID of reporter: " + reportDto.getReporterId() + "; ID of reported user: " + reportDto.getReportedUserId());
+        }
+
         return report;
     }
 

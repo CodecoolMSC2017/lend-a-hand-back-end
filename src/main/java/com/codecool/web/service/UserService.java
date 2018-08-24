@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.Utility;
+import com.codecool.web.exception.NotEnoughBalanceForPremiumException;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
 import com.codecool.web.exception.WrongVerificationCodeException;
 import com.codecool.web.model.User;
@@ -106,5 +107,18 @@ public class UserService {
         savedUser.setAbleToAd(true);
         logger.info("User with ID " + id + " has been updated");
         return userRepository.save(savedUser);
+    }
+
+    public User updateUserBalance(int userId, int value) throws NotEnoughBalanceForPremiumException {
+        User user = userRepository.findById(userId);
+        if (value>0) {
+            user.setBalance(user.getBalance() + value);
+        } else if (value<0 && user.getBalance() >= (Math.abs(value))) {
+            user.setBalance(user.getBalance() + value);
+        } else {
+            throw new NotEnoughBalanceForPremiumException();
+        }
+        logger.info("The balance of user with ID " + userId + " has been updated");
+        return userRepository.save(user);
     }
 }

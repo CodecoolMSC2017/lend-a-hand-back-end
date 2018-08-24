@@ -1,5 +1,6 @@
 package com.codecool.web.controller;
 
+import com.codecool.web.exception.NotEnoughBalanceForPremiumException;
 import com.codecool.web.model.User;
 import com.codecool.web.service.MessageService;
 import com.codecool.web.service.UserService;
@@ -49,5 +50,12 @@ public class UserController {
     public boolean getIsContacted(@RequestParam(value = "userId", required = false) int userId,
                                   @RequestParam(value = "profileOwnerId", required = false) int profileOwnerId) {
         return messageService.isContactedWithUser(userId, profileOwnerId);
+    }
+
+    @PutMapping(path = "/balance")
+    public User updateUserBalance(@RequestBody Map<String, String> map) throws NotEnoughBalanceForPremiumException {
+        int userId = Integer.parseInt(map.get("userId"));
+        int value = Integer.parseInt(map.get("value"));
+        return userService.updateUserBalance(userId, value);
     }
 }
