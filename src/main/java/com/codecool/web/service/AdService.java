@@ -1,6 +1,7 @@
 package com.codecool.web.service;
 
 import com.codecool.web.dto.AdDto;
+import com.codecool.web.exception.NotEnoughBalanceForPremiumException;
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.Notification;
 import com.codecool.web.model.NotificationBuilder;
@@ -11,12 +12,9 @@ import com.codecool.web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -142,13 +140,23 @@ public class AdService {
         return adRepository.findById(id);
     }
 
-    public Ad addNewAd(AdDto adDto) {
+    public User addNewAd(AdDto adDto) throws NotEnoughBalanceForPremiumException {
         adDto.setTimestamp(new Timestamp(new Date().getTime()).toLocalDateTime());
         adDto.setState("Pending");
+        // if premium decrease golden hand amount by 1
+        if (adDto.getIsPremium()) {
+            User user = uRepo.findById(adDto.getAdvertiserId());
+            if (user.getBalance() > 0) {
+                user.setBalance(user.getBalance() - 1);
+                uRepo.save(user);
+            } else {
+                throw new NotEnoughBalanceForPremiumException();
+            }
+        }
         Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
         adRepository.save(ad);
         logger.info(ad.getAdvertiser().getUserName() + " has created a new ad in the Category " + ad.getCategory() + " with ID " + ad.getId());
-        return ad;
+        return uRepo.findById(adDto.getAdvertiserId());
     }
 
     public void deleteAd(int id) {
