@@ -47,13 +47,10 @@ public class AdDto implements Serializable {
         this.state = ad.getState();
     }
     public AdDto(String title, String description, String category, boolean isPremium,  String type, int advertiserId, String advertiserName) {
-
         this.title = title;
         this.description = description;
-
         this.category = category;
         this.isPremium = isPremium;
-
         this.type = type;
         this.advertiserId = advertiserId;
         this.advertiserName = advertiserName;
@@ -103,11 +100,11 @@ public class AdDto implements Serializable {
         this.category = category;
     }
 
-    public boolean isPremium() {
+    public boolean getIsPremium() {
         return isPremium;
     }
 
-    public void setPremium(boolean premium) {
+    public void setIsPremium(boolean premium) {
         isPremium = premium;
     }
 
