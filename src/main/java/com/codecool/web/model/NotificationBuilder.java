@@ -89,7 +89,7 @@ public class NotificationBuilder {
     public static Notification createBlockAdNotification(User from, User to, Ad ad) {
         String type = "BlockAd";
         String text = "Dear " + to.getUserName() + ", your advertisement called: " + ad.getTitle() +
-            " has been archieved due to not appropriate content.";
+            " has been archieved due to inappropriate content.";
         return new Notification(from, to, ad, type, text, createTimeStamp());
     }
 
@@ -98,6 +98,20 @@ public class NotificationBuilder {
         String type = "BlockedAdDeclinedApplications";
         String text = "Your application is automatically declined because ad: " + ad.getTitle() + " has been blocked.";
         return new Notification(from, to, ad, type, text, createTimeStamp());
+    }
+
+    public static Notification createBlockUserNotification(User from, User to) {
+        String type = "BlockUser";
+        String text = "Dear " + to.getUserName() + ", your account has been blocked due to inappropriate activity." +
+            " You are not able to advertise or apply until your account is unblocked.";
+        return new Notification(from, to, type, text, createTimeStamp());
+    }
+
+    public static Notification createUnblockUserNotification(User from, User to) {
+        String type = "UnblockUser";
+        String text = "Dear " + to.getUserName() + ", your account has been unblocked." +
+            " You are now able to advertise or apply again.";
+        return new Notification(from, to, type, text, createTimeStamp());
     }
 
     private static LocalDateTime createTimeStamp() {

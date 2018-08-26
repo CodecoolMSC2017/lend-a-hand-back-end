@@ -4,7 +4,10 @@ import com.codecool.web.Utility;
 import com.codecool.web.exception.NotEnoughBalanceForPremiumException;
 import com.codecool.web.exception.UserAlreadyRegisteredException;
 import com.codecool.web.exception.WrongVerificationCodeException;
+import com.codecool.web.model.Notification;
+import com.codecool.web.model.NotificationBuilder;
 import com.codecool.web.model.User;
+import com.codecool.web.repository.NotificationRepository;
 import com.codecool.web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +34,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     public List<User> getAllUsers() {
@@ -120,5 +126,29 @@ public class UserService {
         }
         logger.info("The balance of user with ID " + userId + " has been updated");
         return userRepository.save(user);
+    }
+
+    public User blockUser(int id) {
+        User user = userRepository.findById(id);
+
+        user.setBlocked(true);
+        userRepository.save(user);
+
+        Notification blockNotification = NotificationBuilder.createBlockUserNotification(user, user);
+        notificationRepository.save(blockNotification);
+
+        return user;
+    }
+
+    public User unblockUser(int id) {
+        User user = userRepository.findById(id);
+
+        user.setBlocked(false);
+        userRepository.save(user);
+
+        Notification unblockNotification = NotificationBuilder.createUnblockUserNotification(user, user);
+        notificationRepository.save(unblockNotification);
+
+        return user;
     }
 }

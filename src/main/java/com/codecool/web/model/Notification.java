@@ -124,6 +124,16 @@ public class Notification {
         this.deleted = false;
     }
 
+    Notification(User from, User to, String type, String text, LocalDateTime timestamp) {
+        this.from = from;
+        this.to = to;
+        this.type = type;
+        this.text = text;
+        this.read = false;
+        this.timestamp = timestamp;
+        this.deleted = false;
+    }
+
     public int getId() {
         return id;
     }

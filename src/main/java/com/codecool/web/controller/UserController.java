@@ -58,4 +58,14 @@ public class UserController {
         int value = Integer.parseInt(map.get("value"));
         return userService.updateUserBalance(userId, value);
     }
+
+    @PutMapping(path = "/block/{id}")
+    public User blockUser(@PathVariable int id) {
+        return userService.blockUser(id);
+    }
+
+    @PutMapping(path = "/unblock/{id}")
+    public User unblockUser(@PathVariable int id) {
+        return userService.unblockUser(id);
+    }
 }
