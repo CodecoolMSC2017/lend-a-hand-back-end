@@ -146,4 +146,12 @@ public class Utility {
         }
         return applicants;
     }
+
+    public static List<Ad> changeStateOfAds(List<Ad> ads, String state) {
+        for (Ad ad : ads) {
+            if (!ad.getState().equals("Completed"))
+            ad.setState(state);
+        }
+        return ads;
+    }
 }

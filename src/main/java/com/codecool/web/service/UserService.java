@@ -132,6 +132,7 @@ public class UserService {
         User user = userRepository.findById(id);
 
         user.setBlocked(true);
+        user.setAds(Utility.changeStateOfAds(user.getAds(), "Blocked"));
         userRepository.save(user);
 
         Notification blockNotification = NotificationBuilder.createBlockUserNotification(user, user);
@@ -144,6 +145,7 @@ public class UserService {
         User user = userRepository.findById(id);
 
         user.setBlocked(false);
+        user.setAds(Utility.changeStateOfAds(user.getAds(), "Pending"));
         userRepository.save(user);
 
         Notification unblockNotification = NotificationBuilder.createUnblockUserNotification(user, user);
