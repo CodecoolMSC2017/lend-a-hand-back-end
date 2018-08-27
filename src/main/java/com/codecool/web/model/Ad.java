@@ -90,7 +90,7 @@ public class Ad {
         this.title = adDto.getTitle();
         this.description = adDto.getDescription();
         this.category = adDto.getCategory();
-        this.isPremium = adDto.isPremium();
+        this.isPremium = adDto.getIsPremium();
         this.payment = adDto.getPayment();
         this.timestamp = adDto.getTimestamp();
         this.type = adDto.getType();

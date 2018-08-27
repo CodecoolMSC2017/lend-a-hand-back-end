@@ -3,7 +3,10 @@ package com.codecool.web.controller;
 import com.codecool.web.Utility;
 import com.codecool.web.dto.AdDto;
 import com.codecool.web.dto.SystemMessageDto;
+import com.codecool.web.dto.UserAdDto;
+import com.codecool.web.exception.NotEnoughBalanceForPremiumException;
 import com.codecool.web.model.Ad;
+import com.codecool.web.model.User;
 import com.codecool.web.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,14 +46,12 @@ public class AdsController {
     @PostMapping(path = "/new",
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public AdDto createNewAd(@RequestBody AdDto ad) {
-        Ad tmpAd = adService.addNewAd(ad);
-        return new AdDto(tmpAd);
+    public User createNewAd(@RequestBody AdDto ad) throws NotEnoughBalanceForPremiumException {
+        return adService.addNewAd(ad);
     }
 
     @DeleteMapping(path = "/delete/{id}")
     public SystemMessageDto deleteAdById(@PathVariable("id") int id) {
-        System.out.println(id);
         adService.deleteAd(id);
         return new SystemMessageDto("Delete completed");
     }
@@ -58,6 +59,13 @@ public class AdsController {
     @PutMapping(path = "/block/{id}")
     public AdDto updateAd(@PathVariable int id) {
         return adService.blockAd(id);
+    }
+
+    @PutMapping(path = "/premium",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserAdDto makePremium(@RequestBody AdDto adDto) throws NotEnoughBalanceForPremiumException {
+        return adService.setPremiumToTrue(adDto);
     }
 
 }
