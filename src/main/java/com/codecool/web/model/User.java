@@ -33,6 +33,10 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<String> authorities;
 
+
+    @Column(name="has_paid")
+    private Boolean hasPaid;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rated")
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonManagedReference(value = "user-employee-rating")
@@ -142,6 +146,7 @@ public class User implements Serializable {
     public User(@Size(max = 32) String email, String password) {
         this.email = email;
         this.password = password;
+        this.hasPaid=false;
     }
 
     public User(@Size(max = 32) String email, @Size(max = 60) String userName, @Size(max = 60) String password) {
@@ -154,6 +159,7 @@ public class User implements Serializable {
         blocked = false;
         ableToAd = false;
         enabled = true;
+        this.hasPaid=false;
     }
 
 
@@ -167,6 +173,7 @@ public class User implements Serializable {
         blocked = false;
         ableToAd = false;
         enabled = true;
+        this.hasPaid=false;
     }
 
 
@@ -179,6 +186,7 @@ public class User implements Serializable {
                 String fullName, String type, @Size(max = 16) String postalCode, String city, String address,
                 Integer balance, Boolean blocked, Boolean ableToAd, Boolean enabled,
                 Boolean verificated, String verificationCode) {
+        this.hasPaid=false;
         this.ads = ads;
         this.authorities = authorities;
         this.employeeRatings = employeeRatings;
@@ -209,6 +217,14 @@ public class User implements Serializable {
         this.enabled = enabled;
         this.verificated = verificated;
         this.verificationCode = verificationCode;
+    }
+
+    public boolean isHasPaid() {
+        return hasPaid;
+    }
+
+    public void setHasPaid(boolean hasPaid) {
+        this.hasPaid = hasPaid;
     }
 
     public int getId() {

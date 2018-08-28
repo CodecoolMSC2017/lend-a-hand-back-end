@@ -24,7 +24,10 @@ public class RegisterController {
         String username = map.get("userName");
         String password = map.get("password");
         String type = map.get("type");
+
         service.registerUser(email, username, password, type);
+
+
         return new SystemMessageDto("You are successfully registered");
     }
 }
