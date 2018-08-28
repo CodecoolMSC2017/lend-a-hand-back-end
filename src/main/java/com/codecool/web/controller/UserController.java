@@ -43,13 +43,19 @@ public class UserController {
         String postalCode = map.get("postalCode");
         String city = map.get("city");
         String address = map.get("address");
-        return userService.updateUserData(id, fullName, phone, postalCode, city, address);
+        return userService.updateUserData(false,id, fullName, phone, postalCode, city, address);
     }
 
     @GetMapping(path = "/contacted")
     public boolean getIsContacted(@RequestParam(value = "userId", required = false) int userId,
                                   @RequestParam(value = "profileOwnerId", required = false) int profileOwnerId) {
         return messageService.isContactedWithUser(userId, profileOwnerId);
+    }
+
+    @PutMapping(path="/companyPayment")
+    public void setCompanyPayment(@RequestBody int userId){
+        User user = this.userService.getUserById(userId);
+        this.userService.updateUserData(true,userId,user.getFullName(),user.getPhone(),user.getPostalCode(),user.getCity(),user.getAddress());
     }
 
     @PutMapping(path = "/balance")

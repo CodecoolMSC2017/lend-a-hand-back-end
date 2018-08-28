@@ -92,6 +92,7 @@ public class UserService {
         registeredUser.setVerificationCode(verificationCode);
         registeredUser.setVerificated(false);
         registeredUser.setEmail(email);
+        registeredUser.setHasPaid(false);
         Utility.sendEmail(registeredUser);
         registeredUser.setType(type);
         userRepository.save(registeredUser);
@@ -103,7 +104,7 @@ public class UserService {
         logger.info("User with ID " + id + " has been deleted");
     }
 
-    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address) {
+    public User updateUserData(boolean hasPaid,int id, String fullName, String phone, String postalCode, String city, String address) {
         User savedUser = userRepository.findById(id);
         savedUser.setFullName(fullName);
         savedUser.setPhone(phone);
@@ -111,6 +112,7 @@ public class UserService {
         savedUser.setCity(city);
         savedUser.setAddress(address);
         savedUser.setAbleToAd(true);
+        savedUser.setHasPaid(hasPaid);
         logger.info("User with ID " + id + " has been updated");
         return userRepository.save(savedUser);
     }
@@ -119,8 +121,10 @@ public class UserService {
         User user = userRepository.findById(userId);
         if (value>0) {
             user.setBalance(user.getBalance() + value);
+            user.setHasPaid(true);
         } else if (value<0 && user.getBalance() >= (Math.abs(value))) {
             user.setBalance(user.getBalance() + value);
+            user.setHasPaid(true);
         } else {
             throw new NotEnoughBalanceForPremiumException();
         }

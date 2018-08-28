@@ -12,6 +12,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(32),
     phone VARCHAR(32),
+    has_paid BOOLEAN,
     username VARCHAR(60) UNIQUE NOT NULL,
     password VARCHAR(60) NOT NULL,
     picture_link TEXT,
