@@ -79,7 +79,7 @@ public class UserService {
 
 
     public void registerUser(String email, String username, String password, String type) throws UserAlreadyRegisteredException {
-        if (userRepository.findByEmail(email) != null || userRepository.findByUserName(username) != null) {
+        if (userRepository.findByEmail(email).getUserName() != null || userRepository.findByUserName(username).getUserName() != null) {
             throw new UserAlreadyRegisteredException();
         }
         userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
@@ -87,7 +87,6 @@ public class UserService {
             passwordEncoder.encode(password),
             AuthorityUtils.createAuthorityList("USER_ROLE")));
         User registeredUser = userRepository.findByUserName(username);
-
         String verificationCode = UUID.randomUUID().toString().substring(0, 8);
         registeredUser.setVerificationCode(verificationCode);
         registeredUser.setVerificated(false);
