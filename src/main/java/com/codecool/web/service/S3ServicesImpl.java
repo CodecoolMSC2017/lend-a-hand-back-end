@@ -62,13 +62,17 @@ public class S3ServicesImpl implements S3Services {
 	}
 
 	@Override
-	public void uploadFile(String keyName, MultipartFile file) {
+	public String uploadFile(String keyName, MultipartFile file) throws IOException {
 		try {
 			ObjectMetadata metadata = new ObjectMetadata();
 			metadata.setContentLength(file.getSize());
 			s3client.putObject(bucketName, keyName, file.getInputStream(), metadata);
+
+			return  "https://s3.eu-west-3.amazonaws.com/lend-a-hand/" + keyName;
+
 		} catch(IOException ioe) {
 			logger.error("IOException: " + ioe.getMessage());
+			throw ioe;
 		} catch (AmazonServiceException ase) {
 			logger.info("Caught an AmazonServiceException from PUT requests, rejected reasons:");
 			logger.info("Error Message:    " + ase.getMessage());
