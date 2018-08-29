@@ -55,7 +55,12 @@ INSERT INTO authorities (username, authority) values ('Beagun', 'USER'),
                                                     ('Lorincke23','USER'),
                                                     ('Mendes','USER'),
                                                     ('AlexaPekar', 'USER'),
-                                                    ('KrisztianKollar', 'USER');
+                                                    ('evosoft', 'USER')
+                                                    ('KrisztianKollar', 'USER')
+                                                    ('W.UP', 'USER')
+                                                    ('Misys', 'USER')
+                                                    ('Dorsum', 'USER')
+                                                    ('Szallas.hu', 'USER')
 
 INSERT INTO applications (ad_id, applicant_id, message, timestamp, state)
 VALUES(2,1,'I have a lot of HTML programming experience and i do every programming jobs fast and clean','2018-8-04 10:00:05','Accepted'),
