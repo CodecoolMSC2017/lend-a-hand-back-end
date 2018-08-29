@@ -148,12 +148,15 @@ public class AdService {
         // if premium decrease golden hand amount by 1
         if (adDto.getIsPremium()) {
             User user = uRepo.findById(adDto.getAdvertiserId());
-            if (user.getBalance() > 0) {
-                user.setBalance(user.getBalance() - 1);
-                uRepo.save(user);
-            } else {
-                throw new NotEnoughBalanceForPremiumException();
+            if (user.getType().equals("person")) {
+                if (user.getBalance() > 0) {
+                    user.setBalance(user.getBalance() - 1);
+                    uRepo.save(user);
+                } else {
+                    throw new NotEnoughBalanceForPremiumException();
+                }
             }
+
         }
         Ad ad = new Ad(adDto, uRepo.findById(adDto.getAdvertiserId()));
         adRepository.save(ad);
