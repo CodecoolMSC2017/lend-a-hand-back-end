@@ -219,7 +219,7 @@ public class User implements Serializable {
         this.verificationCode = verificationCode;
     }
 
-    public boolean isHasPaid() {
+    public boolean getHasPaid() {
         return hasPaid;
     }
 

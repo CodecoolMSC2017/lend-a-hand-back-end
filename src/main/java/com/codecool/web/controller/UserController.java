@@ -21,13 +21,14 @@ public class UserController {
     private MessageService messageService;
 
     @GetMapping("")
-    public List<User> getAllUsers() {return userService.getAllUsers();}
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") int id) {
         return userService.getUserById(id);
     }
-
 
 
     @DeleteMapping("/{id}")
@@ -43,7 +44,7 @@ public class UserController {
         String postalCode = map.get("postalCode");
         String city = map.get("city");
         String address = map.get("address");
-        return userService.updateUserData(false,id, fullName, phone, postalCode, city, address);
+        return userService.updateUserData(id, fullName, phone, postalCode, city, address);
     }
 
     @GetMapping(path = "/contacted")
@@ -52,10 +53,9 @@ public class UserController {
         return messageService.isContactedWithUser(userId, profileOwnerId);
     }
 
-    @PutMapping(path="/companyPayment")
-    public void setCompanyPayment(@RequestBody int userId){
-        User user = this.userService.getUserById(userId);
-        this.userService.updateUserData(true,userId,user.getFullName(),user.getPhone(),user.getPostalCode(),user.getCity(),user.getAddress());
+    @PutMapping(path = "/company-payment")
+    public User setCompanyPayment(@RequestBody int userId) {
+        return userService.setCompanyPaidToTrue(userId);
     }
 
     @PutMapping(path = "/balance")
