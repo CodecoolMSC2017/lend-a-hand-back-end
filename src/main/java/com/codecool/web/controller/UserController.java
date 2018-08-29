@@ -44,7 +44,8 @@ public class UserController {
         String postalCode = map.get("postalCode");
         String city = map.get("city");
         String address = map.get("address");
-        return userService.updateUserData(id, fullName, phone, postalCode, city, address);
+        String pictureLink = map.get("pictureLink");
+        return userService.updateUserData(id, fullName, phone, postalCode, city, address, pictureLink);
     }
 
     @GetMapping(path = "/contacted")

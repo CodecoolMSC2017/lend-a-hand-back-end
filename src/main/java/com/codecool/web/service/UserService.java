@@ -103,7 +103,7 @@ public class UserService {
         logger.info("User with ID " + id + " has been deleted");
     }
 
-    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address) {
+    public User updateUserData(int id, String fullName, String phone, String postalCode, String city, String address, String pictureLink) {
         User savedUser = userRepository.findById(id);
         savedUser.setFullName(fullName);
         savedUser.setPhone(phone);
@@ -111,6 +111,7 @@ public class UserService {
         savedUser.setCity(city);
         savedUser.setAddress(address);
         savedUser.setAbleToAd(true);
+        savedUser.setPictureLink(pictureLink);
         logger.info("User with ID " + id + " has been updated");
         return userRepository.save(savedUser);
     }
