@@ -14,9 +14,10 @@ public class UploadFileController {
 	@Autowired
     S3Services s3Services;
 
-    @PostMapping("/upload")
-    public String uploadMultipartFile(@RequestParam("file") MultipartFile file) throws IOException {
-    	String keyName = file.getOriginalFilename();
+    @PostMapping("/upload/{fileName}/{fileExtension}")
+    public String uploadMultipartFile(@RequestParam("file") MultipartFile file, @PathVariable String fileName,
+                                      @PathVariable String fileExtension) throws IOException {
+    	String keyName = fileName + '.' + fileExtension;
 		return s3Services.uploadFile(keyName, file);
     }
 }
