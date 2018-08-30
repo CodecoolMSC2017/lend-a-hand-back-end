@@ -6,18 +6,12 @@ INSERT INTO users (has_paid,email, phone, username, full_name, password, type, b
 VALUES (false,'lorinc.hunyadi@gmail.com','+36706743245','Lorincke23','Lorinc Hunyadi','$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q','person',3,0,false,true,true,'https://image.shutterstock.com/image-photo/portrait-handsome-gardener-black-apron-260nw-465594779.jpg','2074','Perbal','Kossuth utca 66',true),
 (false,'msalexapekar@gmail.com', '+36306623455', 'AlexaPekar', 'Alexa Pekar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 12, 0, false, true, true, 'https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-1/c0.42.160.160/p160x160/18557338_1438279206232202_1836706020472219709_n.jpg?_nc_cat=0&oh=921624dacdfb4395a04c2cd7a1a955b5&oe=5BF200AC', '3535', 'Miskolc', 'Bajcsy u. 4.', true),
 (false,'krisztiankollar@gmail.com', '+36205623895', 'KrisztianKollar', 'Krisztian Kollar', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'person', 18, 0, false, true, true, 'https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-9/398634_172275892881028_772439791_n.jpg?_nc_cat=0&oh=68b3c6d05f72701b2915833be974f531&oe=5C12E788', '3533', 'Miskolc', 'Kazinczy u. 16.', true),
-(false,'lendahandAdmin@gmail.com', '+36555555555', 'admin', 'Mr Admin', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'ADMIN', 18, 0, false, false, true, 'https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-9/398634_172275892881028_772439791_n.jpg?_nc_cat=0&oh=68b3c6d05f72701b2915833be974f531&oe=5C12E788', '3533', 'Miskolc', 'Kazinczy u. 16.', true),
+(false,'joesmith@landahand.com', '+3646555777', 'admin', 'Joe Smith', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'ADMIN', 18, 0, false, false, true, 'https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-0/p370x247/40313167_318240492269725_8410331424892125184_n.jpg?_nc_cat=0&oh=a252931cbf5a9a6ac8aa7d12c082b115&oe=5BFDB078', '3533', 'Miskolc', 'Kazinczy u. 16.', true);
 (true,'contact@evosoft.com', '+36 (46) 501 120', 'evosoft', 'evosoft Hungary Kft.', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'company', 0, 0, false, true, true, 'http://ipr.hu/wp-content/uploads/2015/07/evosoft-logo.jpg', '3526', 'Miskolc', 'Arany János tér 1', true),
 (true,'contact@w.up.com', '+36 (1) 870 0252', 'W.UP', 'WUP', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'company', 0, 0, false, true, true, 'http://wup.digital/wp-content/themes/wup/assets/images/index/mob-login.png', '3526', 'Miskolc', 'Arany János tér 1', true),
 (true,'contact@misys.com', '+36 (46) 889 119', 'Misys', 'Misys Hungary Ltd.', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'company', 0, 0, false, true, true, 'https://www.finastra.com/sites/default/files/images/2018/03/finastra-logo-1200x630_0.png', '3530', 'Miskolc', 'Széchenyi István út 70', true),
 (true,'contact@dorsum.com', '+36 (1) 487 3030', 'Dorsum', 'Dorsum', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'company', 0, 0, false, true, true, 'https://www.pmsz.hu/upload/pics/ceglista/_crop/_224w_224h_51.jpg', '3526', 'Miskolc', 'Arany János tér 1', true),
 (true,'contact@szallas.com', '+36 (30) 344 2000', 'Szallas.hu', 'Szallas.hu', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'company', 0, 0, false, true, true, 'https://west-balaton.hu/wp-content/uploads/2013/06/szallas_hu.jpg', '3525', 'Miskolc', 'Régiposta u. 9', true);
-
-
-
-
-(false,'joesmith@landahand.com', '+3646555777', 'admin', 'Joe Smith', '$2a$10$hwxmjAI/s3DM5TB78QiVnOzin1Cpi8QVHUlrmtu/nyyONaIJMf37q', 'ADMIN', 18, 0, false, false, true, 'https://scontent-frx5-1.xx.fbcdn.net/v/t1.0-0/p370x247/40313167_318240492269725_8410331424892125184_n.jpg?_nc_cat=0&oh=a252931cbf5a9a6ac8aa7d12c082b115&oe=5BFDB078', '3533', 'Miskolc', 'Kazinczy u. 16.', true);
-
 
 
 INSERT INTO ads (advertiser_id, title, description, payment, category, is_premium, timestamp, type, picture_link,state)
