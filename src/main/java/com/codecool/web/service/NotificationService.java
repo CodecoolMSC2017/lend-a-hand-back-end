@@ -3,8 +3,6 @@ package com.codecool.web.service;
 import com.codecool.web.dto.*;
 import com.codecool.web.model.*;
 import com.codecool.web.repository.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +11,6 @@ import java.util.List;
 
 @Component
 public class NotificationService {
-
-    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -67,7 +63,7 @@ public class NotificationService {
     }
 
     public boolean haveNewNotification(int id) {
-        return getAllUnreadNotificationsByUserId(id).size() != 0;
+        return getAllUnreadNotificationsByUserId(id).isEmpty();
     }
 
     public NotificationDto setDeletedToTrue(int id) {
