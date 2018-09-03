@@ -1,31 +1,23 @@
 package com.codecool.web.repository;
 
+import com.codecool.web.Application;
 import com.codecool.web.model.Ad;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import static junit.framework.Assert.assertEquals;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = Application.class)
 public class AdRepositoryTest {
 
     @Autowired
     private AdRepository adRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Before
     public void setUp() {
@@ -33,7 +25,6 @@ public class AdRepositoryTest {
 
     @After
     public void tearDown() {
-        entityManager.clear();
     }
 
     @Test
@@ -48,11 +39,10 @@ public class AdRepositoryTest {
     public void findAllByOrderByIsPremiumDescTimestampDesc() {
     }
 
-    @Test
+    @org.junit.Test
     public void findById() {
         Ad found = adRepository.findById(1);
-        assertEquals("Looking for babysitter", found.getTitle());
-
+        assertEquals("Looking for babysitterNew", found.getTitle());
     }
 
     @Test
