@@ -5,6 +5,7 @@ import com.codecool.web.model.User;
 import com.codecool.web.repository.AdRepository;
 import com.codecool.web.repository.NotificationRepository;
 import com.codecool.web.repository.UserRepository;
+import com.codecool.web.service.AdService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
