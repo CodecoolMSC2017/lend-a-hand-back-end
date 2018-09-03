@@ -1,4 +1,4 @@
-package com.codecool.web.service;
+package service;
 
 import com.codecool.web.model.Ad;
 import com.codecool.web.model.User;
