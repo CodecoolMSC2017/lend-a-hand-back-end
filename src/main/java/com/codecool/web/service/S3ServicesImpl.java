@@ -68,7 +68,7 @@ public class S3ServicesImpl implements S3Services {
 			metadata.setContentLength(file.getSize());
 			s3client.putObject(bucketName, keyName, file.getInputStream(), metadata);
 
-			return  "https://s3.eu-west-3.amazonaws.com/lend-a-hand/" + keyName;
+			return  "https://s3.eu-west-3.amazonaws.com/" + bucketName + "/" + keyName;
 
 		} catch(IOException ioe) {
 			logger.error("IOException: " + ioe.getMessage());
