@@ -63,7 +63,7 @@ public class NotificationService {
     }
 
     public boolean haveNewNotification(int id) {
-        return getAllUnreadNotificationsByUserId(id).isEmpty();
+        return getAllUnreadNotificationsByUserId(id).size() != 0;
     }
 
     public NotificationDto setDeletedToTrue(int id) {
